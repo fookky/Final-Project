@@ -1,4 +1,3 @@
-# final-project
 
 ## Build Setup
 
