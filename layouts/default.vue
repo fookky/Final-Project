@@ -1,9 +1,7 @@
+
 <template>
   <v-app>
-    <v-card class="overflow-hidden"
-     dark
-     flat
-    >
+    <v-card class="overflow-hidden" dark flat>
       <v-app-bar
         src="https://lh5.googleusercontent.com/p/AF1QipMUi7T6C3hEhxdfTPuJzkP4_mmuMAoYsboxxOKS=w1080-k-no"
         height="350"
@@ -15,11 +13,7 @@
           ></v-img>
         </template>
       </v-app-bar>
-      <v-sheet
-        id="scrolling-techniques-3"
-        class="overflow-y-auto"
-      >
-      </v-sheet>
+      <v-sheet id="scrolling-techniques-3" class="overflow-y-auto"> </v-sheet>
     </v-card>
     <v-navigation-drawer
       v-model="drawer"
@@ -68,25 +62,16 @@
           label="Search your Explore"
         ></v-autocomplete>
       </v-col>
-        <v-switch
-          v-model="$vuetify.theme.dark"
-          inset
-        ></v-switch>
+      <v-switch v-model="$vuetify.theme.dark" inset></v-switch>
       <v-menu>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-          >
+          <v-btn icon v-bind="attrs" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
 
         <v-list>
-          <v-list-item
-            @click="() => {}"
-          >
+          <v-list-item @click="() => {}">
             <v-list-item-title>Logout</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -94,7 +79,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
-        <Nuxt />
+        <Nuxt></Nuxt>
       </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
@@ -122,11 +107,11 @@ export default {
           title: 'Research Explore',
           to: '/search',
         },
-                {
+        {
           icon: 'mdi-chart-bubble',
           title: 'Insert Research',
           to: '/insert',
-        }
+        },
       ],
       miniVariant: false,
       right: true,
@@ -135,10 +120,10 @@ export default {
     }
   },
   props: {
-      attrs: {
-        type: Object,
-        default: () => ({}),
-      },
+    attrs: {
+      type: Object,
+      default: () => ({}),
     },
+  },
 }
 </script>
