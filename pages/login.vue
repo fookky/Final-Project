@@ -1,16 +1,11 @@
+
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
       <v-card ref="form">
-        <v-card-title class="headline">
-          Login
-        </v-card-title>
+        <v-card-title class="headline"> Login </v-card-title>
         <v-card-text>
-          <v-form
-              ref="form"
-              v-model="valid"
-              lazy-validation
-            >
+          <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
               v-model="email"
               :rules="[rules.email]"
@@ -28,19 +23,9 @@
               label="Password"
               style="min-height: 96px"
             ></v-text-field>
-              <a
-                :href="'/forgotpassword/'"
-                class="text-decoration-none"
-              >
-                Forgot Password
-              </a>
-              </br>
-              <a
-                :href="'/register/'"
-                class="text-decoration-none"
-              >
-                Register
-              </a>
+
+            <nuxt-link to="/forgotpassword">Forgot Password</nuxt-link>
+
             <v-card-actions>
               <v-spacer />
               <v-btn color="primary" nuxt to="/inspire"> Confirm </v-btn>
@@ -60,11 +45,14 @@ export default {
     email: undefined,
     password: undefined,
     rules: {
-      email: v => !!(v || '').match(/@/) || 'Please enter a valid email',
-      password: v => !!(v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
+      email: (v) => !!(v || '').match(/@/) || 'Please enter a valid email',
+      password: (v) =>
+        !!(v || '').match(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
+        ) ||
         'Password must contain an upper case letter, a numeric character, and a special character',
-      required: v => !!v || 'This field is required',
+      required: (v) => !!v || 'This field is required',
     },
-}),
+  }),
 }
 </script>

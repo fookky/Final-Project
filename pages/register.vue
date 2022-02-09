@@ -2,7 +2,6 @@
 <template>
   <v-row justify="center">
     <v-col cols="12" sm="10" md="8" lg="6">
-
       <v-card ref="form">
         <v-card-title class="headline"> Register </v-card-title>
         <v-card-text>
@@ -81,7 +80,6 @@
           <v-btn color="primary" text @click="submit"> Submit </v-btn>
         </v-card-actions>
       </v-card>
-
     </v-col>
   </v-row>
 </template>

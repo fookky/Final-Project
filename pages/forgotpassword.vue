@@ -1,16 +1,11 @@
+
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
       <v-card>
-        <v-card-title class="headline">
-          Change Password
-        </v-card-title>
+        <v-card-title class="headline"> Change Password </v-card-title>
         <v-card-text>
-          <v-form
-              ref="form"
-              v-model="valid"
-              lazy-validation
-            >
+          <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
               v-model="newpassword"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -52,12 +47,18 @@ export default {
     password: undefined,
     confirmpassword: undefined,
     rules: {
-      password: v => !!(v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
+      password: (v) =>
+        !!(v || '').match(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
+        ) ||
         'Password must contain an upper case letter, a numeric character, and a special character',
-      confirmpassword: v => !!(v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
+      confirmpassword: (v) =>
+        !!(v || '').match(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
+        ) ||
         'Password must contain an upper case letter, a numeric character, and a special character',
-      required: v => !!v || 'This field is required',
-      },
+      required: (v) => !!v || 'This field is required',
+    },
   }),
 }
 </script>
