@@ -116,6 +116,7 @@ export default {
       statuss: [(val) => (val || '').length > 0 || 'This field is required'],
     },
   }),
+
   computed: {
     form() {
       return {
@@ -150,14 +151,15 @@ export default {
         this.$refs[f].reset()
       })
     },
-    submit() {
-      this.formHasErrors = false
+    submit(evt) {
+      // this.formHasErrors = false
 
-      Object.keys(this.form).forEach((f) => {
-        if (!this.form[f]) this.formHasErrors = true
+      // Object.keys(this.form).forEach((f) => {
+      //   if (!this.form[f]) this.formHasErrors = true
+      //   this.$refs[f].validate(true)
+      // })
 
-        this.$refs[f].validate(true)
-      })
+      this.$emit('sendData', this.form)
     },
   },
 }

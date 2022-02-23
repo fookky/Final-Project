@@ -1,14 +1,27 @@
 
 <template>
   <div>
-    <RegisterForm></RegisterForm>
+    <RegisterForm @sendData="onSubmitted"></RegisterForm>
   </div>
 </template>
 
 <script>
 import RegisterForm from '@/components/RegisterForm'
+import axios from 'axios'
 export default {
-  components: 'RegisterForm',
+  components: { RegisterForm },
+  methods: {
+    onSubmitted(postData) {
+      axios
+        .post(
+          'https://research-database-662bb-default-rtdb.asia-southeast1.firebasedatabase.app/users.json',
+          postData
+        )
+        .then((res) => {
+          console.log(res)
+        })
+    },
+  },
 }
 </script>
 
