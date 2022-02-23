@@ -2,21 +2,6 @@
   <div>
     <h1>Search</h1>
       <div class="container">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         <p>Management of Research Databases</p>
       </div>
   </div>
@@ -24,7 +9,7 @@
 
 <script>
 export default {
-
+  layout: 'MainLayouts',
 }
 </script>
 
