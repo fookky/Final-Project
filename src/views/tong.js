@@ -52,6 +52,7 @@ function Dashboard(){
       "Feb",
       "Mar",
       "Apr",
+      "May",
   
     ],
     datasets: [
@@ -87,7 +88,7 @@ const dashboardEmailStatisticsChart = {
           pointHoverRadius: 0,
           backgroundColor: [ "#ef8157", "#4acccd"],
           borderWidth: 0,
-          data: [NRandom, NConfirm],
+          data: [(NRandom-NConfirm), NConfirm],
         },
       ],
     };
@@ -591,7 +592,7 @@ const dashboardEmailStatisticsChart = {
                 <CardFooter>
                   <div >
                     
-                    <i className="fa fa-circle text-danger" /> จำนวนการกด สุ่มอาหาร{" = "+NRandom+" "}
+                    <i className="fa fa-circle text-danger" /> จำนวนการกด สุ่มอาหาร{" = "+(NRandom-NConfirm)+" "}
                     <br/>
                     <br/>
                     <i className="fa fa-circle text-primary" /> จำนวนการกด ยืนยัน{" = "+NConfirm+" "}

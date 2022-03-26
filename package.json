@@ -19,7 +19,7 @@
     "firebase-functions": "^3.13.2",
     "google-map-react": "^2.1.9",
     "history": "4.10.1",
-    "node-sass": "4.14.1",
+    "nvm-win": "^0.2.4",
     "perfect-scrollbar": "1.5.0",
     "react": "^16.14.0",
     "react-awesome-button": "^6.5.1",
@@ -68,6 +68,7 @@
   },
   "devDependencies": {
     "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.8"
+    "gulp-append-prepend": "1.0.8",
+    "node-sass": "^4.14.1"
   }
 }

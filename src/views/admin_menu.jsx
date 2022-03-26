@@ -31,7 +31,7 @@ import {
   dashboardNASDAQChart,
 } from "variables/charts.js";
 
-
+export const AppContext = React.createContext();
 function Dashboard(){ 
 
 
@@ -171,7 +171,9 @@ function Dashboard(){
 
       <Row>
       <Col md="3">
+      <AppContext.Provider value={{ search }}>
       <Insertmenu/>
+      </AppContext.Provider>
             </Col>
            <Col md="5">
               <Card  className="card-user" >
@@ -185,8 +187,8 @@ function Dashboard(){
               <Autocomplete
                 id="ค้นหาเมนูของคุณ"
                 options={FoodName}
-                onChange={(event, newValue) => {
-                  setSearch(newValue);
+                onInputChange={(event, newInputValue) => {
+                  setSearch(newInputValue);
                 }}
                 style={{ width: 500 }}
                 renderInput={(params) => <TextField {...params} label="ค้นหาเมนูของคุณ" margin="normal"/>}

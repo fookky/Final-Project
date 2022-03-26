@@ -31,7 +31,7 @@ import {
 } from "variables/charts.js";
 
 
-function Dashboard(){ 
+function Menu(){ 
     // ประกาศตัวแปร state
     const [ Food, setFood ] = useState({})
     const [ FoodName, setFoodName ] = useState({})
@@ -149,8 +149,8 @@ function Dashboard(){
               <Autocomplete
                 id="ค้นหาเมนูของคุณ"
                 options={FoodName}
-                onChange={(event, newValue) => {
-                  setSearch(newValue);
+                onInputChange={(event, newInputValue) => {
+                  setSearch(newInputValue);
                 }}
                 style={{ width: 500 }}
                 renderInput={(params) => <TextField {...params} label="ค้นหาเมนูของคุณ" margin="normal"/>}
@@ -330,5 +330,5 @@ function Dashboard(){
     );
 }
 
-export default Dashboard;
+export default Menu;
  

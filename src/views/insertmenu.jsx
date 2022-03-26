@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Display from "components/Display.jsx";
+import { AppContext } from  "views/admin_menu.jsx";
 import {
   Card,
   CardHeader,
@@ -22,6 +23,7 @@ import firebaseApp from '../firebase.js'
 
 
 function Insert() {
+    const { search } = useContext(AppContext);
     const [Uimage, setUimage] = useState('')
     const [loading, setLoading] = useState(false)
   
@@ -142,7 +144,7 @@ function Insert() {
         <Col md="12">
               <Card className="card-user">
                 <CardHeader>
-                <CardTitle tag="h5">เพิ่มเมนูอาหาร</CardTitle>
+                <CardTitle tag="h5">เพิ่มเมนูอาหาร {search}</CardTitle>
                 </CardHeader>
                 <CardBody>
 

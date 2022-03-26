@@ -242,7 +242,7 @@ function Dashboard() {
                 <div className="image">
                   <img
                     alt="..."
-                    src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620032459/Food/damir-bosnjak_slfmvs.jpg"    src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620032459/Food/damir-bosnjak_slfmvs.jpg"
+                    src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620032459/Food/damir-bosnjak_slfmvs.jpg"
                   />
                 </div>
                 <CardBody>
