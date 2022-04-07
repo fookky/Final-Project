@@ -140,7 +140,7 @@ const Register = () => {
                   justifyContent: "center",
                   alignItems: "center",
 
-                }} className="content"><h3>สมัครสมาชิก</h3></CardTitle>
+                }} className="content"><h3>Register</h3></CardTitle>
               </CardHeader>
               <CardBody>
                 <form onSubmit={handleSubmit}>
@@ -149,10 +149,9 @@ const Register = () => {
                     <Row>
                       <Col className="pr-1" md="4">
                         <FormGroup>
-                          <label>ชื่อจริง</label>
+                          <label>Name</label>
                           <Input
                             onChange={e => setFirstName(e.target.value)}
-
                             type="text"
                           />
                           {FirstNameError}
@@ -160,7 +159,7 @@ const Register = () => {
                       </Col>
                       <Col className="pl-1" md="4">
                         <FormGroup>
-                          <label>นามสกุล</label>
+                          <label>Lastname</label>
                           <Input
                             onChange={e => setLastName(e.target.value)}
 
@@ -187,7 +186,7 @@ const Register = () => {
                     <Row>
                       <Col className="pr-1" md="4">
                         <FormGroup>
-                          <label>Email Address</label>
+                          <label>Email</label>
                           <Input
                             onChange={e => setEmail(e.target.value)}
                             name="email"
@@ -198,7 +197,7 @@ const Register = () => {
                       </Col>
                       <Col className="pr-1" md="4">
                         <FormGroup>
-                          <label>รหัสผ่าน</label>
+                          <label>Password</label>
                           <Input
                             onChange={e => setPassword(e.target.value)}
                             name="password"
@@ -209,7 +208,7 @@ const Register = () => {
                       </Col>
                       <Col className="px-1" md="4">
                         <FormGroup>
-                          <label>ยืนยันรหัสผ่าน</label>
+                          <label>Re-Password</label>
                           <Input
                             onChange={e => setConfirmPassword(e.target.value)}
                             type="password"
@@ -228,46 +227,15 @@ const Register = () => {
                       alignItems: "center",
 
                     }}>
-                      <Col md="8">
-
-                        <Carousel>
-                          <Carousel.Item>
-                            <img
-                              className="d-block w-100"
-                              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031216/Food/tong_cc4eed.png"
-
-                            />
-
-                          </Carousel.Item>
-                          <Carousel.Item>
-                            <img
-                              className="d-block w-100"
-                              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031185/Food/tong1_qh5sgw.png"
-
-                            />
-
-
-                          </Carousel.Item>
-                          <Carousel.Item>
-                            <img
-                              className="d-block w-100"
-                              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031243/Food/tong2_tx3d06"
-
-                            />
-
-
-                          </Carousel.Item>
-                        </Carousel>
-                      </Col>
                     </Row>
                     <Row>
                       <div className="update ml-auto mr-auto">
                         <Button
                           class="btn btn-info"
-
+                          color="danger"
                           type="submit"
                         >
-                          สร้างบัญชี
+                          Create
                         </Button>
                       </div>
                     </Row>

@@ -62,15 +62,16 @@ class Sidebar extends React.Component {
             className="simple-text logo-mini"
           >
             <div className="logo-img">
-              <img src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620030294/Food/ff_rwqqyd.png" alt="react-logo" />
+              <img src="https://sv1.picz.in.th/images/2022/04/07/85XAh0.png" alt="react-logo" />
             </div>
+            
           </a>
           <Link to="/member/home">
           <a
             href=""
             className="simple-text logo-normal"
           >
-            FOOD GUIDE 
+            MRD MATH KMUTT
           </a></Link>
         </div>
         <div className="sidebar-wrapper" ref={this.sidebar}>

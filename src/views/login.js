@@ -95,11 +95,11 @@ const LogIn = () => {
                   justifyContent: "center",
                   alignItems: "center",
 
-                }} className="content"><h3>เข้าสู่ระบบ</h3></CardTitle>
+                }} className="content"><h3>Login</h3></CardTitle>
                 <Row>
                   <Col md="12">
                     <FormGroup>
-                      <label>Email Address</label>
+                      <label>Email</label>
                       <Input
 
                         onChange={e => setEmail(e.target.value)}
@@ -127,20 +127,19 @@ const LogIn = () => {
                 <Row>
 
                 </Row>
-
+                <p><b><button class="btn22 default" onClick={() => forgotPassword(Email)}>Forgot Password</button></b></p>
                 <Row>
                   <div className="update ml-auto mr-auto">
                     <Button
                       className="btn-round"
-                      color="info"
+                      color="danger"
                       type="submit"
                     >
-                      เข้าสู่ระบบ
+                      Login
                     </Button>
                   </div>
                 </Row>
               </Form>
-              <p><b><button class="btn22 default" onClick={() => forgotPassword(Email)}>ลืมรหัสผ่าน</button></b></p>
             </CardBody>
           </Card>
         </Col>

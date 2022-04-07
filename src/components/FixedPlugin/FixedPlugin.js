@@ -28,8 +28,8 @@ class FixedPlugin extends Component {
           </div>
           <ul className="dropdown-menu show">
            
-            <li className="header-title"><h4>เมนูโดนใจ + โปรโมชั่น</h4></li>
-            <li className="header-title"><h4>สำหรับสมาชิก</h4></li>
+            <li className="header-title"><h4>การจัดการฐานข้อมูลงานวิจัยภาควิชาคณิตศาสตร์ มจธ.</h4></li>
+            <li className="header-title"><h4></h4></li>
             <li className="adjustments-line">
             
             </li>
@@ -37,7 +37,7 @@ class FixedPlugin extends Component {
             <li className="button-container">
               <Button
         
-        color="warning"
+        color="info"
                 block
                 className="btn-round"
               >
@@ -48,13 +48,12 @@ class FixedPlugin extends Component {
             <Link to="/general/login">
             <li className="button-container">
               <Button
-           color="info"
-              
+                color="danger"       
                 block
                 className="btn-round"
                 target="_blank"
               >
-                เข้าสู่ระบบ
+                Login
               </Button>
             </li>
             </Link>
