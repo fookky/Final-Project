@@ -12,8 +12,6 @@ import {
 import Carousel from 'react-bootstrap/Carousel'
 
 const Register = () => {
-  const [EmailError, setEmailError] = useState('')
-  const [PasswordError, setPasswordError] = useState('')
 
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -21,18 +19,21 @@ const Register = () => {
   const [LastName, setLastName] = useState('')
   const [Email, setEmail] = useState('')
   const [Date, setDate] = useState('')
+  const [Role, setRole] = useState('')
   const [Password, setPassword] = useState('')
   const [ConfirmPassword, setConfirmPassword] = useState('')
 
   const [FirstNameError, setFirstNameError] = useState('')
   const [LastNameError, setLastNameError] = useState('')
+  const [EmailError, setEmailError] = useState('')
   const [DateError, setDateError] = useState('')
+  const [RoleError, setRoleError] = useState('')
+  const [PasswordError, setPasswordError] = useState('')
   const [ConfirmPasswordError, setConfirmPasswordError] = useState('')
 
   var today = new window.Date()
   const Register_Date = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + today.getDate()).slice(-2);
   const Register_Year_Mounth = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2);
-
 
   const db = firebaseApp.firestore()
   const userCollection = db.collection('User')
@@ -43,6 +44,7 @@ const Register = () => {
       LastName,
       Email,
       Date,
+      Role,
       Register_Date,
       Register_Year_Mounth,
       Uid,
@@ -55,10 +57,10 @@ const Register = () => {
     if (FirstName == "") setFirstNameError('Must not be empty.')
     if (LastName == "") setLastNameError('Must not be empty.')
     if (Date == "") setDateError('Must not be empty.')
+    if (Role == "") setRoleError('Must not be empty.')
     if (ConfirmPassword == "") setConfirmPasswordError('Must not be empty.')
     if (ConfirmPassword !== Password) setConfirmPasswordError('Passwords do not match.')
   }
-
 
   const clearErrors = () => {
     setEmailError('');
@@ -66,6 +68,7 @@ const Register = () => {
     setFirstNameError('');
     setLastNameError('');
     setDateError('');
+    setRoleError('');
     setConfirmPasswordError('');
   }
 
@@ -78,7 +81,7 @@ const Register = () => {
 
     try {
 
-      if (FirstName !== '' && LastName !== '' && Date !== '' && ConfirmPassword !== '' && ConfirmPassword == Password) {
+      if (FirstName !== '' && LastName !== '' && Role !== '' && ConfirmPassword !== '' && ConfirmPassword == Password) {
         firebaseApp.auth().createUserWithEmailAndPassword(email.value, password.value)
           .then(res => {
             if (res.user) {
@@ -130,7 +133,6 @@ const Register = () => {
                           <label>ชื่อจริง</label>
                           <Input
                             onChange={e => setFirstName(e.target.value)}
-
                             type="text"
                           />
                           {FirstNameError}
@@ -141,7 +143,6 @@ const Register = () => {
                           <label>นามสกุล</label>
                           <Input
                             onChange={e => setLastName(e.target.value)}
-
                             type="text"
                           />
                           {LastNameError}
@@ -149,12 +150,18 @@ const Register = () => {
                       </Col>
                       <Col md="4">
                         <FormGroup>
-                          <label>วัน/เดือน/ปีเกิด</label>
-                          <Input
+                          <label>บทบาท</label>
+                          {/* <Input
                             onChange={e => setDate(e.target.value)}
                             type="date"
                           />
-                          {DateError}
+                          {DateError} */}
+                          <select onChange={e => setRole(e.target.value)}
+                            type="text">
+                            <option value="student">Student</option>
+                            <option value="lecturer">Lecturer</option>
+                          </select>
+                          {RoleError}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -230,11 +237,7 @@ const Register = () => {
                     </Row>
                     <Row>
                       <div className="update ml-auto mr-auto">
-                        <Button
-                          class="btn btn-info"
-
-                          type="submit"
-                        >
+                        <Button class="btn btn-info" type="submit">
                           สร้างบัญชี
                         </Button>
                       </div>

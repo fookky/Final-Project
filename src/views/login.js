@@ -56,21 +56,12 @@ const LogIn = () => {
   return (
     <div>
 
-      <div style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-
-      }} className="content">
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
         <Col md="6">
           <Card className="card-user">
             <CardHeader style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-
+              display: "flex", justifyContent: "center", alignItems: "center"
             }} className="content">
-
             </CardHeader>
             <CardBody>
               <Form onSubmit={handleSubmit}>
@@ -78,17 +69,14 @@ const LogIn = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-
                 }} className="content"><h3>เข้าสู่ระบบ</h3></CardTitle>
                 <Row>
                   <Col md="12">
                     <FormGroup>
                       <label>Email Address</label>
                       <Input
-
                         onChange={e => setEmail(e.target.value)}
-                        type="text"
-                        name="email"
+                        type="text" name="email"
                       />
                     </FormGroup>
                     {EmailError}
@@ -98,11 +86,7 @@ const LogIn = () => {
                   <Col md="12">
                     <FormGroup>
                       <label>Password</label>
-                      <Input
-
-                        type="password"
-                        name="password"
-                      />
+                      <Input type="password" name="password" />
                     </FormGroup>
                     {PasswordError}
                   </Col>
@@ -114,11 +98,7 @@ const LogIn = () => {
 
                 <Row>
                   <div className="update ml-auto mr-auto">
-                    <Button
-                      className="btn-round"
-                      color="info"
-                      type="submit"
-                    >
+                    <Button className="btn-round" color="info" type="submit">
                       เข้าสู่ระบบ
                     </Button>
                   </div>
