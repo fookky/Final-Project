@@ -1,21 +1,13 @@
+
 import React, { useEffect, useState, useContext } from 'react'
 import firebaseApp from '../firebase.js';
 import { Redirect } from 'react-router-dom'
 import { AuthContext } from "components/Auth/Auth.js";
 
-
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  FormGroup,
-  Form,
-  Input,
-  Row,
-  Col,
+  Button, Card, CardHeader, CardBody, CardFooter,
+  CardTitle, FormGroup, Form, Input, Row,
+  Col
 } from "reactstrap";
 
 const LogIn = () => {
@@ -35,7 +27,6 @@ const LogIn = () => {
     const { email, password } = e.target.elements;
 
     try {
-
       firebaseApp.auth().signInWithEmailAndPassword(email.value, password.value)
         .catch((error) => {
           switch (error.code) {
@@ -50,27 +41,20 @@ const LogIn = () => {
           }
         });
 
-    } catch (error) {
-      alert(error);
-    }
+    } catch (error) { alert(error); }
   }
-  const forgotPassword = (Email) => {
 
+  const forgotPassword = (Email) => {
     firebaseApp.auth().sendPasswordResetEmail(Email)
-      .then(function (user) {
-        alert('Please check your email...')
-      }).catch(function (e) {
-        console.log(e)
-      })
+      .then(function (user) { alert('Please check your email...') })
+      .catch(function (e) { console.log(e) })
   }
 
   const { currentUser } = useContext(AuthContext);
-  if (currentUser) {
-    return <Redirect to="/member/profile" />;
-  }
+  if (currentUser) { return <Redirect to="/member/profile" />; }
 
   return (
-    <>
+    <div>
 
       <div style={{
         display: "flex",
@@ -145,11 +129,9 @@ const LogIn = () => {
           </Card>
         </Col>
 
-
-
       </div>
 
-    </>
+    </div>
   );
 
 }

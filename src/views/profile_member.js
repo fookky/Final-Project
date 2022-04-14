@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import firebaseApp from '../firebase.js';
 import { Redirect } from 'react-router-dom'
@@ -7,27 +8,15 @@ import { Line, Pie } from "react-chartjs-2";
 // reactstrap components
 import { Col, Card, Row } from "react-bootstrap";
 import {
-  Button,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  FormGroup,
-  Form,
-  Input,
-  InputGroup,
-  InputGroupText,
-  InputGroupAddon,
-
+  Button, CardHeader, CardBody, CardFooter, CardTitle,
+  FormGroup, Form, Input, InputGroup, InputGroupText,
+  InputGroupAddon
 } from "reactstrap";
 
 // core components
 import {
-  dashboard24HoursPerformanceChart,
-  dashboardEmailStatisticsChart,
-  dashboardNASDAQChart,
+  dashboard24HoursPerformanceChart, dashboardEmailStatisticsChart, dashboardNASDAQChart
 } from "variables/charts.js";
-
 
 function Dashboard() {
 
@@ -143,8 +132,8 @@ function Dashboard() {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
     firebaseApp.auth().onAuthStateChanged(user => {
       const db = firebaseApp.firestore()
-      const userCollection = db.collection('User').where('Uid' , '==' , firebaseApp.auth().currentUser.uid) 
-      
+      const userCollection = db.collection('User').where('Uid', '==', firebaseApp.auth().currentUser.uid)
+
       const FoodId = []
 
       const unsubscribe = userCollection.onSnapshot(ss => {
@@ -156,9 +145,9 @@ function Dashboard() {
           // manipulate ตัวแปร local
           User[document.id] = document.data()
           UserRD.push(User[document.id].RandomList)
-      })
+        })
         var UserRDCate = []
-        for(var i = 0 ; i < UserRD[0].length ; i++){
+        for (var i = 0; i < UserRD[0].length; i++) {
           UserRDCate = UserRDCate.concat(UserRD[0][i].name)
         }
 
@@ -185,12 +174,11 @@ function Dashboard() {
               for (let j = 0; j < 4; j++) {                                               // คิดเฉพาะ category 4 ตัว
                 for (let k = 0; k < FoodId.length; k++) {                                 // ไล่หา food ทีละตัว 
                   if (Food[FoodId[k]].name.indexOf(UserRandomlist[i].cate[j]) !== -1) {   // ถ้ามี category อยู่ในชื่ออาหาร
-                    if(RecomData.includes(Food[FoodId[k]]) == false || Food[FoodId[k]].name.includes(UserRDCate) == false){
-                      if(RecomData.length < 3){
+                    if (RecomData.includes(Food[FoodId[k]]) == false || Food[FoodId[k]].name.includes(UserRDCate) == false) {
+                      if (RecomData.length < 3) {
                         RecomData[count] = Food[FoodId[k]]                                    // เก็บชื่ออาหารลง recommend list
                         count = count + 1
                       }
-
                     }
                   }
                 }
@@ -215,10 +203,7 @@ function Dashboard() {
   }, [UserRandomlist])
 
 
-
-  if (!currentUser) {
-    return <Redirect to="/general/login" />;
-  }
+  if (!currentUser) { return <Redirect to="/general/login" />; }
 
   if (currentUser) {
     var ExpiredCoupon = firebaseApp.firestore().collection('Promotions').where("PromotionExpire", "<=", now);
@@ -231,14 +216,13 @@ function Dashboard() {
 
   return (
 
-    <>
+    <div>
       <div className="content">
         <Row>
           {Object.keys(User).map((id) => {
             return <Col md="5">
 
-
-<Card className="card-user">
+              <Card className="card-user">
                 <div className="image">
                   <img
                     alt="..."
@@ -246,88 +230,88 @@ function Dashboard() {
                   />
                 </div>
                 <CardBody>
-                <div className="author">
+                  <div className="author">
                     <a >
                       <img
                         alt="..."
                         className="avatar border-gray"
                         src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620032494/Food/mike_qn0emm.jpg"
                       />
-                      
+
                       <h5 className="title">{User[id].FirstName} {User[id].LastName}</h5>
                     </a>
                     <p className="description">{User[id].Email}</p>
                     <p className="description">วันเกิด</p>
                     <p className="description">{User[id].Date}</p>
-                
+
                   </div>
                 </CardBody>
                 <CardFooter>
                   <hr />
                   <div className="button-container">
-                  <button onClick={() => firebaseApp.auth().signOut()} class="btn btn">ออกจากระบบ</button> 
+                    <button onClick={() => firebaseApp.auth().signOut()} class="btn btn">ออกจากระบบ</button>
                   </div>
                 </CardFooter>
-              </Card>     
+              </Card>
             </Col>
           })}
           <Col md="3">
-              <Card className="card-user">
-                <CardHeader>
+            <Card className="card-user">
+              <CardHeader>
                 <CardTitle tag="h5">ประวัติการสุ่ม</CardTitle>
-                </CardHeader>
-                <CardBody>
-                { Object.keys(UserRandomlist).map((id) => {
-                  return<Row style={{
+              </CardHeader>
+              <CardBody>
+                {Object.keys(UserRandomlist).map((id) => {
+                  return <Row style={{
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                 
-                  }}>
-                        <p><img
-                 alt="..."
-                 src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620032012/Food/pizza_xukibl.png"
-                 className="photo"
-               />{UserRandomlist[id].name}</p>
-                        </Row>
-                }) } 
-                </CardBody>
-              </Card>
-            </Col>
-            <Col md="4">
-              <Card  className="ex5">
-              <CardHeader>
-                  <CardTitle tag="h5">ส่วนลดของคุณ</CardTitle>
-              </CardHeader>
-              { Object.keys(Promotions).map((id) => {
-              return<Col>
-                <Card className="card-user">
 
-                      <p ><img
-                 alt="..."
-                 src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620032245/Food/megaphone_ypoz59.png"
-                 className="photo"
-               /> รายละเอียด: {Promotions[id].PromotionDetail}</p>
-                      <p ><img
-                 alt="..."
-                 src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620035096/Food/schedule_eli6yi.png"
-                 className="photo"
-               /> โค้ด:<a className="title" >{Promotions[id].PromotionCode}</a></p>
-                      <p ><img
-                 alt="..."
-                 src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620032279/Food/puzzle_fpr3ms.png"
-                 className="photo"
-               /> วันหมดอายุ: {Promotions[id].PromotionExpire}</p>
-                  
-                
-                </Card>
-              </Col>
-              }) }
-              </Card>
-            </Col>
+                  }}>
+                    <p><img
+                      alt="..."
+                      src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620032012/Food/pizza_xukibl.png"
+                      className="photo"
+                    />{UserRandomlist[id].name}</p>
+                  </Row>
+                })}
+              </CardBody>
+            </Card>
+          </Col>
+          <Col md="4">
+            <Card className="ex5">
+              <CardHeader>
+                <CardTitle tag="h5">ส่วนลดของคุณ</CardTitle>
+              </CardHeader>
+              {Object.keys(Promotions).map((id) => {
+                return <Col>
+                  <Card className="card-user">
+
+                    <p ><img
+                      alt="..."
+                      src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620032245/Food/megaphone_ypoz59.png"
+                      className="photo"
+                    /> รายละเอียด: {Promotions[id].PromotionDetail}</p>
+                    <p ><img
+                      alt="..."
+                      src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620035096/Food/schedule_eli6yi.png"
+                      className="photo"
+                    /> โค้ด:<a className="title" >{Promotions[id].PromotionCode}</a></p>
+                    <p ><img
+                      alt="..."
+                      src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620032279/Food/puzzle_fpr3ms.png"
+                      className="photo"
+                    /> วันหมดอายุ: {Promotions[id].PromotionExpire}</p>
+
+
+                  </Card>
+                </Col>
+              })}
+            </Card>
+          </Col>
         </Row>
         <Row>
-        <Col md='4'> <Card className="ex2">
+          <Col md='4'> <Card className="ex2">
             <CardHeader>
               <CardTitle tag="h4">เมนูแนะนำสำหรับคุณ</CardTitle>
             </CardHeader>
@@ -373,7 +357,7 @@ function Dashboard() {
           </Col>
         </Row>
       </div>
-    </>
+    </div>
   );
 }
 

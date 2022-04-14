@@ -1,21 +1,13 @@
+
 import React, { useState } from 'react';
 import firebaseApp from '../firebase.js';
 import { Redirect } from 'react-router-dom'
 
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  FormGroup,
-  Form,
-  Input,
-  Row,
-  Col,
-  Table,
+  Button, Card, CardHeader, CardBody, CardFooter,
+  CardTitle, FormGroup, Form, Input, Row,
+  Col, Table
 } from "reactstrap";
 import Carousel from 'react-bootstrap/Carousel'
 
@@ -75,7 +67,6 @@ const Register = () => {
     setLastNameError('');
     setDateError('');
     setConfirmPasswordError('');
-
   }
 
   const handleSubmit = (e) => {
@@ -91,11 +82,9 @@ const Register = () => {
         firebaseApp.auth().createUserWithEmailAndPassword(email.value, password.value)
           .then(res => {
             if (res.user) {
-
               insertDocument(firebaseApp.auth().currentUser.uid)
               console.log(res.user);
               setCurrentUser(true)
-
             }
           })
           .catch((error) => {
@@ -108,29 +97,18 @@ const Register = () => {
                 setPasswordError(error.message);
                 break;
             }
-
           });
       }
-
-    } catch (error) {
-      alert(error);
-    }
+    } catch (error) { alert(error); }
   }
 
-  if (currentUser) {
-    return <Redirect to="login" />
-  }
+  if (currentUser) { return <Redirect to="login" /> }
 
   return (
-    <>
+    <div>
       <div className="content">
 
-        <Row style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-
-        }} >
+        <Row style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 
           <Col md="8">
             <Card className="card-user">
@@ -182,7 +160,6 @@ const Register = () => {
                     </Row>
                     <Row>
 
-
                     </Row>
                     <Row>
                       <Col className="pr-1" md="4">
@@ -229,33 +206,24 @@ const Register = () => {
 
                     }}>
                       <Col md="8">
-
                         <Carousel>
                           <Carousel.Item>
                             <img
                               className="d-block w-100"
                               src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031216/Food/tong_cc4eed.png"
-
                             />
-
                           </Carousel.Item>
                           <Carousel.Item>
                             <img
                               className="d-block w-100"
                               src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031185/Food/tong1_qh5sgw.png"
-
                             />
-
-
                           </Carousel.Item>
                           <Carousel.Item>
                             <img
                               className="d-block w-100"
                               src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031243/Food/tong2_tx3d06"
-
                             />
-
-
                           </Carousel.Item>
                         </Carousel>
                       </Col>
@@ -278,9 +246,8 @@ const Register = () => {
           </Col>
         </Row>
 
-
       </div>
-    </>
+    </div>
   );
 
 }
