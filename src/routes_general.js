@@ -16,6 +16,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
 import menu from "views/menu.jsx";
 import random from "views/random.jsx";
 import home from "views/home.js";
@@ -23,9 +24,8 @@ import Maps from "views/Map.js";
 import regis from "views/regis.js";
 import login from "views/login.js";
 
-
 var routes = [
-  
+
   {
     name: "หน้าแรก",
     icon: "nc-icon nc-satisfied",
@@ -47,7 +47,6 @@ var routes = [
     component: random,
     layout: "/general",
   },
-  
   {
     path: "/maps",
     name: "สุ่มอาหารจากพื้นที่ใกล้เคียง",
@@ -55,7 +54,6 @@ var routes = [
     component: Maps,
     layout: "/general",
   },
-
   {
     path: "/regis",
     name: "สมัครสมาชิก",
@@ -63,11 +61,6 @@ var routes = [
     component: regis,
     layout: "/general",
   },
-  
-
-
-
- 
   {
     pro: true,
     path: "/login",
@@ -75,7 +68,7 @@ var routes = [
     icon: "nc-icon nc-spaceship",
     component: login,
     layout: "/general",
-  },
-  
+  }
 ];
+
 export default routes;
