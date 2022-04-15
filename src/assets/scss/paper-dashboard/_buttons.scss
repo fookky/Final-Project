@@ -237,37 +237,29 @@
   background-color: inherit;
   padding: 10px 8px;
   font-size: 14px;
- 
   display: inline-block;
-   
   }
+  
 .btn22 {
-  border: none;
-  background-color: inherit;
   padding: 10px 8px;
   font-size: 13px;
   cursor: pointer;
-  display: inline-block;
-   
+  color: black;
   }
-  .default {
-    color: black;
-  }
-  
-  .default:hover {
+
+  .btn22:hover {
     color: orangered;
-		border: none;
   }
 
   .btn23 {
     border: none;
-  padding: 10px 8px;
-  font-size: 20px;
-  cursor: pointer;
-  border-width: $border-thin;
-  border-radius: $btn-round-radius;
-  padding-right: $padding-round-horizontal;
-  padding-left: $padding-round-horizontal;
+    padding: 10px 8px;
+    font-size: 20px;
+    cursor: pointer;
+    border-width: $border-thin;
+    border-radius: $btn-round-radius;
+    padding-right: $padding-round-horizontal;
+    padding-left: $padding-round-horizontal;
 
   &.btn-simple{
       padding: $padding-btn-vertical - 1  $padding-round-horizontal - 1;

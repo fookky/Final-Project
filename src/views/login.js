@@ -101,13 +101,13 @@ const LogIn = () => {
                     <FormGroup>
                       <label>Email</label>
                       <Input
-
                         onChange={e => setEmail(e.target.value)}
-                        type="text"
+                        type="email"
                         name="email"
+                        required
                       />
                     </FormGroup>
-                    {EmailError}
+                    <a className="color-error">{EmailError}</a>
                   </Col>
                 </Row>
                 <Row>
@@ -115,19 +115,18 @@ const LogIn = () => {
                     <FormGroup>
                       <label>Password</label>
                       <Input
-
                         type="password"
                         name="password"
                       />
                     </FormGroup>
-                    {PasswordError}
+                    <a className="color-error">{PasswordError}</a>
                   </Col>
                 </Row>
 
                 <Row>
 
                 </Row>
-                <p><b><button class="btn22 default" onClick={() => forgotPassword(Email)}>Forgot Password</button></b></p>
+                <p><b class="btn22 default" onClick={() => forgotPassword(Email)}>Forgot Password</b></p>
                 <Row>
                   <div className="update ml-auto mr-auto">
                     <Button
