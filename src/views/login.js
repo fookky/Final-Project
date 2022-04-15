@@ -59,25 +59,18 @@ const LogIn = () => {
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
         <Col md="6">
           <Card className="card-user">
-            <CardHeader style={{
-              display: "flex", justifyContent: "center", alignItems: "center"
-            }} className="content">
+            <CardHeader style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+              className="content">
             </CardHeader>
             <CardBody>
               <Form onSubmit={handleSubmit}>
-                <CardTitle style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }} className="content"><h3>เข้าสู่ระบบ</h3></CardTitle>
+                <CardTitle style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                  className="content"><h3>เข้าสู่ระบบ</h3></CardTitle>
                 <Row>
                   <Col md="12">
                     <FormGroup>
                       <label>Email Address</label>
-                      <Input
-                        onChange={e => setEmail(e.target.value)}
-                        type="text" name="email"
-                      />
+                      <Input onChange={e => setEmail(e.target.value)} type="text" name="email" />
                     </FormGroup>
                     {EmailError}
                   </Col>
@@ -104,7 +97,8 @@ const LogIn = () => {
                   </div>
                 </Row>
               </Form>
-              <p><b><button class="btn22 default" onClick={() => forgotPassword(Email)}>ลืมรหัสผ่าน</button></b></p>
+              <p><b><button class="btn22 default"
+                onClick={() => forgotPassword(Email)}>ลืมรหัสผ่าน</button></b></p>
             </CardBody>
           </Card>
         </Col>

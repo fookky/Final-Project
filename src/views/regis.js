@@ -81,7 +81,7 @@ const Register = () => {
 
     try {
 
-      if (FirstName !== '' && LastName !== '' && Role !== '' && ConfirmPassword !== '' && ConfirmPassword == Password) {
+      if (FirstName !== '' && LastName !== '' && ConfirmPassword !== '' && ConfirmPassword == Password) {
         firebaseApp.auth().createUserWithEmailAndPassword(email.value, password.value)
           .then(res => {
             if (res.user) {
@@ -116,12 +116,8 @@ const Register = () => {
           <Col md="8">
             <Card className="card-user">
               <CardHeader>
-                <CardTitle style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-
-                }} className="content"><h3>สมัครสมาชิก</h3></CardTitle>
+                <CardTitle style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                  className="content"><h3>สมัครสมาชิก</h3></CardTitle>
               </CardHeader>
               <CardBody>
                 <form onSubmit={handleSubmit}>
@@ -131,37 +127,31 @@ const Register = () => {
                       <Col className="pr-1" md="4">
                         <FormGroup>
                           <label>ชื่อจริง</label>
-                          <Input
-                            onChange={e => setFirstName(e.target.value)}
-                            type="text"
-                          />
+                          <Input onChange={e => setFirstName(e.target.value)} type="text" />
                           {FirstNameError}
                         </FormGroup>
                       </Col>
                       <Col className="pl-1" md="4">
                         <FormGroup>
                           <label>นามสกุล</label>
-                          <Input
-                            onChange={e => setLastName(e.target.value)}
-                            type="text"
-                          />
+                          <Input onChange={e => setLastName(e.target.value)} type="text" />
                           {LastNameError}
                         </FormGroup>
                       </Col>
                       <Col md="4">
                         <FormGroup>
-                          <label>บทบาท</label>
-                          {/* <Input
-                            onChange={e => setDate(e.target.value)}
-                            type="date"
-                          />
-                          {DateError} */}
-                          <select onChange={e => setRole(e.target.value)}
-                            type="text">
+
+                          {/* <label>บทบาท</label>
+
+                          <Input onChange={e => setDate(e.target.value)} type="date" />
+                          {DateError}
+
+                          <select onChange={e => setRole(e.target.value)} type="text">
                             <option value="student">Student</option>
                             <option value="lecturer">Lecturer</option>
                           </select>
-                          {RoleError}
+                          {RoleError} */}
+
                         </FormGroup>
                       </Col>
                     </Row>
@@ -172,32 +162,21 @@ const Register = () => {
                       <Col className="pr-1" md="4">
                         <FormGroup>
                           <label>Email Address</label>
-                          <Input
-                            onChange={e => setEmail(e.target.value)}
-                            name="email"
-                            type="text"
-                          />
+                          <Input onChange={e => setEmail(e.target.value)} name="email" type="text" />
                           {EmailError}
                         </FormGroup>
                       </Col>
                       <Col className="pr-1" md="4">
                         <FormGroup>
                           <label>รหัสผ่าน</label>
-                          <Input
-                            onChange={e => setPassword(e.target.value)}
-                            name="password"
-                            type="password"
-                          />
+                          <Input onChange={e => setPassword(e.target.value)} name="password" type="password" />
                           {PasswordError}
                         </FormGroup>
                       </Col>
                       <Col className="px-1" md="4">
                         <FormGroup>
                           <label>ยืนยันรหัสผ่าน</label>
-                          <Input
-                            onChange={e => setConfirmPassword(e.target.value)}
-                            type="password"
-                          />
+                          <Input onChange={e => setConfirmPassword(e.target.value)} type="password" />
                           {ConfirmPasswordError}
                         </FormGroup>
                       </Col>
@@ -206,31 +185,20 @@ const Register = () => {
                     <Row>
 
                     </Row>
-                    <Row style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-
-                    }}>
+                    <Row style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                       <Col md="8">
                         <Carousel>
                           <Carousel.Item>
-                            <img
-                              className="d-block w-100"
-                              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031216/Food/tong_cc4eed.png"
-                            />
+                            <img className="d-block w-100"
+                              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031216/Food/tong_cc4eed.png" />
                           </Carousel.Item>
                           <Carousel.Item>
-                            <img
-                              className="d-block w-100"
-                              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031185/Food/tong1_qh5sgw.png"
-                            />
+                            <img className="d-block w-100"
+                              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031185/Food/tong1_qh5sgw.png" />
                           </Carousel.Item>
                           <Carousel.Item>
-                            <img
-                              className="d-block w-100"
-                              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031243/Food/tong2_tx3d06"
-                            />
+                            <img className="d-block w-100"
+                              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031243/Food/tong2_tx3d06" />
                           </Carousel.Item>
                         </Carousel>
                       </Col>

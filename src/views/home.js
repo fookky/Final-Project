@@ -26,10 +26,8 @@ function Home() {
     <div>
       <div className="content">
         <Col md="12">
-          <img
-            alt="..."
-            src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620030394/Food/t_tfoorl.gif"
-          />
+          <img alt="..."
+            src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620030394/Food/t_tfoorl.gif" />
         </Col>
       </div>
     </div>

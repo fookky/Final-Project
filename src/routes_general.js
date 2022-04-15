@@ -25,7 +25,6 @@ import regis from "views/regis.js";
 import login from "views/login.js";
 
 var routes = [
-
   {
     name: "หน้าแรก",
     icon: "nc-icon nc-satisfied",
