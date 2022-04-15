@@ -36,10 +36,10 @@ class Footer extends React.Component {
               </ul>
             </nav>
             <div className="credits ml-auto">
-              <div className="copyright">
+              {/* <div className="copyright">
                 &copy; {1900 + new Date().getYear()}, made with{" "}
                 <i className="fa fa-heart heart" /> by KIS TEAM
-              </div>
+              </div> */}
             </div>
           </Row>
         </Container>

@@ -24,7 +24,6 @@ import { Route, Switch } from "react-router-dom";
 import DemoNavbar from "components/Navbars/DemoNavbar_member";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes_member.js";
 
@@ -35,7 +34,7 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       backgroundColor: "black",
-      activeColor: "info",
+      activeColor: "danger",
     };
     this.mainPanel = React.createRef();
   }
