@@ -58,13 +58,14 @@ function Insert() {
   const [RestaurantName, setRestaurantName] = useState({})
 
   const [all, setall] = useState('')
-  const [allArray, setallArray] = useState([])
   const [writer, setwriter] = useState([])
   const [name, setname] = useState('')
   const [journal, setjournal] = useState('')
   const [year, setyear] = useState('')
   const [quartile, setquartile] = useState('')
   const [factor, setfactor] = useState('')
+
+  const [allWriter, setallWriter] = useState('')
 
   useEffect(() => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
@@ -99,11 +100,11 @@ function Insert() {
 
   // ประกาศตัวแปรเพื่ออ้างอิง user collection
   const db = firebaseApp.firestore()
-  const userCollection = db.collection('research')
+  const researchCollection = db.collection('research')
 
   async function insertDocument() {
     // insert และคืน document reference
-    const documentRef = await userCollection.add({
+    const documentRef = await researchCollection.add({
       writer, name, journal, year, quartile, factor
     })
 
@@ -115,15 +116,27 @@ function Insert() {
 
   const Split = () => {
     var subData = all.split(',');
-    var writers=[];
-    setallArray(subData);         // ใส่ข้อมูลเข้า array
-    console.log(allArray)          // ทดสอบ print ข้อมูลใน array
+    var writers = [];
+    var text = "";
+    // console.log(allArray)          // ทดสอบ print ข้อมูลใน array
 
-    for (let i = 0; i < allArray.length; i++) {
-      if ((allArray[i].split(" ").length - 1) == 1) { writers.push(allArray[i]) }
+    for (let i = 0; i < subData.length; i++) {
+      if ((subData[i].split(" ").length - 1) == 1) { writers.push(subData[i]) }
+    }
+    // console.log(writer.length)
+
+    for (let i = 0; i < writers.length; i++) {
+      if (i + 1 == writers.length) { text += writers[i]; }
+      if (i + 1 < writers.length) { text += writers[i] + ", "; }
     }
 
-    console.log(writers)
+    setwriter(writers)
+    setallWriter(text)
+    setname(subData[writers.length])
+    setjournal(subData[writers.length + 1])
+    setyear(subData[writers.length + 2])
+
+    // console.log(writer)      // ทดสอบ print ข้อมูลใน writer
   }
 
   // const splitkey = [];
@@ -153,7 +166,6 @@ function Insert() {
 
   return <div className="content">
 
-
     <Col md="12">
       <Card className="card-user">
         <CardHeader>
@@ -163,21 +175,52 @@ function Insert() {
 
           <FormGroup>
             <label>step 1 ใส่ข้อมูลทั้งหมด</label>
-            <Input type="text" value={all} onChange={e => setall(e.target.value)} />
+            <Input type="text" onChange={e => setall(e.target.value)} />
             <button onClick={() => Split()}>แยกตาม field</button>
-            <hr></hr>
-            <label>ชื่อร้านอาหาร</label>
-            <Autocomplete
-              id="ร้านอาหาร"
-              options={RestaurantName}
+          </FormGroup>
+
+          <hr></hr>
+
+          <label>step 2 แต่ละ field</label>
+
+          {/* <Autocomplete id="ร้านอาหาร" options={RestaurantName}
               onChange={(event, newValue) => {
                 setrestaurant(newValue);
               }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </FormGroup>
-          <FormGroup>
+              renderInput={(params) => <TextField {...params} />} /> */}
 
+          <br></br>
+          <FormGroup>
+            <p>ผู้เขียน</p>
+            {Object.keys(writer).map((id) => {
+              return (
+                <Row><Input type='text' value={writer[id]}></Input></Row>
+              );
+            })}
+            <p>ชื่อเรื่อง</p>
+            <Input onChange={e => setname(e.target.value)} value={name}></Input>
+
+            <p>ชื่อ journal</p>
+            <Input onChange={e => setjournal(e.target.value)} value={journal}></Input>
+
+            <p>ปี</p>
+            <Input onChange={e => setyear(e.target.value)} value={year}></Input>
+
+            <p>quartile</p>
+            <select id="ddlViewBy" onChange={e => setquartile(e.target.value)} >
+              <option value="None">-- Select --</option>
+              <option value="Q1">Q1</option>
+              <option value="Q2">Q2</option>
+              <option value="Q3">Q3</option>
+              <option value="Q4">Q4</option>
+            </select>
+
+            <p>impact factor</p>
+            <Input onChange={e => setfactor(e.target.value)}></Input>
+          </FormGroup>
+          <button class="btn btn-" onClick={insertDocument}>บันทึก</button>
+
+          {/* <FormGroup>
             <label>วัตถุดิบ&nbsp;&nbsp;</label>
             <select id="ddlViewBy" onChange={e => setcate1(e.target.value)} >
               <option value="None">-- Select --</option>
@@ -188,11 +231,10 @@ function Insert() {
               <option value="กุ้ง">กุ้ง</option>
               <option value="หมึก">หมึก</option>
               <option value="ไข่">ไข่</option>
-
             </select>
-          </FormGroup>
-          <FormGroup>
+          </FormGroup> */}
 
+          {/* <FormGroup>
             <label>วิธีการ&nbsp;&nbsp;</label>
             <select id="ddlViewBy" onChange={e => setcate2(e.target.value)} >
               <option value="None">-- Select --</option>
@@ -204,9 +246,9 @@ function Insert() {
               <option value="นิ่ง">นึ่ง</option>
               <option value="ไมโครเวฟ">ไมโครเวฟ</option>
             </select>
-          </FormGroup>
-          <FormGroup>
+          </FormGroup> */}
 
+          {/* <FormGroup>
             <label>รสชาติ&nbsp;&nbsp;</label>
             <select id="ddlViewBy" onChange={e => setcate3(e.target.value)} >
               <option value="None">-- Select --</option>
@@ -215,12 +257,10 @@ function Insert() {
               <option value="เค็ม">เค็ม</option>
               <option value="เผ็ด">เผ็ด</option>
               <option value="จืด">จืด</option>
-
             </select>
-          </FormGroup>
+          </FormGroup> */}
 
-          <FormGroup>
-
+          {/* <FormGroup>
             <label>สัญชาติ&nbsp;&nbsp;</label>
             <select id="ddlViewBy" onChange={e => setcate4(e.target.value)} >
               <option value="None">-- Select --</option>
@@ -229,36 +269,17 @@ function Insert() {
               <option value="ไทย-อีสาน">ไทย-อีสาน</option>
               <option value="ไทย-ใต้">ไทย-ใต้</option>
               <option value="ต่างประเทศ">ต่างประเทศ</option>
-
             </select>
-          </FormGroup>
-          <h6>Upload Image</h6>
-          <input
-            type="file"
-            name="file"
-            placeholder="Upload an image"
-            onChange={uploadUimage}
-          />
-          {loading ? (
-            <h3>กรุณารอสักครู่...</h3>
-          ) : (
-            <img src={image} style={{ width: '300px' }} />
-          )}
+          </FormGroup> */}
 
-          {/* ตัวแปร state จะถูกเปลี่ยนค่าเมื่อพิมพ์ข้อมูล และ trigger การ re-render */}
-
+          {/* <h6>Upload Image</h6>
+          <input type="file" name="file" placeholder="Upload an image" onChange={uploadUimage} />
+          {loading ? (<h3>กรุณารอสักครู่...</h3>) : (<img src={image} style={{ width: '300px' }} />)}
 
           <br />
-          {/* เรียกใช้ method เมื่อ click ปุ่ม */}
+
           <br />
-          <div style={{
-
-            display: "flex",
-            justifyContent: "center",
-
-            alignItems: "center",
-
-          }} ><button class="btn btn-" onClick={insertDocument}>บันทึก</button></div>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} ></div> */}
 
         </CardBody>
       </Card>

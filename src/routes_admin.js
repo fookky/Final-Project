@@ -1,9 +1,8 @@
+
 import menu from "views/admin_menu.jsx";
 import random from "views/tong.js";
 import Maps from "views/Map.js";
 import member from "views/member_admin.js";
-
-
 
 var routes = [
   {
@@ -23,14 +22,10 @@ var routes = [
   {
     path: "/member",
     name: "จัดการสมาชิก",
-    icon: "nc-icon nc-user-run" ,
+    icon: "nc-icon nc-user-run",
     component: member,
     layout: "/admin",
-  },
-
-
-
-
+  }
 
 ];
 export default routes;
