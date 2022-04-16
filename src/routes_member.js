@@ -23,6 +23,7 @@ import random from "views/random_member.js";
 import home from "views/home_member.js";
 import Maps from "views/Map_member.js";
 import profile from "views/profile_member.js";
+import insertmenu from "views/insertmenu.jsx";
 
 var routes = [
   {
@@ -58,6 +59,13 @@ var routes = [
     name: "สร้างลิสต์",
     icon: "nc-icon nc-bullet-list-67",
     component: list,
+    layout: "/member",
+  },
+  {
+    path: "/insert",
+    name: "เพิ่มงานวิจัย",
+    icon: "nc-icon nc-planet",
+    component: insertmenu,
     layout: "/member",
   },
   {
