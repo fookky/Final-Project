@@ -1,27 +1,18 @@
+
 import React, { useState, useEffect, useContext } from 'react'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Display from "components/Display.jsx";
 import { AppContext } from "views/admin_menu.jsx";
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  Row,
-  FormGroup,
-  Form,
-  Input,
-  Col,
-  DropdownMenu,
-  DropdownItem,
+  Card, CardHeader, CardBody, CardFooter, CardTitle,
+  Row, FormGroup, Form, Input, Col,
+  DropdownMenu, DropdownItem
 } from "reactstrap";
 
 // เรียกใช้ module
 import firebaseApp from '../firebase.js'
 import { SplitButton } from 'react-bootstrap';
-
 
 function Insert() {
 
@@ -97,7 +88,6 @@ function Insert() {
     });
   }, [])
 
-
   // ประกาศตัวแปรเพื่ออ้างอิง user collection
   const db = firebaseApp.firestore()
   const researchCollection = db.collection('research')
@@ -115,10 +105,10 @@ function Insert() {
   }
 
   const Split = () => {
-    var subData = all.split(',');
+    var subData = all.split(', ');
     var writers = [];
     var text = "";
-    // console.log(allArray)          // ทดสอบ print ข้อมูลใน array
+    // console.log(subData[1].length)
 
     for (let i = 0; i < subData.length; i++) {
       if ((subData[i].split(" ").length - 1) == 1) { writers.push(subData[i]) }
@@ -126,8 +116,8 @@ function Insert() {
     // console.log(writer.length)
 
     for (let i = 0; i < writers.length; i++) {
-      if (i + 1 == writers.length) { text += writers[i]; }
-      if (i + 1 < writers.length) { text += writers[i] + ", "; }
+      if (i == writers.length - 1) { text = text + writers[i]; }
+      if (i < writers.length - 1) { text = text + writers[i] + ", "; }
     }
 
     setwriter(writers)
@@ -175,7 +165,8 @@ function Insert() {
 
           <FormGroup>
             <label>step 1 ใส่ข้อมูลทั้งหมด</label>
-            <Input type="text" onChange={e => setall(e.target.value)} />
+            <p>โดยที่ format ดังนี้ : name1 surname1, name2 surname2, title, journal, year</p>
+            <Input type="textarea" onChange={e => setall(e.target.value)} ></Input>
             <button onClick={() => Split()}>แยกตาม field</button>
           </FormGroup>
 
@@ -198,7 +189,7 @@ function Insert() {
               );
             })}
             <p>ชื่อเรื่อง</p>
-            <Input onChange={e => setname(e.target.value)} value={name}></Input>
+            <Input type="textarea" onChange={e => setname(e.target.value)} value={name}></Input>
 
             <p>ชื่อ journal</p>
             <Input onChange={e => setjournal(e.target.value)} value={journal}></Input>
