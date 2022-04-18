@@ -61,7 +61,7 @@ function Dashboard(){
 
     // ประกาศตัวแปรเพื่ออ้างอิง user collection
     const db = firebaseApp.firestore()
-    const Collection = db.collection('Food2')  
+    const Collection = db.collection('Food2')
     let s = 'BLsearchkey.'+search
     let c1 = 'BLsearchkey.'+cate
     let c2 = 'BLsearchkey.'+cate2
