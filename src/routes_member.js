@@ -34,17 +34,17 @@ var routes = [
     layout: "/member",
   },
   {
-    path: "/menu",
+    path: "/random",
     name: "Research Statistics",
     icon: "nc-icon nc-chart-bar-32",
-    component: menu,
+    component: random,
     layout: "/member",
   },
   {
-    path: "/maps",
+    path: "/menu",
     name: "Research Explore",
     icon: "nc-icon nc-zoom-split",
-    component: Maps,
+    component: menu,
     layout: "/member",
   },
 

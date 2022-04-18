@@ -215,12 +215,16 @@
   }
 }
 
+.btn-danger {
+	font-family: 'Prompt', sans-serif;
+}
 
 .btn-round{
     border-width: $border-thin;
     border-radius: $btn-round-radius;
     padding-right: $padding-round-horizontal;
     padding-left: $padding-round-horizontal;
+		font-family: 'Prompt', sans-serif;
 
     &.btn-simple{
         padding: $padding-btn-vertical - 1  $padding-round-horizontal - 1;
@@ -233,7 +237,7 @@
   }
 }
 .namefood {
-    border: none;
+	border: none;
   background-color: inherit;
   padding: 10px 8px;
   font-size: 14px;
@@ -244,7 +248,7 @@
   padding: 10px 8px;
   font-size: 13px;
   cursor: pointer;
-  color: black;
+	color: #767575;
   }
 
   .btn22:hover {
