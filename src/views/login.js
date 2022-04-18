@@ -133,11 +133,7 @@ const LogIn = () => {
             </CardBody>
           </Card>
         </Col>
-
-
-
       </div>
-
     </>
   );
 
