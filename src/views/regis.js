@@ -128,16 +128,8 @@ const Register = () => {
 
         }} >
 
-          <Col md="6">
+          <Col md="4">
             <Card className="card-user">
-              <CardHeader style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-
-                }} className="content">
-                  
-              </CardHeader>
               <CardBody>
                 <Form onSubmit={handleSubmit}>
                   <CardTitle style={{

@@ -16,6 +16,9 @@
 
     .card-body{
         padding: 15px 15px 10px 15px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        font-family: 'Prompt', sans-serif;
 
         &.table-full-width{
             padding-left: 0;
@@ -32,7 +35,6 @@
 
       .card-title{
           margin-top: 10px;
-          
       }
     }
 
@@ -140,3 +142,10 @@
         }
     }
 }
+
+.content .card-title {
+    margin-bottom: -20px;
+}
+
+.card-user form .form-group {
+    margin-bottom: 10px; }

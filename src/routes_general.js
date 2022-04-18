@@ -33,21 +33,21 @@ var routes = [
     component: home,
     layout: "/general",
   },
-  {
-    path: "/menu",
-    name: "Research Statistics",
-    icon: "nc-icon nc-chart-bar-32",
-    component: menu,
-    layout: "/general",
-  },
+  // {
+  //   path: "/random",
+  //   name: "Research Statistics",
+  //   icon: "nc-icon nc-chart-bar-32",
+  //   component: random,
+  //   layout: "/general",
+  // },
 
-  {
-    path: "/maps",
-    name: "Research Explore",
-    icon: "nc-icon nc-zoom-split",
-    component: Maps,
-    layout: "/general",
-  },
+  // {
+  //   path: "/menu",
+  //   name: "Research Explore",
+  //   icon: "nc-icon nc-zoom-split",
+  //   component: menu,
+  //   layout: "/general",
+  // },
 
   {
     path: "/regis",

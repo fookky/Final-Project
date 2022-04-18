@@ -1,9 +1,6 @@
 import menu from "views/admin_menu.jsx";
 import random from "views/tong.js";
-import Maps from "views/Map.js";
 import member from "views/member_admin.js";
-
-
 
 var routes = [
   {

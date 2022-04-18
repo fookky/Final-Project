@@ -78,23 +78,14 @@ const LogIn = () => {
         alignItems: "center",
 
       }} className="content">
-        <Col md="6">
+        <Col md="4">
           <Card className="card-user">
-            <CardHeader style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-
-            }} className="content">
-
-            </CardHeader>
             <CardBody>
               <Form onSubmit={handleSubmit}>
                 <CardTitle style={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-
                 }} className="content"><h3>Login</h3></CardTitle>
                 <Row>
                   <Col md="12">
@@ -142,11 +133,7 @@ const LogIn = () => {
             </CardBody>
           </Card>
         </Col>
-
-
-
       </div>
-
     </>
   );
 
