@@ -26,6 +26,6 @@ var routes = [
     component: member,
     layout: "/admin",
   }
-
 ];
+
 export default routes;

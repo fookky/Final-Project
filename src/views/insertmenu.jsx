@@ -105,13 +105,14 @@ function Insert() {
   }
 
   const Split = () => {
-    var subData = all.split(', ');
+    var subData = all.split(',');
     var writers = [];
     var text = "";
     // console.log(subData[1].length)
 
     for (let i = 0; i < subData.length; i++) {
-      if ((subData[i].split(" ").length - 1) == 1) { writers.push(subData[i]) }
+      if ((subData[i].split(" ").length - 1) <= 2) { writers.push(subData[i]) }
+      if ((subData[i].split(" ").length - 1) > 2) { break; }
     }
     // console.log(writer.length)
 
