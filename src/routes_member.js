@@ -23,6 +23,7 @@ import random from "views/random_member.js";
 import home from "views/home_member.js";
 import Maps from "views/Map_member.js";
 import profile from "views/profile_member.js";
+
 import insertmenu from "views/insertmenu.jsx";
 
 var routes = [
