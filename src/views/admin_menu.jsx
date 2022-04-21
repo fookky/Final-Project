@@ -18,9 +18,7 @@ import {
 
 // core components
 import {
-  dashboard24HoursPerformanceChart,
-  dashboardEmailStatisticsChart,
-  dashboardNASDAQChart,
+  dashboard24HoursPerformanceChart, dashboardEmailStatisticsChart, dashboardNASDAQChart
 } from "variables/charts.js";
 
 export const AppContext = React.createContext();
@@ -56,8 +54,12 @@ function Dashboard() {
   if (cate3 == '') { c3 = 'BLsearchkey.@' }
   if (cate4 == '') { c4 = 'BLsearchkey.@' }
   if (cate5 == '') { c5 = 'BLsearchkey.@' }
-  if (s == 'BLsearchkey.@' && c1 == 'BLsearchkey.@' && c2 == 'BLsearchkey.@' && c3 == 'BLsearchkey.@' && c4 == 'BLsearchkey.@' && c5 == 'BLsearchkey.@') { catecheck = 'BLsearchkey.Close' }
-  else { catecheck = 'BLsearchkey.@' }
+  if (s == 'BLsearchkey.@' && c1 == 'BLsearchkey.@' && c2 == 'BLsearchkey.@' && c3 == 'BLsearchkey.@' && c4 == 'BLsearchkey.@' && c5 == 'BLsearchkey.@') {
+    catecheck = 'BLsearchkey.Close'
+  }
+  else {
+    catecheck = 'BLsearchkey.@'
+  }
   const CateCollection = Collection.where(s, '==', true)
     .where(c1, '==', true)
     .where(c2, '==', true)
@@ -128,6 +130,7 @@ function Dashboard() {
     setCate4("")
     setCate5("")
   }
+  
   const { currentUser } = useContext(AuthContext);
 
   if (currentUser) { return <Redirect to="/member/menu" />; }
@@ -150,17 +153,17 @@ function Dashboard() {
 
           <Col md="3">
             <AppContext.Provider value={{ search }}>
-              <Insertmenu />
+              <Insertmenu></Insertmenu>
             </AppContext.Provider>
           </Col>
 
           <Col md="5">
-            <Card className="card-user" >
+            <Card className="card-user">
               <CardHeader>
                 <CardTitle tag="h5">เลือกเมนูอาหารตามหมวดหมู่ <button class="btn22 default pull-right" onClick={clearall}> ล้างหมวดหมู่ที่เลือกทั้งหมด</button></CardTitle>
               </CardHeader>
-              <Col md='12'> <form >
-                <InputGroup >
+              <Col md='12'> <form>
+                <InputGroup>
                   <Autocomplete
                     id="ค้นหาเมนูของคุณ"
                     options={FoodName}
