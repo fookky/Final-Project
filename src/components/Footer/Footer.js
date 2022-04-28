@@ -25,24 +25,17 @@ import PropTypes from "prop-types";
 class Footer extends React.Component {
   render() {
     return (
-      <footer
-        className={"footer" + (this.props.default ? " footer-default" : "")}
-      >
-        <Container fluid={this.props.fluid ? true : false}>
+      <footer>
+        {/* <Container fluid={this.props.fluid ? true : false}>
           <Row>
-            <nav className="footer-nav">
-              <ul>
-             
-              </ul>
-            </nav>
             <div className="credits ml-auto">
-              {/* <div className="copyright">
+              <div className="copyright">
                 &copy; {1900 + new Date().getYear()}, made with{" "}
-                <i className="fa fa-heart heart" /> by KIS TEAM
-              </div> */}
+                <i className="fa fa-heart heart" /> by MRD TEAM
+              </div>
             </div>
           </Row>
-        </Container>
+        </Container> */}
       </footer>
     );
   }

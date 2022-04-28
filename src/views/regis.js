@@ -118,127 +118,120 @@ const Register = () => {
   }
 
   return (
-    <>
-      <div className="content">
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }} className="content">
+      <Col md="4">
+        <Card className="card-user">
+          <CardBody>
+            <Form onSubmit={handleSubmit}>
+              <CardTitle style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
 
-        <Row style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+              }} className="content"><h3>Register</h3></CardTitle>
+              <Row>
+                <Col md="12">
+                  <FormGroup>
+                    <label>Name</label>
+                    <Input
+                      onChange={e => setFirstName(e.target.value)}
+                      type="text"
+                      pattern="^[ก-๏\sa-zA-Z\s]+$"
+                      title="กรอกตัวหนังสือเท่านั้น"
+                      required
+                    />
+                    <a className="color-error">{FirstNameError}</a>
+                  </FormGroup>
+                </Col>
+              </Row>
 
-        }} >
+              <Row>
+                <Col md="12">
+                  <FormGroup>
+                    <label>Lastname</label>
+                    <Input
+                      onChange={e => setLastName(e.target.value)}
+                      type="text"
+                      pattern="^[ก-๏\sa-zA-Z\s]+$"
+                      title="กรอกตัวหนังสือเท่านั้น"
+                      required
+                    />
+                    <a className="color-error">{LastNameError}</a>
+                  </FormGroup>
+                </Col>
+              </Row>
 
-          <Col md="4">
-            <Card className="card-user">
-              <CardBody>
-                <Form onSubmit={handleSubmit}>
-                  <CardTitle style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+              <Row>
+                <Col md="12">
+                  <FormGroup>
+                    <label>Email</label>
+                    <Input
+                      onChange={e => setEmail(e.target.value)}
+                      name="email"
+                      type="email"
+                      required
+                    />
+                    <a className="color-error">{EmailError}</a>
+                  </FormGroup>
+                </Col>
+              </Row>
 
-                  }} className="content"><h3>Register</h3></CardTitle>
-                    <Row>
-                      <Col md="12">
-                        <FormGroup>
-                          <label>Name</label>
-                          <Input
-                            onChange={e => setFirstName(e.target.value)}
-                            type="text"
-                            pattern="^[ก-๏\sa-zA-Z\s]+$"
-                            title="กรอกตัวหนังสือเท่านั้น"
-                            required
-                          />
-                          <a className="color-error">{FirstNameError}</a>
-                        </FormGroup>
-                      </Col>
-                      </Row>
+              <Row>
+                <Col md="12">
+                  <FormGroup>
+                    <label>Password</label>
+                    <Input
+                      onChange={e => setPassword(e.target.value)}
+                      name="password"
+                      type="password"
+                      required
+                    />
+                    <a className="color-error">{PasswordError}</a>
+                  </FormGroup>
+                </Col>
+              </Row>
 
-                      <Row>
-                        <Col md="12">
-                          <FormGroup>
-                            <label>Lastname</label>
-                            <Input
-                              onChange={e => setLastName(e.target.value)}
-                              type="text"
-                              pattern="^[ก-๏\sa-zA-Z\s]+$"
-                              title="กรอกตัวหนังสือเท่านั้น"
-                              required
-                            />
-                            <a className="color-error">{LastNameError}</a>
-                          </FormGroup>
-                        </Col>
-                      </Row>
+              <Row>
+                <Col md="12">
+                  <FormGroup>
+                    <label>Re-Password</label>
+                    <Input
+                      onChange={e => setConfirmPassword(e.target.value)}
+                      type="password"
+                      required
+                    />
+                    <a className="color-error">{ConfirmPasswordError}</a>
+                  </FormGroup>
+                </Col>
+              </Row>
 
-                      <Row>
-                        <Col md="12">
-                          <FormGroup>
-                            <label>Email</label>
-                            <Input
-                              onChange={e => setEmail(e.target.value)}
-                              name="email"
-                              type="email"
-                              required
-                            />
-                            <a className="color-error">{EmailError}</a>
-                          </FormGroup>
-                        </Col>
-                      </Row>
+              <Row style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
 
-                      <Row>
-                        <Col md="12">
-                          <FormGroup>
-                            <label>Password</label>
-                            <Input
-                              onChange={e => setPassword(e.target.value)}
-                              name="password"
-                              type="password"
-                              required
-                            />
-                            <a className="color-error">{PasswordError}</a>
-                          </FormGroup>
-                        </Col>
-                      </Row>
-
-                      <Row>
-                        <Col md="12">
-                          <FormGroup>
-                            <label>Re-Password</label>
-                            <Input
-                              onChange={e => setConfirmPassword(e.target.value)}
-                              type="password"
-                              required
-                            />
-                            <a className="color-error">{ConfirmPasswordError}</a>
-                          </FormGroup>
-                        </Col>
-                      </Row>
-
-                    <Row style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-
-                    }}>
-                    </Row>
-                    <Row>
-                      <div className="update ml-auto mr-auto">
-                        <Button
-                          class="btn btn-info"
-                          color="danger"
-                          type="submit"
-                        >
-                          Create
-                        </Button>
-                      </div>
-                    </Row>
-                </Form>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </div>
-    </>
+              }}>
+              </Row>
+              <Row>
+                <div className="update ml-auto mr-auto">
+                  <Button
+                    class="btn btn-info"
+                    color="danger"
+                    type="submit"
+                  >
+                    Create
+                  </Button>
+                </div>
+              </Row>
+            </Form>
+          </CardBody>
+        </Card>
+      </Col>
+    </div>
   );
 }
 export default Register;

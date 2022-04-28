@@ -112,18 +112,18 @@ class Header extends React.Component {
     return (
       // add or remove classes depending if we are on full-screen-maps page or not
       <Navbar
-        color={
-          this.props.location.pathname.indexOf("full-screen-maps") !== -1
-            ? "dark"
-            : this.state.color
-        }
-        expand="lg"
-        className={
-          this.props.location.pathname.indexOf("full-screen-maps") !== -1
-            ? "navbar-absolute fixed-top"
-            : "navbar-absolute fixed-top " +
-              (this.state.color === "transparent" ? "navbar-transparent " : "")
-        }
+        // color={
+        //   this.props.location.pathname.indexOf("full-screen-maps") !== -1
+        //     ? "dark"
+        //     : this.state.color
+        // }
+        // expand="lg"
+        // className={
+        //   this.props.location.pathname.indexOf("full-screen-maps") !== -1
+        //     ? "navbar-absolute fixed-top"
+        //     : "navbar-absolute fixed-top " +
+        //     (this.state.color === "transparent" ? "navbar-transparent " : "")
+        // }
       >
         <Container fluid>
           <div className="navbar-wrapper">
@@ -141,28 +141,23 @@ class Header extends React.Component {
             </div>
             <NavbarBrand href="/">{this.getBrand()}</NavbarBrand>
           </div>
-          <NavbarToggler onClick={this.toggle}>
+          {/* <NavbarToggler onClick={this.toggle}>
             <span className="navbar-toggler-bar navbar-kebab" />
             <span className="navbar-toggler-bar navbar-kebab" />
             <span className="navbar-toggler-bar navbar-kebab" />
-          </NavbarToggler>
+          </NavbarToggler> */}
           <Collapse
             isOpen={this.state.isOpen}
             navbar
             className="justify-content-end"
           >
-           
             <Nav navbar>
-            
               <Dropdown
                 nav
                 isOpen={this.state.dropdownOpen}
                 toggle={(e) => this.dropdownToggle(e)}
               >
-               
-              
               </Dropdown>
-            
             </Nav>
           </Collapse>
         </Container>
