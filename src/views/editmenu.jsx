@@ -24,7 +24,7 @@ import {
 import firebaseApp from "../firebase.js";
 import { SplitButton } from "react-bootstrap";
 
-function Insert() {
+function Edit() {
   const [Uimage, setUimage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -308,5 +308,4 @@ function Insert() {
     </div>
   );
 }
-
-export default Insert;
+export default Edit;
