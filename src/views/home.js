@@ -23,8 +23,8 @@ function Home() {
   if (currentUser) { return <Redirect to="/member/home" />; }
 
   return (
-    <div>
-      <div className="content">
+    <div className='mt-5'>
+      <div className="content mt-2">
         <Col md="12">
           <img alt="..."
             src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620030394/Food/t_tfoorl.gif" />

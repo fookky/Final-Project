@@ -109,7 +109,7 @@ const Register = () => {
 
   return (
     <div>
-      <div className="content">
+      <div className="content mt-5">
 
         <Row style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 

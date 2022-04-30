@@ -216,7 +216,7 @@ function Dashboard() {
 
   return (
 
-    <div>
+    <div className='mt-5'>
       <div className="content">
         <Row>
           {Object.keys(User).map((id) => {

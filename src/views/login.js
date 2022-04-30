@@ -54,7 +54,7 @@ const LogIn = () => {
   if (currentUser) { return <Redirect to="/member/profile" />; }
 
   return (
-    <div>
+    <div className='mt-5'>
 
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
         <Col md="6">
@@ -102,7 +102,6 @@ const LogIn = () => {
             </CardBody>
           </Card>
         </Col>
-
       </div>
 
     </div>
