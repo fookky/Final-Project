@@ -43,6 +43,7 @@ function Dashboard() {
   const [year, setYear] = useState('')
   const [quartile, setQuartile] = useState('')
   const [dropdown, setDropdown] = useState('title')
+  const [filter, setFilter] = useState({})
 
   // ประกาศตัวแปรเพื่ออ้างอิง user collection
   const db = firebaseApp.firestore()
@@ -95,7 +96,7 @@ function Dashboard() {
 
       // เปลี่ยนค่าตัวแปร state
       setResearch(research)
-      console.log(research)
+      // console.log(research)
     })
 
     return () => {
@@ -194,10 +195,11 @@ function Dashboard() {
       filter = quartileFilter
     }
 
-    console.log(filter)
-    console.log(researchAll.name)
-    console.log(dropdown)
-    console.log(search)
+    setFilter(filter)
+    // console.log(filter[1].writer)
+    // console.log(researchAll.name)
+    // console.log(dropdown)
+    // console.log(search)
   }
 
   const { currentUser } = useContext(AuthContext);
@@ -226,7 +228,7 @@ function Dashboard() {
             </AppContext.Provider>
           </Col> */}
 
-          <Col md="4">
+          <Col md="3">
             <Card className="card-user">
               <CardHeader>
                 <CardTitle tag="h5">เลือก filter
@@ -310,22 +312,30 @@ function Dashboard() {
             </Card>
           </Col>
 
-          <Col md="8">
+          <Col md="9">
             <Card className="ex1">
               <CardHeader>
                 <CardTitle tag="h5">งานวิจัย</CardTitle>
               </CardHeader>
               <CardBody>
                 <Row>
-                  {Object.keys(Food).map((id) => {
-                    return <Col md="6">
+                  {Object.keys(filter).map((id) => {
+                    return <Col md="12">
                       <div key={id}>
                         <Card>
-                          <Card.Img src={Food[id].image} style={{ width: '250px', height: '120px' }} />
+                          {/* <Card.Img src={Food[id].image} style={{ width: '250px', height: '120px' }} />
                           <Card.Title
                             style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-                            class="namefood" >{Food[id].name}</Card.Title>
-                          <button class="btn btn-danger" onClick={() => deleteDocument(id)}>ลบเมนู</button>
+                            class="namefood" >{filter[id].name}</Card.Title>
+                          <button class="btn btn-danger" onClick={() => deleteDocument(id)}>del</button> */}
+                          <p className='ml-2'>title : {filter[id].name}</p>
+                          {Object.keys(filter[id].writer).map((id2) => {
+                            return <p className='ml-2'>writer : {filter[id].writer[id2]}</p>
+                          })}
+                          <p className='ml-2'>journal : {filter[id].journal}</p>
+                          <p className='ml-2'>quartile : {filter[id].quartile}</p>
+                          <p className='ml-2'>year : {filter[id].year}</p>
+                          <p className='ml-2'>factor : {filter[id].factor}</p>
                         </Card>
                       </div>
                     </Col>
