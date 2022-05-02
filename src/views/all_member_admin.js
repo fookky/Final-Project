@@ -134,6 +134,9 @@ const Member = () => {
     });
   }
 
+  const goToInsert=()=>{
+    window.location.href="/admin/insert";
+  }
 
   if (currentUser) {
     return <Redirect to="/member/profile" />;
@@ -160,13 +163,14 @@ const Member = () => {
             ><h3>Research Management System</h3>
             </CardTitle>
             <div className="insert">
-              {/* <Link to="admin/insert">
+              
                 <Button
                   classname="btn btn-"
                   color="danger"
+                  onClick={()=>goToInsert()}
                 ><i class="fa fa-solid fa-plus"></i>
                 </Button>
-              </Link> */}
+              
             </div>
             <Table
               hover
