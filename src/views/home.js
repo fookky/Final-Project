@@ -31,17 +31,16 @@ function Home() {
   }
 
   return (
-
-    <>
-      <div className="content">
-        <Col md="12">
-          <img
-            alt="..."
-            src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620030394/Food/t_tfoorl.gif"
-          />
-        </Col>
-      </div>
-    </>
+    <div className="content">
+      <Col md="12"
+        className="content-img">
+        <img
+          className="img-banner"
+          alt="..."
+          src="https://imgz.io/images/2022/05/02/--.gif"
+        />
+      </Col>
+    </div>
   );
 }
 

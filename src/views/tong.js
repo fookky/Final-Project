@@ -222,8 +222,6 @@ function Dashboard() {
           // manipulate ตัวแปร local
           DB['RandomFood'] = document.data()
         })
-        setNRandom(DB.RandomFood.N_Random)
-        setConfirm(DB.RandomFood.N_Confirm)
       })
 
       return () => {
