@@ -1,6 +1,7 @@
 import menu from "views/admin_menu.jsx";
 import random from "views/tong.js";
 import member from "views/member_admin.js";
+import explore from "views/explore.js";
 
 var routes = [
   {
@@ -11,10 +12,10 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/menu",
+    path: "/explore",
     name: "Research Explore",
     icon: "nc-icon nc-zoom-split",
-    component: menu,
+    component: explore,
     layout: "/admin",
   },
   {
