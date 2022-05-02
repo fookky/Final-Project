@@ -14,14 +14,14 @@ var routes = [
   },
   {
     path: "/menu",
-    name: "จัดการเมนู",
+    name: "ค้นหางาน",
     icon: "nc-icon nc-ruler-pencil",
     component: menu,
     layout: "/admin",
   },
   {
     path: "/member",
-    name: "จัดการสมาชิก",
+    name: "จัดการงาน",
     icon: "nc-icon nc-user-run",
     component: member,
     layout: "/admin",
