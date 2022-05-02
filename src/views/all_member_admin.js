@@ -39,7 +39,7 @@ const Member = () => {
   }
 
   const [User, setUser] = useState({})
-
+  const [Research, setResearch] = useState({})
 
   const [CurrentUid, setCurrentUid] = useState('')
   const [CurrentFname, setCurrentFname] = useState('')
@@ -79,6 +79,34 @@ const Member = () => {
       }
     });
   }, [])
+
+  // useEffect(() => {
+  //   //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
+  //   firebaseApp.auth().onAuthStateChanged(research => {
+  //     const db = firebaseApp.firestore()
+  //     const researchRef = db.collection('research')
+
+  //     // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
+  //     const unsubscribe = researchRef.onSnapshot(ss => {
+  //       // ตัวแปร local
+  //       const Research = {}
+
+  //       ss.forEach(document => {
+  //         // manipulate ตัวแปร local
+  //         Research[document.id] = document.data()
+  //       })
+
+  //       // เปลี่ยนค่าตัวแปร state
+  //       setResearch(Research)
+  //       console.log(Research)
+  //     })
+
+  //     return () => {
+  //       // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
+  //       unsubscribe()
+  //     }
+  //   });
+  // }, [])
 
   const AllUid = [];
 
