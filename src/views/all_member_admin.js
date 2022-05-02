@@ -160,13 +160,13 @@ const Member = () => {
             ><h3>Research Management System</h3>
             </CardTitle>
             <div className="insert">
-              <Link to="/admin/menu">
+              {/* <Link to="admin/insert">
                 <Button
                   classname="btn btn-"
                   color="danger"
                 ><i class="fa fa-solid fa-plus"></i>
                 </Button>
-              </Link>
+              </Link> */}
             </div>
             <Table
               hover

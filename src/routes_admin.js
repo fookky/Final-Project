@@ -2,6 +2,7 @@ import menu from "views/admin_menu.jsx";
 import random from "views/tong.js";
 import member from "views/member_admin.js";
 import explore from "views/explore.js";
+import insert from "views/insertmenu.jsx"
 
 var routes = [
   {
@@ -20,10 +21,17 @@ var routes = [
   },
   {
     path: "/member",
-    name: "Research Insertion",
+    name: "Research Management",
     icon: "nc-icon nc-paper" ,
     component: member,
     layout: "/admin",
   },
+  {
+    path: "/insert",
+    name: "Research Insertion",
+    icon: "nc-icon nc-paper" ,
+    component: insert,
+    layout: "/admin",
+  }
 ];
 export default routes;

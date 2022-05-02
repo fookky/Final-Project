@@ -112,9 +112,12 @@ function Insert() {
     });
 
     // ใช้ document reference เข้าถึงค่า document id
-    alert(`New document has been inserted as ${documentRef.id}`);
+    // alert(`New document has been inserted as ${documentRef.id}`);
+    alert(`successful`);
 
     window.location.reload(false);
+
+    window.location.href="/admin/member";    
   }
 
   const Split = () => {
