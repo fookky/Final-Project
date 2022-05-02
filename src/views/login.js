@@ -70,86 +70,64 @@ const LogIn = () => {
   }
 
   return (
-    <>
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }} className="content">
+      <Col md="4">
+        <Card className="card-user">
+          <CardBody>
+            <Form onSubmit={handleSubmit}>
+              <CardTitle style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }} className="content"><h3>Login</h3></CardTitle>
+              <Row>
+                <Col md="12">
+                  <FormGroup>
+                    <label>Email</label>
+                    <Input
+                      onChange={e => setEmail(e.target.value)}
+                      type="email"
+                      name="email"
+                      required
+                    />
+                  </FormGroup>
+                  <a className="color-error">{EmailError}</a>
+                </Col>
+              </Row>
+              <Row>
+                <Col md="12">
+                  <FormGroup>
+                    <label>Password</label>
+                    <Input
+                      type="password"
+                      name="password"
+                    />
+                  </FormGroup>
+                  <a className="color-error">{PasswordError}</a>
+                </Col>
+              </Row>
 
-      <div style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-
-      }} className="content">
-        <Col md="6">
-          <Card className="card-user">
-            <CardHeader style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-
-            }} className="content">
-
-            </CardHeader>
-            <CardBody>
-              <Form onSubmit={handleSubmit}>
-                <CardTitle style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-
-                }} className="content"><h3>เข้าสู่ระบบ</h3></CardTitle>
-                <Row>
-                  <Col md="12">
-                    <FormGroup>
-                      <label>Email Address</label>
-                      <Input
-
-                        onChange={e => setEmail(e.target.value)}
-                        type="text"
-                        name="email"
-                      />
-                    </FormGroup>
-                    {EmailError}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="12">
-                    <FormGroup>
-                      <label>Password</label>
-                      <Input
-
-                        type="password"
-                        name="password"
-                      />
-                    </FormGroup>
-                    {PasswordError}
-                  </Col>
-                </Row>
-
-                <Row>
-
-                </Row>
-
-                <Row>
-                  <div className="update ml-auto mr-auto">
-                    <Button
-                      className="btn-round"
-                      color="info"
-                      type="submit"
-                    >
-                      เข้าสู่ระบบ
-                    </Button>
-                  </div>
-                </Row>
-              </Form>
-              <p><b><button class="btn22 default" onClick={() => forgotPassword(Email)}>ลืมรหัสผ่าน</button></b></p>
-            </CardBody>
-          </Card>
-        </Col>
-
-
-
-      </div>
-
-    </>
+              <p><b class="btn22 default" onClick={() => forgotPassword(Email)}>Forgot Password</b></p>
+              <Row>
+                <div className="update ml-auto mr-auto">
+                  <Button
+                    className="btn-round"
+                    color="danger"
+                    type="submit"
+                  >
+                    Login
+                  </Button>
+                </div>
+              </Row>
+            </Form>
+          </CardBody>
+        </Card>
+      </Col>
+    </div>
   );
 
 }

@@ -27,51 +27,40 @@ import login from "views/login.js";
 var routes = [
   
   {
-    name: "หน้าแรก",
+    name: "Home",
     icon: "nc-icon nc-satisfied",
     path: "/home",
     component: home,
     layout: "/general",
   },
-  {
-    path: "/menu",
-    name: "เมนูอาหาร",
-    icon: "nc-icon nc-book-bookmark",
-    component: menu,
-    layout: "/general",
-  },
-  {
-    path: "/random",
-    name: "สุ่มอาหารทั้งหมด",
-    icon: "nc-icon nc-tap-01",
-    component: random,
-    layout: "/general",
-  },
-  
-  {
-    path: "/maps",
-    name: "สุ่มอาหารจากพื้นที่ใกล้เคียง",
-    icon: "nc-icon nc-pin-3",
-    component: Maps,
-    layout: "/general",
-  },
+  // {
+  //   path: "/random",
+  //   name: "Research Statistics",
+  //   icon: "nc-icon nc-chart-bar-32",
+  //   component: random,
+  //   layout: "/general",
+  // },
+
+  // {
+  //   path: "/menu",
+  //   name: "Research Explore",
+  //   icon: "nc-icon nc-zoom-split",
+  //   component: menu,
+  //   layout: "/general",
+  // },
 
   {
     path: "/regis",
-    name: "สมัครสมาชิก",
+    name: "Register",
     icon: "nc-icon nc-single-02",
     component: regis,
     layout: "/general",
   },
   
-
-
-
- 
   {
     pro: true,
     path: "/login",
-    name: "เข้าสู่ระบบ",
+    name: "Login",
     icon: "nc-icon nc-spaceship",
     component: login,
     layout: "/general",

@@ -22,35 +22,32 @@ import {
 } from "variables/charts.js";
 
 
-function Home(){ 
+function Home() {
 
-    const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-    if (!currentUser) {
-        return <Redirect to="/general/home" />;
-    }
+  if (!currentUser) {
+    return <Redirect to="/general/home" />;
+  }
 
-    return (
-      
-      <>
-        <div className="content">   
+  return (
+
+    <>
+      <div className="content">
         <Row style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                 
-                  }} ><Col md="10">
-                      <img 
-                 alt="..."
-                 src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031313/Food/rrr_mvaxsx.gif"
-                 
-               />
-                    
-                      </Col></Row>
-        
-        </div>
-      </>
-    );
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+        }} ><Col md="10">
+            <img
+              alt="..."
+              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031313/Food/rrr_mvaxsx.gif"
+            />
+          </Col></Row>
+      </div>
+    </>
+  );
 }
 
 export default Home;

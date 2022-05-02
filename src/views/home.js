@@ -22,29 +22,26 @@ import {
 } from "variables/charts.js";
 
 
-function Home(){ 
+function Home() {
 
-    const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-    if (currentUser) {
-        return <Redirect to="/member/home" />;
-    }
+  if (currentUser) {
+    return <Redirect to="/member/home" />;
+  }
 
-    return (
-      
-      <>
-        <div className="content">  
-        <Col md="12">
-                      <img 
-                 alt="..."
-                 src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620030394/Food/t_tfoorl.gif"
-                 
-               />
-                    
-                      </Col>
-        </div>
-      </>
-    );
+  return (
+    <div className="content">
+      <Col md="12"
+        className="content-img">
+        <img
+          className="img-banner"
+          alt="..."
+          src="https://imgz.io/images/2022/05/02/--.gif"
+        />
+      </Col>
+    </div>
+  );
 }
 
 export default Home;

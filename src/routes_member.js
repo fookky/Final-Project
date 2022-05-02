@@ -26,52 +26,33 @@ import profile from "views/profile_member.js";
 
 var routes = [
   
+  // {
+  //   path: "/home",
+  //   name: "Home",
+  //   icon: "nc-icon nc-satisfied",
+  //   component: home,
+  //   layout: "/member",
+  // },
   {
-    name: "หน้าแรก",
-    icon: "nc-icon nc-satisfied",
-    path: "/home",
-    component: home,
+    path: "/random",
+    name: "Research Statistics",
+    icon: "nc-icon nc-chart-bar-32",
+    component: random,
     layout: "/member",
   },
   {
     path: "/menu",
-    name: "เมนูอาหาร",
-    icon: "nc-icon nc-book-bookmark",
+    name: "Research Explore",
+    icon: "nc-icon nc-zoom-split",
     component: menu,
     layout: "/member",
   },
-  {
-    path: "/random",
-    name: "สุ่มอาหารทั้งหมด",
-    icon: "nc-icon nc-tap-01",
-    component: random,
-    layout: "/member",
-  },
-  
-  {
-    path: "/maps",
-    name: "สุ่มอาหารจากพื้นที่ใกล้เคียง",
-    icon: "nc-icon nc-pin-3",
-    component: Maps,
-    layout: "/member",
-  },
-  {
-    path: "/list",
-    name: "สร้างลิสต์",
-    icon: "nc-icon nc-bullet-list-67",
-    component: list,
-    layout: "/member",
-  },
-  
 
-
-
- 
   {
     pro: true,
     path: "/profile",
-    name: "โปรไฟล์",
-    icon: "nc-icon nc-planet",
+    name: "Profile",
+    icon: "nc-icon nc-circle-10",
     component: profile,
     layout: "/member",
   },
