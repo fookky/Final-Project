@@ -26,13 +26,13 @@ import profile from "views/profile_member.js";
 
 var routes = [
   
-  {
-    path: "/home",
-    name: "Home",
-    icon: "nc-icon nc-satisfied",
-    component: home,
-    layout: "/member",
-  },
+  // {
+  //   path: "/home",
+  //   name: "Home",
+  //   icon: "nc-icon nc-satisfied",
+  //   component: home,
+  //   layout: "/member",
+  // },
   {
     path: "/random",
     name: "Research Statistics",
