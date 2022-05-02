@@ -232,7 +232,8 @@ function Dashboard() {
             <Card className="card-user">
               <CardHeader>
                 <CardTitle tag="h5">เลือก filter
-                  <button class="btn22 default pull-right" onClick={clearall}>ล้างทั้งหมด</button>
+                  <button class="btn22 default pull-right btn-sm px-1 py-1"
+                    onClick={clearall}>ล้างทั้งหมด</button>
                 </CardTitle>
               </CardHeader>
               <Col md='12'><form>
