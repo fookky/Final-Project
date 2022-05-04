@@ -57,20 +57,20 @@ const Member = () => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
     firebaseApp.auth().onAuthStateChanged(user => {
       const db = firebaseApp.firestore()
-      const userCollection = db.collection('User')
+      const researchRef = db.collection('research')
 
       // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
-      const unsubscribe = userCollection.onSnapshot(ss => {
+      const unsubscribe = researchRef.onSnapshot(ss => {
         // ตัวแปร local
-        const User = {}
+        const Research = {}
 
         ss.forEach(document => {
           // manipulate ตัวแปร local
-          User[document.id] = document.data()
+          Research[document.id] = document.data()
         })
 
         // เปลี่ยนค่าตัวแปร state
-        setUser(User)
+        setResearch(Research)
       })
 
       return () => {
@@ -211,27 +211,28 @@ const Member = () => {
                     #
                   </th>
                   <th>
-                    Author
+                    Title
                   </th>
                   <th>
-                    Title
+                    Author
                   </th>
                   <th>
                     Actions
                   </th>
                 </tr>
               </thead>
-              {Object.keys(User).map((id) => {
+              {Object.keys(Research).map((id) => {
                 return <tbody>
                   <tr>
                     <th scope="row">
                       1
                     </th>
                     <td>
-                      <p>{User[id].Email}</p>
+                      <p>{Research[id].name}</p>
                     </td>
                     <td>
-                      <p>{User[id].FirstName} {User[id].LastName}</p>
+                    {Object.keys(Research[id].writer).map((id2) => {
+                      return <p>{Research[id].writer[id2]}</p>})}
                     </td>
                     <td>
                       <a href="C:\Users\praew\Final-Project\src\views\profile_member_admin.js"
