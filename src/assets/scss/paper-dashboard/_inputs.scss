@@ -408,7 +408,12 @@ textarea.form-control {
   color: red !important;
 }
 
-
 .form-control-file {
-  font-family: 'Prompt', sans-serif;
+  font-family: "Prompt", sans-serif;
 }
+
+.others {
+  color: red !important;
+  text-align: right;
+}
+

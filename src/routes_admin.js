@@ -5,7 +5,7 @@ import explore from "views/explore.js";
 
 var routes = [
   {
-    path: "/random",
+    path: "/statistics",
     name: "Research Statistics",
     icon: "nc-icon nc-chart-bar-32",
     component: random,
@@ -20,7 +20,7 @@ var routes = [
   },
   {
     path: "/member",
-    name: "Research Insertion",
+    name: "Research Management",
     icon: "nc-icon nc-paper" ,
     component: member,
     layout: "/admin",

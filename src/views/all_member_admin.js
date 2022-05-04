@@ -4,7 +4,6 @@ import { Redirect, Link } from 'react-router-dom'
 import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom'
 import { AuthContext } from "components/Auth/Auth.js";
 import profile from "views/profile_member_admin.js";
-
 import Popup from "views/Popup.js";
 // reactstrap components
 import {
@@ -144,7 +143,6 @@ const Member = () => {
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
       }}
       className="content"
     >
@@ -157,7 +155,7 @@ const Member = () => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-            ><h3>Research Management System</h3>
+            ><br></br>
             </CardTitle>
             <div className="insert">
               <Link to="/admin/menu">
@@ -175,26 +173,16 @@ const Member = () => {
             >
               <thead>
                 <tr>
-                  <th>
-                    #
-                  </th>
-                  <th>
-                    Author
-                  </th>
-                  <th>
-                    Title
-                  </th>
-                  <th>
-                    Actions
-                  </th>
+                  <th>#</th>
+                  <th>Author</th>
+                  <th>Title</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               {Object.keys(User).map((id) => {
                 return <tbody>
                   <tr>
-                    <th scope="row">
-                      1
-                    </th>
+                    <th scope="row">1</th>
                     <td>
                       <p>{User[id].Email}</p>
                     </td>
@@ -202,12 +190,12 @@ const Member = () => {
                       <p>{User[id].FirstName} {User[id].LastName}</p>
                     </td>
                     <td>
-                      <a href="C:\Users\praew\Final-Project\src\views\profile_member_admin.js"
+                      <a to="views/profile_member_admin.js"
                         title class="btn btn-info btn-link btn-xs"
                         onClick={e => routeChange(e.target.value)}>
                         <i class="fa fa-solid fa-eye"></i>
                       </a>
-                      <a to="/views/editmenu.js"
+                      <a to="views/editmenu.js"
                         title class="btn btn-success btn-link btn-xs"
                         onClick={e => togglePopup(e.target.value, User[id].FirstName)}>
                         <i class="fa fa-solid fa-pen"></i>

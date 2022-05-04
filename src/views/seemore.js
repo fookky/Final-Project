@@ -29,7 +29,7 @@ import {
 } from "variables/charts.js";
 
 
-function Dashboard() {
+function Seemore() {
 
   const [User, setUser] = useState({})
   const [Promotions, setPromotions] = useState({})
@@ -308,4 +308,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Seemore;

@@ -13,7 +13,7 @@ import { Col, Card, Row } from "react-bootstrap";
 import {
 	Button, CardHeader, CardBody, CardFooter, CardTitle,
 	FormGroup, Form, Input, InputGroup, InputGroupText,
-	InputGroupAddon
+	InputGroupAddon, Table,
 } from "reactstrap";
 
 // core components
@@ -52,36 +52,6 @@ function Dashboard() {
 
 	const researchRef = db.collection('research')
 
-	// let s = 'BLsearchkey.' + search
-	// let c1 = 'BLsearchkey.' + cate
-	// let c2 = 'BLsearchkey.' + cate2
-	// let c3 = 'BLsearchkey.' + cate3
-	// let c4 = 'BLsearchkey.' + cate4
-	// let c5 = 'BLsearchkey.' + cate5
-	// let catecheck = 'BLsearchkey.@'
-	// //แก้บัค
-	// if (search == '' || search == null) { s = 'BLsearchkey.@' }
-	// if (cate == '') { c1 = 'BLsearchkey.@' }
-	// if (cate2 == '') { c2 = 'BLsearchkey.@' }
-	// if (cate3 == '') { c3 = 'BLsearchkey.@' }
-	// if (cate4 == '') { c4 = 'BLsearchkey.@' }
-	// if (cate5 == '') { c5 = 'BLsearchkey.@' }
-	// if (s == 'BLsearchkey.@' && c1 == 'BLsearchkey.@' && c2 == 'BLsearchkey.@' && c3 == 'BLsearchkey.@' && c4 == 'BLsearchkey.@' && c5 == 'BLsearchkey.@') {
-	//   catecheck = 'BLsearchkey.Close'
-	// }
-	// else {
-	//   catecheck = 'BLsearchkey.@'
-	// }
-	// const CateCollection = Collection.where(s, '==', true)
-	//   .where(c1, '==', true)
-	//   .where(c2, '==', true)
-	//   .where(c3, '==', true)
-	//   .where(c4, '==', true)
-	//   .where(c5, '==', true)
-	//   .where(catecheck, '==', true)
-
-	//const SearchCollection = CateCollection.orderBy("name").startAt(search).endAt(search + "\uf8ff")
-
 	useEffect(() => {
 		// subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
 		const unsubscribe = researchRef.onSnapshot(ss => {
@@ -104,38 +74,6 @@ function Dashboard() {
 			unsubscribe()
 		}
 	}, [])   //เมื่อค่า cate เปลี่ยนจะทำการอัพเดท useEffect ใหม่ #ไอห่า หาเป็นวันกว่าจะได้ 
-
-	// useEffect(() => {
-	//   //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
-	//   firebaseApp.auth().onAuthStateChanged(user => {
-
-	//     const db = firebaseApp.firestore()
-	//     const FoodCollection = db.collection('Food2')
-
-	//     // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
-	//     const unsubscribe = FoodCollection.onSnapshot(ss => {
-	//       // ตัวแปร local
-	//       const Food = {}
-	//       const FoodName = []
-
-	//       ss.forEach(document => {
-	//         // manipulate ตัวแปร local
-	//         Food[document.id] = document.data()
-	//         FoodName.push(Food[document.id].name)
-	//       })
-
-	//       // เปลี่ยนค่าตัวแปร state
-	//       setFoodName(FoodName)
-	//       console.log(FoodName)
-	//       console.log(search)
-	//     })
-
-	//     return () => {
-	//       // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
-	//       unsubscribe()
-	//     }
-	//   });
-	// }, [s, c1, c2, c3, c4, c5])
 
 	function clearall() {
 		setSearch("")
@@ -220,98 +158,121 @@ function Dashboard() {
 			style={{
 				display: "flex",
 				justifyContent: "center",
-				alignItems: "center",
 			}}
 			className="content"
 		>
-			<div className='container mt-5'>
+			<Col md="12">
 				<Row>
 					<Col md="3">
 						<Card className="card-user">
-							<CardHeader>
-								<CardTitle tag="h5">Select Filter
-									<button class="btn22 default pull-right btn-sm px-1 py-1"
-										onClick={clearall}>Clear All</button>
-								</CardTitle>
-							</CardHeader>
-							<Col md='12'>
-								<form>
-									<InputGroup>
-										<input onChange={(e) => setSearch(e.target.value)}
-											label="Author, Title, Journal"></input>
-									</InputGroup>
-									<InputGroup>
-										<select type="text" onChange={(e) => setDropdown(e.target.value)}>
+							<CardBody>
+								<h5>Select Filter</h5>
+								<Form>
+									<FormGroup>
+										<Input
+											onChange={(e) => setSearch(e.target.value)}
+											placeholder="Author, Title, Journal"
+											name="search"
+										/>
+									</FormGroup>
+									<FormGroup>
+										<Input
+											onChange={(e) => setDropdown(e.target.value)}
+											name="select"
+											type="select"
+										>
+											<option value="">Select</option>
 											<option value="researcher">Author</option>
 											<option value="title">Title</option>
 											<option value="journal">Journal</option>
-										</select>
-									</InputGroup>
-								</form></Col>
-							<CardBody>
-								<table class="table table-borderless">
-									<thead class="thead-dark">
+										</Input>
+									</FormGroup>
+								</Form>
+								<Table borderless className="admin-insert">
+									<thead>
 										<tr>
-											<th scope="col"> year {year}</th>
-											<th scope="col"> quartile {quartile}</th>
+											<th> Year {year}</th>
+											<th> Quartile {quartile}</th>
 										</tr>
 									</thead>
 									<tbody>
+										{/* <tr>
+											<td><Button class="btn22 default" color="warning" value={year} onClick={e => setYear("")}> clear</Button></td>
+											<td><Button class="btn22 default" color="warning" value={quartile} onClick={e => setQuartile("")}> clear</Button></td>
+										</tr> */}
 										<tr>
-											<td><button class="btn22 default" value={year} onClick={e => setYear("")}> clear</button></td>
-											<td><button class="btn22 default" value={quartile} onClick={e => setQuartile("")}> clear</button></td>
+											<td><Button outline class="btn btn" color="primary" value={year} onClick={e => setYear("2020")}>2020</Button></td>
+											<td><Button outline class="btn btn" color="warning" value={quartile} onClick={e => setQuartile("Q1")}>Q1</Button></td>
 										</tr>
 										<tr>
-											<td><button class="btn22 default" value={year} onClick={e => setYear("2020")}>2020</button></td>
-											<td><button class="btn22 default" value={quartile} onClick={e => setQuartile("Q1")}>Q1</button></td>
+											<td><Button outline class="btn btn" color="primary" value={year} onClick={e => setYear("2021")}>2021</Button></td>
+											<td><Button outline class="btn btn" color="warning" value={quartile} onClick={e => setQuartile("Q2")}>Q2</Button></td>
 										</tr>
 										<tr>
-											<td><button class="btn22 default" value={year} onClick={e => setYear("2021")}>2021</button></td>
-											<td><button class="btn22 default" value={quartile} onClick={e => setQuartile("Q2")}>Q2</button></td>
-										</tr>
-										<tr>
-											<td><button class="btn22 default" value={year} onClick={e => setYear("2022")}>2022</button></td>
-											<td><button class="btn22 default" value={quartile} onClick={e => setQuartile("Q3")}>Q3</button></td>
+											<td><Button outline class="btn btn" color="primary" value={year} onClick={e => setYear("2022")}>2022</Button></td>
+											<td><Button outline class="btn btn" color="warning" value={quartile} onClick={e => setQuartile("Q3")}>Q3</Button></td>
 										</tr>
 										<tr>
 											<td></td>
-											<td><button class="btn22 default" value={quartile} onClick={e => setQuartile("Q4")}>Q4</button></td>
-										</tr></tbody>
-								</table>
+											<td><Button outline class="btn btn" color="warning" value={quartile} onClick={e => setQuartile("Q4")}>Q4</Button></td>
+										</tr>
+									</tbody>
+								</Table>
+								<div className="button-container">
+									<Button
+										onClick={clearall}
+										class="btn btn"
+										color="info"
+									>
+										Clear All
+									</Button>
+									<Button
+										onClick={() => find()}
+										class="btn btn"
+										color="danger"
+									>
+										Search
+									</Button>
+								</div>
 							</CardBody>
-							<button onClick={() => find()}>search</button>
 						</Card>
 					</Col>
 					<Col md="9">
-						<Card className="ex1">
-							<CardHeader>
-								<CardTitle tag="h5">งานวิจัย</CardTitle>
-							</CardHeader>
+						<Card className="card-user">
 							<CardBody>
-								<Row>
-									{Object.keys(filter).map((id) => {
-										return <Col md="12">
-											<div key={id}>
-												<Card>
-													<p className='ml-2'>title : {filter[id].name}</p>
-													{Object.keys(filter[id].writer).map((id2) => {
-														return <p className='ml-2'>writer : {filter[id].writer[id2]}</p>
-													})}
-													<p className='ml-2'>journal : {filter[id].journal}</p>
-													<p className='ml-2'>quartile : {filter[id].quartile}</p>
-													<p className='ml-2'>year : {filter[id].year}</p>
-													<p className='ml-2'>factor : {filter[id].factor}</p>
-												</Card>
-											</div>
-										</Col>
-									})}
-								</Row>
+								<CardTitle
+									className="content"
+								><h3>Research</h3>
+								</CardTitle>
+								<Col md="12">
+									<Row className="ex1">
+										{Object.keys(filter).map((id) => {
+											return <Col md="12">
+												<div key={id}>
+													<Card className="card-research">
+														{Object.keys(filter[id].writer).map((id2) => {
+															return <p className='ml-2'>Author : {filter[id].writer[id2]}</p>
+														})}
+														<p className='ml-2'>Title : {filter[id].name}</p>
+														<p className='ml-2'>Journal : {filter[id].journal}</p>
+														{/* <p className='ml-2'>Year : {filter[id].year}</p>
+														<p className='ml-2'>Quartile : {filter[id].quartile}</p>
+														<p className='ml-2'>Impact Factor : {filter[id].factor}</p> */}
+														<div className="others">
+															<Link className="others">ดูเพิ่มเติม</Link>
+														</div>
+													</Card>
+												</div>
+											</Col>
+										})}
+									</Row>
+								</Col>
 							</CardBody>
 						</Card>
 					</Col>
 				</Row>
-			</div>
-		</div>
+			</Col >
+		</div >
 	);
 }
 export default Dashboard;
