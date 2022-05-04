@@ -44,20 +44,20 @@ const Member = () => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
     firebaseApp.auth().onAuthStateChanged(user => {
       const db = firebaseApp.firestore()
-      const userCollection = db.collection('User')
+      const userCollection = db.collection('research')
 
       // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
       const unsubscribe = userCollection.onSnapshot(ss => {
         // ตัวแปร local
-        const User = {}
+        const Research = {}
 
         ss.forEach(document => {
           // manipulate ตัวแปร local
-          User[document.id] = document.data()
+          Research[document.id] = document.data()
         })
 
         // เปลี่ยนค่าตัวแปร state
-        setUser(User)
+        setUser(Research)
       })
 
       return () => {
@@ -66,6 +66,34 @@ const Member = () => {
       }
     });
   }, [])
+
+  // useEffect(() => {
+  //   //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
+  //   firebaseApp.auth().onAuthStateChanged(user => {
+  //     const db = firebaseApp.firestore()
+  //     const researchRef = db.collection('research')
+
+  //     // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
+  //     const unsubscribe = researchRef.onSnapshot(ss => {
+  //       // ตัวแปร local
+  //       const researchs = {}
+
+  //       ss.forEach(document => {
+  //         // manipulate ตัวแปร local
+  //         researchs[document.id] = document.data()
+  //       })
+
+  //       // เปลี่ยนค่าตัวแปร state
+  //       setResearch(researchs)
+  //       console.log(Research)
+  //     })
+
+  //     return () => {
+  //       // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
+  //       unsubscribe()
+  //     }
+  //   });
+  // }, [])
 
   const AllUid = [];
 
@@ -124,22 +152,27 @@ const Member = () => {
           <Col md="9">
             <Card className="ex3">
               <CardHeader>
-                <CardTitle className="content"><h3>ระบบจัดการสมาชิก</h3></CardTitle>
+                <CardTitle className="content"><h3>ระบบจัดการงานวิจัย</h3></CardTitle>
               </CardHeader>
               {Object.keys(User).map((id) => {
-
                 return <Row>
                   <Col md="4">
-                    <p>&nbsp;&nbsp;{User[id].Email}</p>
+                    <p>&nbsp;&nbsp;{User[id].name}</p>
                   </Col>
                   <Col md="4">
-                    <p>{User[id].FirstName} {User[id].LastName}</p>
+                    {Object.keys(User[id].writer).map((id2) => {
+                      return <p>{User[id].writer[id2]}</p>
+                    })}
                   </Col>
                   <Col md="4">
-                    <p><button value={User[id].Uid} class="btn btn-warning" onChange={GetAllUid(User[id].Uid)} onClick={e => routeChange(e.target.value)}>ดูโปรไฟล์</button><button class="btn btn-success" value={User[id].Uid} onClick={e => togglePopup(e.target.value, User[id].FirstName)}>เพิ่มโปรโมชั่น</button></p>&nbsp;&nbsp;
+                    <p><button value={User[id].Uid} class=""
+                      onChange={GetAllUid(User[id].Uid)}
+                      onClick={e => routeChange(e.target.value)}>ดูงาน</button>
+                      <button class="mx-1" value={User[id].Uid}
+                        onClick={e => togglePopup(e.target.value, User[id].FirstName)}>แก้ไข</button>
+                      <button>ลบ</button></p>&nbsp;&nbsp;
                   </Col>
                 </Row>
-
               })}
             </Card>
           </Col>
