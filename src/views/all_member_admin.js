@@ -41,6 +41,16 @@ const Member = () => {
   const [User, setUser] = useState({})
   const [Research, setResearch] = useState({})
 
+  const [name, setname] = useState('')
+  const [writer, setwriter] = useState([])
+  const [journal, setjournal] = useState('')
+  const [year, setyear] = useState('')
+  const [quartile, setquartile] = useState('')
+  const [factor, setfactor] = useState('')
+
+  const [seeMoreContent, setSeeMoreContent] = useState(null);
+  const [editContent, setEditContent] = useState(null);
+
   const [CurrentUid, setCurrentUid] = useState('')
   const [CurrentFname, setCurrentFname] = useState('')
 
@@ -170,6 +180,102 @@ const Member = () => {
     return <Redirect to="/member/profile" />;
   }
 
+  function deleteDoc(id) {
+    const db = firebaseApp.firestore()
+    const researchRef = db.collection('research')
+
+    // ประกาศตัวแปรเพื่ออ้างอิงไปยัง document ที่จะทำการลบ
+    const documentRef = researchRef.doc(id)
+    // ลบ document
+    documentRef.delete()
+
+    alert(`document ${id} has been deleted`)
+  }
+
+  function seeDoc(id) {
+
+    const content = (<Card>
+      <CardHeader><h1>ดูงาน</h1></CardHeader>
+      <CardBody>
+        <p>title : {Research[id].name}</p>
+        <p>writer : </p>
+            {Object.keys(Research[id].writer).map((id2) => {
+              return (
+                <Row>{Research[id].writer[id2]}</Row>
+              );
+            })}
+            <p>journal : {Research[id].journal}</p>
+            <p>year : {Research[id].year}</p>
+            <p>quartile : {Research[id].quartile}</p>
+            <p>factor : {Research[id].factor}</p>
+      </CardBody>
+    </Card>)
+
+    setSeeMoreContent(content)
+    setEditContent(null)
+    }
+
+    function editDoc(id) {
+
+      let content = (<Card>
+        <CardHeader><h1>แก้ไข</h1></CardHeader>
+        <CardBody>
+          <FormGroup>
+            <p>ชื่อเรื่อง</p>
+            <Input type="textarea" onChange={e => setname(e.target.value)}
+              defaultValue={Research[id].name}></Input>
+  
+            <p>ผู้เขียน</p>
+            {Object.keys(Research[id].writer).map((id2) => {
+              return (
+                <Input type='text' defaultValue={Research[id].writer[id2]}></Input>
+              );
+            })}
+  
+            <p>ชื่อ journal</p>
+            <Input type="textarea" onChange={e => setjournal(e.target.value)}
+              defaultValue={Research[id].journal}></Input>
+  
+            <p>ปี</p>
+            <Input onChange={e => setyear(e.target.value)} defaultValue={Research[id].year}></Input>
+  
+            <p>quartile</p>
+            <select onChange={e => setquartile(e.target.value)}>
+              <option value="None">-- Select --</option>
+              <option value="Q1">Q1</option>
+              <option value="Q2">Q2</option>
+              <option value="Q3">Q3</option>
+              <option value="Q4">Q4</option>
+            </select>
+  
+            <p>impact factor</p>
+            <Input defaultValue={Research[id].factor} onChange={e => setfactor(e.target.value)}></Input>
+          </FormGroup>
+          <button onClick={() => edit(id)}>แก้ไข</button>
+        </CardBody>
+      </Card>)
+  
+      setEditContent(content)
+      setSeeMoreContent(null)
+    }
+    function edit(id) {
+
+      // const newData = {
+      //   name: '',
+      //   writer: writer,
+      //   journal: journal,
+      //   year: year,
+      //   quartile: quartile,
+      //   factor: factor
+      // }
+  
+      const db = firebaseApp.firestore()
+      const researchRef = db.collection('research')
+  
+      // console.log(name)
+  
+      // await researchRef(id).update(newData)
+    }
   return (
     <div
       style={{
@@ -179,7 +285,7 @@ const Member = () => {
       }}
       className="content"
     >
-      <Col md="10" className="admin-insert">
+      <Col md="8" className="admin-insert">
         <Card className="card-user">
           <CardBody>
             <CardTitle
@@ -235,19 +341,16 @@ const Member = () => {
                       return <p>{Research[id].writer[id2]}</p>})}
                     </td>
                     <td>
-                      <a href="C:\Users\praew\Final-Project\src\views\profile_member_admin.js"
-                        title class="btn btn-info btn-link btn-xs"
-                        onClick={e => routeChange(e.target.value)}>
+                      <a class="btn btn-info btn-link btn-xs"
+                        onClick={() => seeDoc(id)}>
                         <i class="fa fa-solid fa-eye"></i>
                       </a>
-                      <a to="/views/editmenu.js"
-                        title class="btn btn-success btn-link btn-xs"
-                        onClick={e => togglePopup(e.target.value, User[id].FirstName)}>
+                      <a class="btn btn-success btn-link btn-xs"
+                        onClick={() => editDoc(id)}>
                         <i class="fa fa-solid fa-pen"></i>
                       </a>
-                      <a href="#"
-                        title class="btn btn-danger btn-link btn-xs"
-                        onClick={e => togglePopup(e.target.value, User[id].FirstName)}>
+                      <a class="btn btn-danger btn-link btn-xs"
+                        onClick={() => deleteDoc(id)}>
                         <i class="fa fa-solid fa-trash"></i>
                       </a>
                     </td>
@@ -291,6 +394,10 @@ const Member = () => {
             </Col> */}
           </CardBody>
         </Card>
+      </Col>
+      <Col md='4'>
+      {seeMoreContent}
+            {editContent}
       </Col>
     </div>
   );
