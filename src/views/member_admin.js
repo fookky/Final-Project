@@ -14,14 +14,14 @@ const Member = () => {
 
   const { currentUser } = useContext(AuthContext);
 
-  if (currentUser) { return <Redirect to="/member/profile" />; }
+  // if (currentUser) { return <Redirect to="/member/profile" />; }
 
   return (
     <div>
       <Router history={hist}>
         <Switch>
-          <Route path="/admin/member/profile" component={profile} />
-          <Route path="/admin/member" component={allmember} />
+          {/* <Route path="/admin/member/profile" component={profile} /> */}
+          <Route path="/admin/manage" component={allmember} />
         </Switch>
       </Router>
     </div>

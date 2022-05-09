@@ -14,6 +14,7 @@ import {
   Col, Table
 } from "reactstrap";
 import Carousel from 'react-bootstrap/Carousel'
+import { event } from 'firebase-functions/lib/providers/analytics';
 
 const Member = () => {
 
@@ -21,15 +22,17 @@ const Member = () => {
   const PromotionsCollection = db.collection('Promotions')
   const [isOpen, setIsOpen] = useState(false);
 
-  const [name, setname] = useState('')
-  const [writer, setwriter] = useState([])
-  const [journal, setjournal] = useState('')
-  const [year, setyear] = useState('')
-  const [quartile, setquartile] = useState('')
-  const [factor, setfactor] = useState('')
+  const [seeMoreShow, setSeeMoreShow] = useState(false)
+  const [editShow, setEditShow] = useState(false)
 
-  const [seeMoreContent, setSeeMoreContent] = useState(null);
-  const [editContent, setEditContent] = useState(null);
+  const [idDoc, setIdDoc] = useState('')
+
+  const [name, setName] = useState('')
+  const [writer, setWriter] = useState([])
+  const [journal, setJournal] = useState('')
+  const [year, setYear] = useState('')
+  const [quartile, setQuartile] = useState('')
+  const [factor, setFactor] = useState('')
 
   const togglePopup = (Uid, FName) => {
     setIsOpen(!isOpen);
@@ -124,7 +127,7 @@ const Member = () => {
   //   });
   // }
 
-  if (currentUser) { return <Redirect to="/member/profile" />; }
+  // if (currentUser) { return <Redirect to="/member/profile" />; }
 
   function deleteDoc(id) {
     const db = firebaseApp.firestore()
@@ -140,78 +143,92 @@ const Member = () => {
 
   function seeDoc(id) {
 
-    const content = (<Card>
-      <CardHeader><h1>ดูงาน</h1></CardHeader>
-      <CardBody>
-        <p>title : {User[id].name}</p>
-      </CardBody>
-    </Card>)
+    setIdDoc(id)
+    setName(User[id].name)
 
-    setSeeMoreContent(content)
-    setEditContent(null)
+    setEditShow(false)
+    setSeeMoreShow(true)
   }
 
-  function editDoc(id) {
+  const editDoc = (id) => {
 
-    let content = (<Card>
-      <CardHeader><h1>แก้ไข</h1></CardHeader>
-      <CardBody>
-        <FormGroup>
-          <p>ชื่อเรื่อง</p>
-          <Input type="textarea" onChange={e => setname(e.target.value)}
-            defaultValue={User[id].name}></Input>
+    setIdDoc(id)
+    setName(User[id].name)
+    setWriter(User[id].writer)
 
-          <p>ผู้เขียน</p>
-          {Object.keys(User[id].writer).map((id2) => {
-            return (
-              <Input type='text' defaultValue={User[id].writer[id2]}></Input>
-            );
-          })}
+    setSeeMoreShow(false)
+    setEditShow(true)
 
-          <p>ชื่อ journal</p>
-          <Input type="textarea" onChange={e => setjournal(e.target.value)}
-            defaultValue={User[id].journal}></Input>
+    // let content = (<Card>
+    //   <CardHeader><h1>แก้ไข</h1></CardHeader>
+    //   <CardBody>
+    //     <FormGroup>
+    //       <p>ชื่อเรื่อง{Name}</p>
+    //       <Input type="textarea" onChange={(e) => setName(e.target.value)}
+    //       ></Input>
 
-          <p>ปี</p>
-          <Input onChange={e => setyear(e.target.value)} defaultValue={User[id].year}></Input>
+    //       <p>ผู้เขียน</p>
+    //       {Object.keys(User[id].writer).map((id2) => {
+    //         return (
+    //           <Input type='text' defaultValue={User[id].writer[id2]}></Input>
+    //         );
+    //       })}
 
-          <p>quartile</p>
-          <select onChange={e => setquartile(e.target.value)}>
-            <option value="None">-- Select --</option>
-            <option value="Q1">Q1</option>
-            <option value="Q2">Q2</option>
-            <option value="Q3">Q3</option>
-            <option value="Q4">Q4</option>
-          </select>
+    //       <p>ชื่อ journal</p>
+    //       <Input type="textarea" onChange={e => setJournal(e.target.value)}
+    //         defaultValue={User[id].journal}></Input>
 
-          <p>impact factor</p>
-          <Input defaultValue={User[id].factor} onChange={e => setfactor(e.target.value)}></Input>
-        </FormGroup>
-        <button onClick={() => edit(id)}>แก้ไข</button>
-      </CardBody>
-    </Card>)
+    //       <p>ปี</p>
+    //       <Input onChange={e => setYear(e.target.value)} defaultValue={User[id].year}></Input>
 
-    setEditContent(content)
-    setSeeMoreContent(null)
+    //       <p>quartile</p>
+    //       <select onChange={e => setQuartile(e.target.value)}>
+    //         <option value="None">-- Select --</option>
+    //         <option value="Q1">Q1</option>
+    //         <option value="Q2">Q2</option>
+    //         <option value="Q3">Q3</option>
+    //         <option value="Q4">Q4</option>
+    //       </select>
+
+    //       <p>impact factor</p>
+    //       <Input defaultValue={User[id].factor} onChange={e => setFactor(e.target.value)}></Input>
+    //     </FormGroup>
+    //     <button onClick={() => editSubmit(id)}>แก้ไข</button>
+    //   </CardBody>
+    // </Card>)
   }
 
-  function edit(id) {
+  const updateData = (index,e) => {
+    // console.log('index: ' + index);
+    // console.log('property name: '+ e.target.value);
 
-    // const newData = {
-    //   name: '',
-    //   writer: writer,
-    //   journal: journal,
-    //   year: year,
-    //   quartile: quartile,
-    //   factor: factor
-    // }
+    let newArr=writer
+    newArr[index] = e
+  
+    setWriter(newArr);
+  }
+
+  const editSubmit = async () => {
+
+    const newData = {
+      name: name,
+      writer: writer,
+      journal: journal,
+      year: year,
+      quartile: quartile,
+      factor: factor
+    }
 
     const db = firebaseApp.firestore()
     const researchRef = db.collection('research')
 
-    console.log(name)
+    const res = await researchRef.doc(idDoc).update({
+      name: name,writer:writer
+    });
 
-    // await researchRef(id).update(newData)
+    alert(`แก้ไขสำเร็จ`)
+
+    setEditShow(false)
   }
 
   return (
@@ -281,15 +298,38 @@ const Member = () => {
               </CardBody>
             </Card> */}
 
-            {seeMoreContent}
-            {editContent}
+            {seeMoreShow ? (
+              <Card>
+                <CardHeader><h3>ดูงาน</h3></CardHeader>
+                <CardBody>
+                  <p>title : {name}</p>
+                </CardBody>
+              </Card>
+            ) : null}
+
+            {editShow ? (
+              <Card>
+                <CardHeader><h3>แก้ไข</h3></CardHeader>
+                <CardBody>
+                  <p>ชื่อเรื่อง</p>
+                  <Input type="textarea" value={name} onChange={(e) => setName(e.target.value)}></Input>
+                  <p>ผู้เขียน</p>
+                  {Object.keys(User[idDoc].writer).map((id2) => {
+                    return (
+                      <Input type='text' onChange={(e)=>updateData(id2,e.target.value)} defaultValue={User[idDoc].writer[id2]} ></Input>
+                    );
+                  })}
+                  <button onClick={() => editSubmit()}>แก้ไข</button>
+                </CardBody>
+              </Card>
+            ) : null}
 
           </Col>
 
         </Row>
 
-        {isOpen && <Popup
-          content={<>
+        {/* {isOpen && <Popup>
+          content={<div>
             <h5>เพิ่มโปรโมชั่น สำหรับ {CurrentFname}</h5>
             <label>รายละเอียดโปรชั่น</label>
             <Input type="text" onChange={e => setPromotionDetail(e.target.value)} />
@@ -298,19 +338,15 @@ const Member = () => {
             <Input type="text" onChange={e => setPromotionCode(e.target.value)} />
             <br />
             <label>วันหมดเขต</label>
-            <Input
-              type="date"
-              onChange={e => setPromotionExpire(e.target.value)}
-            />
+            <Input type="date" onChange={e => setPromotionExpire(e.target.value)} />
             <div style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center"
             }} >
               <button class="btn btn-info" onClick={AddPromotion}>ยืนยัน</button></div>
-          </>}
-          handleClose={togglePopup}
-        />}
+          </div>} handleClose={togglePopup}
+        </Popup>} */}
       </div>
     </div>
   );

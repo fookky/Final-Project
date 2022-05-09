@@ -20,7 +20,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/member",
+    path: "/manage",
     name: "จัดการงาน",
     icon: "nc-icon nc-user-run",
     component: member,
