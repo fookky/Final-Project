@@ -117,36 +117,31 @@ function Insert() {
 
     window.location.reload(false);
 
-    window.location.href="/admin/member";    
+    window.location.href="/admin/insert";
   }
 
   const Split = () => {
-    var subData = all.split(", ");
+    var subData = all.split(',');
     var writers = [];
     var text = "";
     // console.log(subData[1].length)
 
     for (let i = 0; i < subData.length; i++) {
-      if (subData[i].split(" ").length - 1 == 1) {
-        writers.push(subData[i]);
-      }
+      if ((subData[i].split(" ").length - 1) <= 2) { writers.push(subData[i]) }
+      if ((subData[i].split(" ").length - 1) > 2) { break; }
     }
     // console.log(writer.length)
 
     for (let i = 0; i < writers.length; i++) {
-      if (i == writers.length - 1) {
-        text = text + writers[i];
-      }
-      if (i < writers.length - 1) {
-        text = text + writers[i] + ", ";
-      }
+      if (i == writers.length - 1) { text = text + writers[i]; }
+      if (i < writers.length - 1) { text = text + writers[i] + ", "; }
     }
 
-    setwriter(writers);
-    setallWriter(text);
-    setname(subData[writers.length]);
-    setjournal(subData[writers.length + 1]);
-    setyear(subData[writers.length + 2]);
+    setwriter(writers)
+    setallWriter(text)
+    setname(subData[writers.length])
+    setjournal(subData[writers.length + 1])
+    setyear(subData[writers.length + 2])
 
     // console.log(writer)      // ทดสอบ print ข้อมูลใน writer
   };

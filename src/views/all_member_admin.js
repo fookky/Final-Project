@@ -41,15 +41,17 @@ const Member = () => {
   const [User, setUser] = useState({})
   const [Research, setResearch] = useState({})
 
-  const [name, setname] = useState('')
-  const [writer, setwriter] = useState([])
-  const [journal, setjournal] = useState('')
-  const [year, setyear] = useState('')
-  const [quartile, setquartile] = useState('')
-  const [factor, setfactor] = useState('')
+  const [name, setName] = useState('')
+  const [writer, setWriter] = useState([])
+  const [journal, setJournal] = useState('')
+  const [year, setYear] = useState('')
+  const [quartile, setQuartile] = useState('')
+  const [factor, setFactor] = useState('')
 
-  const [seeMoreContent, setSeeMoreContent] = useState(null);
-  const [editContent, setEditContent] = useState(null);
+  const [seeMoreShow, setSeeMoreShow] = useState(false)
+  const [editShow, setEditShow] = useState(false)
+
+  const [idDoc, setIdDoc] = useState('')
 
   const [CurrentUid, setCurrentUid] = useState('')
   const [CurrentFname, setCurrentFname] = useState('')
@@ -189,79 +191,44 @@ const Member = () => {
     // ลบ document
     documentRef.delete()
 
-    alert(`document ${id} has been deleted`)
+    alert(`Deleted`)
   }
 
   function seeDoc(id) {
 
-    const content = (<Card>
-      <CardHeader><h1>ดูงาน</h1></CardHeader>
-      <CardBody>
-        <p>title : {Research[id].name}</p>
-        <p>writer : </p>
-            {Object.keys(Research[id].writer).map((id2) => {
-              return (
-                <Row>{Research[id].writer[id2]}</Row>
-              );
-            })}
-            <p>journal : {Research[id].journal}</p>
-            <p>year : {Research[id].year}</p>
-            <p>quartile : {Research[id].quartile}</p>
-            <p>factor : {Research[id].factor}</p>
-      </CardBody>
-    </Card>)
+    setIdDoc(id)
 
-    setSeeMoreContent(content)
-    setEditContent(null)
+    setEditShow(false)
+    setSeeMoreShow(true)
     }
 
     function editDoc(id) {
 
-      let content = (<Card>
-        <CardHeader><h1>แก้ไข</h1></CardHeader>
-        <CardBody>
-          <FormGroup>
-            <p>ชื่อเรื่อง</p>
-            <Input type="textarea" onChange={e => setname(e.target.value)}
-              defaultValue={Research[id].name}></Input>
+      setIdDoc(id)
+      setName(Research[id].name)
+      setWriter(Research[id].writer)
+      setJournal(Research[id].journal)
+      setYear(Research[id].year)
+      setQuartile(Research[id].quartile)
+      setFactor(Research[id].factor)
   
-            <p>ผู้เขียน</p>
-            {Object.keys(Research[id].writer).map((id2) => {
-              return (
-                <Input type='text' defaultValue={Research[id].writer[id2]}></Input>
-              );
-            })}
-  
-            <p>ชื่อ journal</p>
-            <Input type="textarea" onChange={e => setjournal(e.target.value)}
-              defaultValue={Research[id].journal}></Input>
-  
-            <p>ปี</p>
-            <Input onChange={e => setyear(e.target.value)} defaultValue={Research[id].year}></Input>
-  
-            <p>quartile</p>
-            <select onChange={e => setquartile(e.target.value)}>
-              <option value="None">-- Select --</option>
-              <option value="Q1">Q1</option>
-              <option value="Q2">Q2</option>
-              <option value="Q3">Q3</option>
-              <option value="Q4">Q4</option>
-            </select>
-  
-            <p>impact factor</p>
-            <Input defaultValue={Research[id].factor} onChange={e => setfactor(e.target.value)}></Input>
-          </FormGroup>
-          <button onClick={() => edit(id)}>แก้ไข</button>
-        </CardBody>
-      </Card>)
-  
-      setEditContent(content)
-      setSeeMoreContent(null)
+      setSeeMoreShow(false)
+      setEditShow(true)
     }
-    function edit(id) {
+    const updateData = (index,e) => {
+      // console.log('index: ' + index);
+      // console.log('property name: '+ e.target.value);
+  
+      let newArr=writer
+      newArr[index] = e
+    
+      setWriter(newArr);
+    }
+    
+    const editSubmit = async () => {
 
       // const newData = {
-      //   name: '',
+      //   name: name,
       //   writer: writer,
       //   journal: journal,
       //   year: year,
@@ -272,9 +239,13 @@ const Member = () => {
       const db = firebaseApp.firestore()
       const researchRef = db.collection('research')
   
-      // console.log(name)
+      const res = await researchRef.doc(idDoc).update({
+        name:name,writer:writer,journal:journal,year:year,quartile:quartile,factor:factor
+      });
   
-      // await researchRef(id).update(newData)
+      alert(`แก้ไขสำเร็จ`)
+  
+      setEditShow(false)
     }
   return (
     <div
@@ -396,8 +367,59 @@ const Member = () => {
         </Card>
       </Col>
       <Col md='4'>
-      {seeMoreContent}
-            {editContent}
+      {seeMoreShow ? (
+              <Card>
+                <CardHeader><h3>see more</h3></CardHeader>
+                <CardBody>
+                  <p>title : {Research[idDoc].name}</p>
+                  <p>writer : </p>
+                  {Object.keys(Research[idDoc].writer).map((id2) => {
+                    return (
+                      <p>{Research[idDoc].writer[id2]}</p>
+                    );
+                  })}
+                  <p>journal : {Research[idDoc].journal}</p>
+                  <p>year : {Research[idDoc].year}</p>
+                  <p>quartile : {Research[idDoc].quartile}</p>
+                  <p>impact factor : {Research[idDoc].factor}</p>
+                </CardBody>
+              </Card>
+            ) : null}
+
+{editShow ? (
+              <Card>
+                <CardHeader><h3>edit</h3></CardHeader>
+                <CardBody>
+                  <p>title</p>
+                  <Input type="textarea" value={name} onChange={(e) => setName(e.target.value)}></Input>
+                  <p>writer</p>
+                  {Object.keys(Research[idDoc].writer).map((id2) => {
+                    return (
+                      <Input type='text' onChange={(e)=>updateData(id2,e.target.value)} defaultValue={writer[id2]} ></Input>
+                    );
+                  })}
+                  <p> journal</p>
+           <Input type="textarea" onChange={e => setJournal(e.target.value)}
+             defaultValue={journal}></Input>
+
+           <p>year</p>
+           <Input onChange={e => setYear(e.target.value)} defaultValue={year}></Input>
+
+           <p>quartile</p>
+           <select onChange={e => setQuartile(e.target.value)}>
+             <option value="None">-- Select --</option>
+             <option value="Q1">Q1</option>
+             <option value="Q2">Q2</option>
+             <option value="Q3">Q3</option>
+             <option value="Q4">Q4</option>
+           </select>
+
+           <p>impact factor</p>
+           <Input defaultValue={factor} onChange={e => setFactor(e.target.value)}></Input>
+                  <button onClick={() => editSubmit()}>edit</button>
+                </CardBody>
+              </Card>
+            ) : null}
       </Col>
     </div>
   );

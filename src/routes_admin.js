@@ -20,7 +20,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/member",
+    path: "/manage",
     name: "Research Management",
     icon: "nc-icon nc-paper" ,
     component: member,
