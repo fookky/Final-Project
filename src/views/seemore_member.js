@@ -251,7 +251,7 @@ function Seemore() {
                 }}
                 className="content"
               >
-                <h3>Seemore</h3>
+                <h3>Seemore </h3>
               </CardTitle>
               <Row>
                 <Col md="12">
