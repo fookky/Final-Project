@@ -200,6 +200,7 @@ function Dashboard() {
 											<td><Button class="btn22 default" color="warning" value={year} onClick={e => setYear("")}> clear</Button></td>
 											<td><Button class="btn22 default" color="warning" value={quartile} onClick={e => setQuartile("")}> clear</Button></td>
 										</tr> */}
+										
 										<tr>
 											<td><Button outline class="btn btn" color="primary" value={year} onClick={e => setYear("2020")}>2020</Button></td>
 											<td><Button outline class="btn btn" color="warning" value={quartile} onClick={e => setQuartile("Q1")}>Q1</Button></td>
