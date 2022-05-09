@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import firebaseApp from "../firebase.js";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "components/Auth/Auth.js";
+import Insertmenu from "views/insertmenu.jsx";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
@@ -20,6 +21,7 @@ import {
   InputGroup,
   InputGroupText,
   InputGroupAddon,
+  Table,
 } from "reactstrap";
 
 // core components
@@ -28,6 +30,8 @@ import {
   dashboardEmailStatisticsChart,
   dashboardNASDAQChart,
 } from "variables/charts.js";
+
+export const AppContext = React.createContext();
 
 function Menu() {
   // ประกาศตัวแปร state
@@ -38,530 +42,341 @@ function Menu() {
   const [cate3, setCate3] = useState("");
   const [cate4, setCate4] = useState("");
   const [cate5, setCate5] = useState("");
+
   const [search, setSearch] = useState("");
+
+  const [research, setResearch] = useState([]);
+  const [title, setTtile] = useState("");
+  const [writers, setWriters] = useState([]);
+  const [journal, setJounal] = useState("");
+  const [year, setYear] = useState("");
+  const [quartile, setQuartile] = useState("");
+  const [dropdown, setDropdown] = useState("title");
+  const [filter, setFilter] = useState({});
 
   // ประกาศตัวแปรเพื่ออ้างอิง user collection
   const db = firebaseApp.firestore();
   const Collection = db.collection("Food2");
-  let s = "BLsearchkey." + search;
-  let c1 = "BLsearchkey." + cate;
-  let c2 = "BLsearchkey." + cate2;
-  let c3 = "BLsearchkey." + cate3;
-  let c4 = "BLsearchkey." + cate4;
-  let c5 = "BLsearchkey." + cate5;
-  let catecheck = "BLsearchkey.@";
-  //แก้บัค
-  if (search == "" || search == null) {
-    s = "BLsearchkey.@";
-  }
-  if (cate == "") {
-    c1 = "BLsearchkey.@";
-  }
-  if (cate2 == "") {
-    c2 = "BLsearchkey.@";
-  }
-  if (cate3 == "") {
-    c3 = "BLsearchkey.@";
-  }
-  if (cate4 == "") {
-    c4 = "BLsearchkey.@";
-  }
-  if (cate5 == "") {
-    c5 = "BLsearchkey.@";
-  }
-  if (
-    s == "BLsearchkey.@" &&
-    c1 == "BLsearchkey.@" &&
-    c2 == "BLsearchkey.@" &&
-    c3 == "BLsearchkey.@" &&
-    c4 == "BLsearchkey.@" &&
-    c5 == "BLsearchkey.@"
-  ) {
-    catecheck = "BLsearchkey.Close";
-  } else {
-    catecheck = "BLsearchkey.@";
-  }
-  const CateCollection = Collection.where(s, "==", true)
-    .where(c1, "==", true)
-    .where(c2, "==", true)
-    .where(c3, "==", true)
-    .where(c4, "==", true)
-    .where(c5, "==", true)
-    .where(catecheck, "==", true);
-  //const SearchCollection = CateCollection.orderBy("name").startAt(search).endAt(search + "\uf8ff")
+  const userCollection = db.collection("Food2");
+
+  const researchRef = db.collection("research");
 
   useEffect(() => {
     // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
-    const unsubscribe = CateCollection.onSnapshot((ss) => {
+    const unsubscribe = researchRef.onSnapshot((ss) => {
       // ตัวแปร local
-      const Food = {};
+      const research = [];
 
       ss.forEach((document) => {
         // manipulate ตัวแปร local
-        Food[document.id] = document.data();
+        research.push(document.data());
       });
 
       // เปลี่ยนค่าตัวแปร state
-      setFood(Food);
+      setResearch(research);
+      // console.log(research)
     });
 
     return () => {
       // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
       unsubscribe();
     };
-  }, [s, c1, c2, c3, c4, c5]); //เมื่อค่า cate เปลี่ยนจะทำการอัพเดท useEffect ใหม่ #ไอห่า หาเป็นวันกว่าจะได้
-
-  useEffect(() => {
-    //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
-    firebaseApp.auth().onAuthStateChanged((user) => {
-      const db = firebaseApp.firestore();
-      const FoodCollection = db.collection("Food2");
-
-      // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
-      const unsubscribe = FoodCollection.onSnapshot((ss) => {
-        // ตัวแปร local
-        const Food = {};
-        const FoodName = [];
-
-        ss.forEach((document) => {
-          // manipulate ตัวแปร local
-          Food[document.id] = document.data();
-          FoodName.push(Food[document.id].name);
-        });
-
-        // เปลี่ยนค่าตัวแปร state
-        setFoodName(FoodName);
-        console.log(FoodName);
-      });
-
-      return () => {
-        // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
-        unsubscribe();
-      };
-    });
-  }, [s, c1, c2, c3, c4, c5]);
+  }, []); //เมื่อค่า cate เปลี่ยนจะทำการอัพเดท useEffect ใหม่ #ไอห่า หาเป็นวันกว่าจะได้
 
   function clearall() {
     setSearch("");
-    setCate("");
-    setCate2("");
-    setCate3("");
-    setCate4("");
-    setCate5("");
+    setDropdown("");
+    setYear("");
+    setQuartile("");
   }
+
+  const goToSeemore = () => {
+    window.location.href = "/member/seemore";
+  };
+
+  function find() {
+    const researchAll = research;
+    let filter = [];
+
+    if (search != "") {
+      if (dropdown == "title") {
+        for (let i = 0; i < researchAll.length; i++) {
+          if (
+            researchAll[i].name.toLowerCase().includes(search.toLowerCase())
+          ) {
+            filter.push(researchAll[i]);
+          }
+        }
+      }
+
+      if (dropdown == "researcher") {
+        for (let i = 0; i < researchAll.length; i++) {
+          let count = 0;
+          for (let j = 0; j < researchAll[i].writer.length; j++) {
+            if (
+              researchAll[i].writer[j]
+                .toLowerCase()
+                .includes(search.toLowerCase())
+            ) {
+              count++;
+            }
+          }
+          if (count > 0) {
+            filter.push(researchAll[i]);
+          }
+        }
+      }
+
+      if (dropdown == "journal") {
+        for (let i = 0; i < researchAll.length; i++) {
+          if (
+            researchAll[i].journal.toLowerCase().includes(search.toLowerCase())
+          ) {
+            filter.push(researchAll[i]);
+          }
+        }
+      }
+    }
+
+    if (search == "") {
+      filter = researchAll;
+    }
+
+    if (year != "") {
+      let yearFilter = [];
+      for (let i = 0; i < filter.length; i++) {
+        if (filter[i].year == year) {
+          yearFilter.push(filter[i]);
+        }
+      }
+      filter = yearFilter;
+    }
+
+    if (quartile != "") {
+      let quartileFilter = [];
+      for (let i = 0; i < filter.length; i++) {
+        if (filter[i].quartile == quartile) {
+          quartileFilter.push(filter[i]);
+        }
+      }
+      filter = quartileFilter;
+    }
+
+    setFilter(filter);
+    // console.log(filter[1].writer)
+    // console.log(researchAll.name)
+    // console.log(dropdown)
+    // console.log(search)
+  }
+
   const { currentUser } = useContext(AuthContext);
 
-  if (!currentUser) {
-    return <Redirect to="/general/menu" />;
+  // if (currentUser) { return <Redirect to="/member/menu" />; }
+
+  function deleteDocument(id) {
+    // ประกาศตัวแปรเพื่ออ้างอิงไปยัง document ที่จะทำการลบ
+    const documentRef = researchRef.doc(id);
+    // ลบ document
+    documentRef.delete();
+
+    alert(`document ${id} has been deleted`);
   }
+
   return (
-    <>
-      <div className="content">
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+      className="content"
+    >
+      <Col md="12">
         <Row>
-          <Col md="4">
-            <form>
-              <InputGroup>
-                <Autocomplete
-                  id="ค้นหาเมนูของคุณ"
-                  options={FoodName}
-                  onInputChange={(event, newInputValue) => {
-                    setSearch(newInputValue);
-                  }}
-                  style={{ width: 500 }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="ค้นหาเมนูของคุณ"
-                      margin="normal"
-                    />
-                  )}
-                />
-              </InputGroup>
-            </form>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col md="6">
+          <Col md="3">
             <Card className="card-user">
-              <CardHeader>
-                <CardTitle tag="h5">
-                  เลือกเมนูอาหารตามหมวดหมู่{" "}
-                  <button class="btn22 default pull-right" onClick={clearall}>
-                    {" "}
-                    ล้างหมวดหมู่ที่เลือกทั้งหมด
-                  </button>
-                </CardTitle>
-              </CardHeader>
               <CardBody>
-                <table class="table table-borderless">
-                  <thead class="thead-dark">
+                <h5>Select Filter</h5>
+                <Form>
+                  <FormGroup>
+                    <Input
+                      onChange={(e) => setSearch(e.target.value)}
+                      placeholder="Author, Title, Journal"
+                      name="search"
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Input
+                      onChange={(e) => setDropdown(e.target.value)}
+                      name="select"
+                      type="select"
+                    >
+                      <option value="">Select</option>
+                      <option value="researcher">Author</option>
+                      <option value="title">Title</option>
+                      <option value="journal">Journal</option>
+                    </Input>
+                  </FormGroup>
+                </Form>
+                <Table borderless className="admin-insert">
+                  <thead>
                     <tr>
-                      <th scope="col">
-                        {" "}
-                        <img
-                          alt="..."
-                          src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620029352/Food/meat_cu5jle.png"
-                          className="photo"
-                        />{" "}
-                        วัตถุดิบ {cate}
-                      </th>
-                      <th scope="col">
-                        <img
-                          alt="..."
-                          src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620030561/Food/taste_vmf85w.png"
-                          className="photo"
-                        />{" "}
-                        รสชาติ {cate2}
-                      </th>
-                      <th scope="col">
-                        <img
-                          alt="..."
-                          src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620030614/Food/boiling_e9dr1o.png"
-                          className="photo"
-                        />{" "}
-                        วิธีการ {cate3}
-                      </th>
-
-                      <th scope="col">
-                        <img
-                          alt="..."
-                          src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620030640/Food/flag_zltm9h.png"
-                          className="photo"
-                        />{" "}
-                        สัญชาติ {cate5}
-                      </th>
+                      <th> Year {year}</th>
+                      <th> Quartile {quartile}</th>
                     </tr>
                   </thead>
-
                   <tbody>
-                    <tr>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate}
-                          onClick={(e) => setCate("")}
-                        >
-                          {" "}
-                          clear
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate2}
-                          onClick={(e) => setCate2("")}
-                        >
-                          {" "}
-                          clear
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate3}
-                          onClick={(e) => setCate3("")}
-                        >
-                          {" "}
-                          clear{" "}
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate5}
-                          onClick={(e) => setCate5("")}
-                        >
-                          {" "}
-                          clear
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate}
-                          onClick={(e) => setCate("หมู")}
-                        >
-                          หมู{" "}
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate2}
-                          onClick={(e) => setCate2("เปรี้ยว")}
-                        >
-                          เปรี้ยว{" "}
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate3}
-                          onClick={(e) => setCate3("ต้ม")}
-                        >
-                          {" "}
-                          ต้ม{" "}
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate5}
-                          onClick={(e) => setCate5("ไทย-กลาง")}
-                        >
-                          {" "}
-                          ไทย-กลาง
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate}
-                          onClick={(e) => setCate("ไก่")}
-                        >
-                          ไก่
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate2}
-                          onClick={(e) => setCate2("หวาน")}
-                        >
-                          หวาน
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate3}
-                          onClick={(e) => setCate3("ผัด")}
-                        >
-                          ผัด
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate5}
-                          onClick={(e) => setCate5("ไทย-เหนือ")}
-                        >
-                          ไทย-เหนือ
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate}
-                          onClick={(e) => setCate("เนื้อวัว")}
-                        >
-                          เนื้อวัว{" "}
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate2}
-                          onClick={(e) => setCate2("เค็ม")}
-                        >
-                          เค็ม
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate3}
-                          onClick={(e) => setCate3("ตุ๋น")}
-                        >
-                          ตุ๋น
-                        </button>
-                      </td>
+                    {/* <tr>
+											<td><Button class="btn22 default" color="warning" value={year} onClick={e => setYear("")}> clear</Button></td>
+											<td><Button class="btn22 default" color="warning" value={quartile} onClick={e => setQuartile("")}> clear</Button></td>
+										</tr> */}
 
+                    <tr>
                       <td>
-                        <button
-                          class="btn22 default"
-                          value={cate4}
-                          onClick={(e) => setCate5("ไทย-อีสาน")}
+                        <Button
+                          outline
+                          class="btn btn"
+                          color="primary"
+                          value={year}
+                          onClick={(e) => setYear("2020")}
                         >
-                          ไทย-อีสาน
-                        </button>
+                          2020
+                        </Button>
+                      </td>
+                      <td>
+                        <Button
+                          outline
+                          class="btn btn"
+                          color="warning"
+                          value={quartile}
+                          onClick={(e) => setQuartile("Q1")}
+                        >
+                          Q1
+                        </Button>
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <button
-                          class="btn22 default"
-                          value={cate}
-                          onClick={(e) => setCate("ปลา")}
+                        <Button
+                          outline
+                          class="btn btn"
+                          color="primary"
+                          value={year}
+                          onClick={(e) => setYear("2021")}
                         >
-                          ปลา
-                        </button>
+                          2021
+                        </Button>
                       </td>
                       <td>
-                        <button
-                          class="btn22 default"
-                          value={cate2}
-                          onClick={(e) => setCate2("เผ็ด")}
+                        <Button
+                          outline
+                          class="btn btn"
+                          color="warning"
+                          value={quartile}
+                          onClick={(e) => setQuartile("Q2")}
                         >
-                          เผ็ด
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate3}
-                          onClick={(e) => setCate3("ปิ้ง")}
-                        >
-                          ปิ้ง/ย่าง
-                        </button>
-                      </td>
-
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate5}
-                          onClick={(e) => setCate5("ไทย-ใต้")}
-                        >
-                          ไทย-ใต้
-                        </button>
+                          Q2
+                        </Button>
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <button
-                          class="btn22 default"
-                          value={cate}
-                          onClick={(e) => setCate("กุ้ง")}
+                        <Button
+                          outline
+                          class="btn btn"
+                          color="primary"
+                          value={year}
+                          onClick={(e) => setYear("2022")}
                         >
-                          กุ้ง
-                        </button>
+                          2022
+                        </Button>
                       </td>
                       <td>
-                        <button
-                          class="btn22 default"
-                          value={cate2}
-                          onClick={(e) => setCate2("จืด")}
+                        <Button
+                          outline
+                          class="btn btn"
+                          color="warning"
+                          value={quartile}
+                          onClick={(e) => setQuartile("Q3")}
                         >
-                          จืด
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate3}
-                          onClick={(e) => setCate3("ทอด")}
-                        >
-                          ทอด
-                        </button>
-                      </td>
-
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate5}
-                          onClick={(e) => setCate5("ต่างประเทศ")}
-                        >
-                          ต่างประเทศ
-                        </button>
+                          Q3
+                        </Button>
                       </td>
                     </tr>
                     <tr>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate}
-                          onClick={(e) => setCate("หมึก")}
-                        >
-                          หมึก
-                        </button>
-                      </td>
                       <td></td>
                       <td>
-                        <button
-                          class="btn22 default"
-                          value={cate3}
-                          onClick={(e) => setCate3("นึ่ง")}
+                        <Button
+                          outline
+                          class="btn btn"
+                          color="warning"
+                          value={quartile}
+                          onClick={(e) => setQuartile("Q4")}
                         >
-                          นึ่ง
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate}
-                          onClick={(e) => setCate("ไข่")}
-                        >
-                          ไข่
-                        </button>
-                      </td>
-                      <td></td>
-                      <td>
-                        <button
-                          class="btn22 default"
-                          value={cate3}
-                          onClick={(e) => setCate3("ไมโครเวฟ")}
-                        >
-                          ไมโครเวฟ
-                        </button>
+                          Q4
+                        </Button>
                       </td>
                     </tr>
                   </tbody>
-                </table>
+                </Table>
+                <div className="button-container">
+                  <Button onClick={clearall} class="btn btn" color="info">
+                    Clear All
+                  </Button>
+                  <Button onClick={() => find()} class="btn btn" color="danger">
+                    Search
+                  </Button>
+                </div>
               </CardBody>
             </Card>
           </Col>
-
-          <Col md="6">
-            <Card className="ex11">
-              <CardHeader>
-                <CardTitle tag="h5">เมนู</CardTitle>
-              </CardHeader>
+          <Col md="9">
+            <Card className="card-user">
               <CardBody>
-                <Form>
-                  <Row>
-                    {Object.keys(Food).map((id) => {
+                <CardTitle className="content">
+                  <h3>Research</h3>
+                </CardTitle>
+                <Col md="12">
+                  <Row className="ex1">
+                    {Object.keys(filter).map((id) => {
                       return (
-                        <Col md="4">
+                        <Col md="12">
                           <div key={id}>
-                            <Card>
-                              <Card.Img
-                                src={Food[id].image}
-                                style={{ width: "250px", height: "120px" }}
-                              />
-
-                              <Card.Title
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-
-                                  alignItems: "center",
-                                }}
-                                class="namefood"
-                              >
-                                {Food[id].name}
-                              </Card.Title>
+                            <Card className="card-research">
+                              {Object.keys(filter[id].writer).map((id2) => {
+                                return (
+                                  <p className="ml-2">
+                                    Author : {filter[id].writer[id2]}
+                                  </p>
+                                );
+                              })}
+                              <p className="ml-2">Title : {filter[id].name}</p>
+                              <p className="ml-2">
+                                Journal : {filter[id].journal}
+                              </p>
+                              {/* <p className='ml-2'>Year : {filter[id].year}</p>
+														<p className='ml-2'>Quartile : {filter[id].quartile}</p>
+														<p className='ml-2'>Impact Factor : {filter[id].factor}</p> */}
+                              <div className="others">
+                                <Link
+                                  className="others"
+                                  onClick={() => goToSeemore()}
+                                >
+                                  ดูเพิ่มเติม
+                                </Link>
+                              </div>
                             </Card>
                           </div>
                         </Col>
                       );
                     })}
                   </Row>
-                </Form>
+                </Col>
               </CardBody>
             </Card>
           </Col>
         </Row>
-      </div>
-    </>
+      </Col>
+    </div>
   );
 }
 

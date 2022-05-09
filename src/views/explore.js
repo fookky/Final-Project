@@ -77,8 +77,13 @@ function Dashboard() {
 
 	function clearall() {
 		setSearch("")
+		setDropdown("")
 		setYear("")
 		setQuartile("")
+	}
+
+	const goToSeemore = () => {
+		window.location.href = "/admin/seemore";
 	}
 
 	function find() {
@@ -142,7 +147,7 @@ function Dashboard() {
 
 	const { currentUser } = useContext(AuthContext);
 
-	if (currentUser) { return <Redirect to="/member/menu" />; }
+	// if (currentUser) { return <Redirect to="/member/menu" />; }
 
 	function deleteDocument(id) {
 		// ประกาศตัวแปรเพื่ออ้างอิงไปยัง document ที่จะทำการลบ
@@ -200,7 +205,7 @@ function Dashboard() {
 											<td><Button class="btn22 default" color="warning" value={year} onClick={e => setYear("")}> clear</Button></td>
 											<td><Button class="btn22 default" color="warning" value={quartile} onClick={e => setQuartile("")}> clear</Button></td>
 										</tr> */}
-										
+
 										<tr>
 											<td><Button outline class="btn btn" color="primary" value={year} onClick={e => setYear("2020")}>2020</Button></td>
 											<td><Button outline class="btn btn" color="warning" value={quartile} onClick={e => setQuartile("Q1")}>Q1</Button></td>
@@ -260,7 +265,10 @@ function Dashboard() {
 														<p className='ml-2'>Quartile : {filter[id].quartile}</p>
 														<p className='ml-2'>Impact Factor : {filter[id].factor}</p> */}
 														<div className="others">
-															<Link className="others">ดูเพิ่มเติม</Link>
+															<Link
+																className="others"
+																onClick={() => goToSeemore()}>ดูเพิ่มเติม
+															</Link>
 														</div>
 													</Card>
 												</div>

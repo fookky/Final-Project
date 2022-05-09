@@ -67,7 +67,7 @@ class Sidebar extends React.Component {
             </div>
 
           </a>
-          <Link to="/member/home">
+          <Link to="/">
             <a
               href=""
               className="simple-text logo-normal"

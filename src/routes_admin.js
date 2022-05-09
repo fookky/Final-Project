@@ -2,10 +2,12 @@ import menu from "views/admin_menu.jsx";
 import random from "views/tong.js";
 import member from "views/member_admin.js";
 import explore from "views/explore.js";
+import insert from "views/insertmenu.jsx";
+import Seemore from "views/seemore_admin.js";
 
 var routes = [
   {
-    path: "/statistics",
+    path: "/stat",
     name: "Research Statistics",
     icon: "nc-icon nc-chart-bar-32",
     component: random,
@@ -19,10 +21,22 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/member",
+    path: "/manage",
     name: "Research Management",
     icon: "nc-icon nc-paper" ,
     component: member,
+    layout: "/admin",
+  },
+  {
+    path: "/insert",
+    name: "Research Insertion",
+    icon: "nc-icon nc-paper" ,
+    component: insert,
+    layout: "/admin",
+  },
+  {
+    path: "/seemore",
+    component: Seemore,
     layout: "/admin",
   },
 ];
