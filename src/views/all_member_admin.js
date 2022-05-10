@@ -11,7 +11,8 @@ import Popup from "views/Popup.js";
 import {
   Button, Card, CardHeader, CardBody, CardFooter,
   CardTitle, FormGroup, Form, Input, Row,
-  Col, Table
+  Col, Table, Modal, ModalHeader, ModalBody,
+  ModalFooter
 } from "reactstrap";
 import Carousel from 'react-bootstrap/Carousel'
 import { event } from 'firebase-functions/lib/providers/analytics';
@@ -24,6 +25,7 @@ const Member = () => {
 
   const [seeMoreShow, setSeeMoreShow] = useState(false)
   const [editShow, setEditShow] = useState(false)
+  const [popupOpen, setPopupOpen] = useState(false)
 
   const [idDoc, setIdDoc] = useState('')
 
@@ -33,12 +35,6 @@ const Member = () => {
   const [year, setYear] = useState('')
   const [quartile, setQuartile] = useState('')
   const [factor, setFactor] = useState('')
-
-  const togglePopup = (Uid, FName) => {
-    setIsOpen(!isOpen);
-    setCurrentUid(Uid)
-    setCurrentFname(FName)
-  }
 
   const [User, setUser] = useState({})
 
@@ -83,6 +79,13 @@ const Member = () => {
   const AllUid = [];
 
   // function GetAllUid(e) { AllUid.push(e) }
+
+  const togglePopup = (id) => {
+    setIsOpen(true);
+    setIdDoc(id)
+    // setCurrentUid(Uid)
+    // setCurrentFname(FName)
+  }
 
   async function AddPromotion() {
     const Uid = [];
@@ -129,16 +132,21 @@ const Member = () => {
 
   // if (currentUser) { return <Redirect to="/member/profile" />; }
 
-  function deleteDoc(id) {
+  function popupShow(id) {
+    setIdDoc(id)
+    setPopupOpen(true)
+  }
+
+  function deleteDoc() {
     const db = firebaseApp.firestore()
     const researchRef = db.collection('research')
 
     // ประกาศตัวแปรเพื่ออ้างอิงไปยัง document ที่จะทำการลบ
-    const documentRef = researchRef.doc(id)
+    const documentRef = researchRef.doc(idDoc)
     // ลบ document
     documentRef.delete()
 
-    alert(`document ${id} has been deleted`)
+    alert(`Deleted`)
   }
 
   function seeDoc(id) {
@@ -198,13 +206,13 @@ const Member = () => {
     // </Card>)
   }
 
-  const updateData = (index,e) => {
+  const updateData = (index, e) => {
     // console.log('index: ' + index);
     // console.log('property name: '+ e.target.value);
 
-    let newArr=writer
+    let newArr = writer
     newArr[index] = e
-  
+
     setWriter(newArr);
   }
 
@@ -223,7 +231,7 @@ const Member = () => {
     const researchRef = db.collection('research')
 
     const res = await researchRef.doc(idDoc).update({
-      name: name,writer:writer
+      name: name, writer: writer
     });
 
     alert(`แก้ไขสำเร็จ`)
@@ -259,7 +267,7 @@ const Member = () => {
                   onClick={e => togglePopup(e.target.value, User[id].FirstName)}>แก้ไข</button>*/}
                       <button onClick={() => seeDoc(id)}>ดูงาน</button>
                       <button onClick={() => editDoc(id)} class="mx-1">แก้ไข</button>
-                      <button onClick={() => deleteDoc(id)}>ลบ</button></p>&nbsp;&nbsp;
+                      <button onClick={() => popupShow(id)}>ลบ</button></p>&nbsp;&nbsp;
                   </Col>
                 </Row>
               })}
@@ -316,7 +324,7 @@ const Member = () => {
                   <p>ผู้เขียน</p>
                   {Object.keys(User[idDoc].writer).map((id2) => {
                     return (
-                      <Input type='text' onChange={(e)=>updateData(id2,e.target.value)} defaultValue={User[idDoc].writer[id2]} ></Input>
+                      <Input type='text' onChange={(e) => updateData(id2, e.target.value)} defaultValue={User[idDoc].writer[id2]} ></Input>
                     );
                   })}
                   <button onClick={() => editSubmit()}>แก้ไข</button>
@@ -328,7 +336,18 @@ const Member = () => {
 
         </Row>
 
-        {/* {isOpen && <Popup>
+        <Modal isOpen={popupOpen} size="lg">
+        <ModalHeader >Design your Popup</ModalHeader>
+        <ModalBody>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </ModalBody>
+        <ModalFooter>
+          <button color="primary" >Done</button>
+          <button color="secondary" onClick={e=>setPopupOpen(false)}>Cancel</button>
+        </ModalFooter>
+      </Modal>
+
+        {/*popupOpen && <Popup
           content={<div>
             <h5>เพิ่มโปรโมชั่น สำหรับ {CurrentFname}</h5>
             <label>รายละเอียดโปรชั่น</label>
@@ -345,8 +364,9 @@ const Member = () => {
               alignItems: "center"
             }} >
               <button class="btn btn-info" onClick={AddPromotion}>ยืนยัน</button></div>
-          </div>} handleClose={togglePopup}
-        </Popup>} */}
+          </div>} handleClose={e => { setPopupOpen(false) }}>
+          </Popup>*/}
+
       </div>
     </div>
   );
