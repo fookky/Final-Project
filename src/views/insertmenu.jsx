@@ -101,23 +101,26 @@ function Insert() {
   const researchCollection = db.collection("research");
 
   async function insertDocument() {
-    // insert และคืน document reference
-    const documentRef = await researchCollection.add({
-      writer,
-      name,
-      journal,
-      year,
-      quartile,
-      factor,
-    });
+    if (name !== '' && journal !== '' && year !== '' && factor !== '') {
+      // insert และคืน document reference
+      const documentRef = await researchCollection.add({
+        writer,
+        name,
+        journal,
+        year,
+        quartile,
+        factor,
+      });
 
-    // ใช้ document reference เข้าถึงค่า document id
-    // alert(`New document has been inserted as ${documentRef.id}`);
-    alert(`Successful`);
+      // ใช้ document reference เข้าถึงค่า document id
+      // alert(`New document has been inserted as ${documentRef.id}`);
+      alert(`Successful`);
 
-    window.location.reload(false);
+      window.location.reload(false);
 
-    window.location.href="/admin/insert";
+      window.location.href = "/admin/insert";
+    }
+    else { alert(`please fill in the blank`); }
   }
 
   const Split = () => {

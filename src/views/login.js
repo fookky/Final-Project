@@ -54,8 +54,9 @@ const LogIn = () => {
       alert(error);
     }
   }
-  const forgotPassword = (Email) => {
 
+  const forgotPassword = (Email) => {
+    
     firebaseApp.auth().sendPasswordResetEmail(Email)
       .then(function (user) {
         alert('Please check your email...')
@@ -65,6 +66,7 @@ const LogIn = () => {
   }
 
   const { currentUser } = useContext(AuthContext);
+
   if (currentUser) {
     return <Redirect to="/member/profile" />;
   }
