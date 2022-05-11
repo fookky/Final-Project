@@ -1,3 +1,4 @@
+
 import menu from "views/admin_menu.jsx";
 import random from "views/tong.js";
 import member from "views/member_admin.js";
@@ -23,21 +24,21 @@ var routes = [
   {
     path: "/manage",
     name: "Research Management",
-    icon: "nc-icon nc-paper" ,
+    icon: "nc-icon nc-paper",
     component: member,
     layout: "/admin",
   },
   {
     path: "/insert",
     name: "Research Insertion",
-    icon: "nc-icon nc-paper" ,
+    icon: "nc-icon nc-paper",
     component: insert,
     layout: "/admin",
-  },
-  {
-    path: "/seemore",
-    component: Seemore,
-    layout: "/admin",
-  },
+  }
+  // {
+  //   path: "/seemore",
+  //   component: Seemore,
+  //   layout: "/admin",
+  // },
 ];
 export default routes;

@@ -1,3 +1,4 @@
+
 import menu from "views/menu_member.jsx";
 import list from "views/list_member.js";
 import random from "views/random_member.js";
@@ -36,11 +37,12 @@ var routes = [
     icon: "nc-icon nc-circle-10",
     component: profile,
     layout: "/member",
-  },
-  {
-    path: "/seemore",
-    component: Seemore,
-    layout: "/member",
-  },
+  }
+  // {
+  //   path: "/seemore",
+  //   component: Seemore,
+  //   layout: "/member",
+  // },
 ];
+
 export default routes;

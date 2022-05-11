@@ -1,23 +1,13 @@
+
 import React, { useState, useEffect, useContext } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import Display from "components/Display.jsx";
 import { AppContext } from "views/admin_menu.jsx";
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  Row,
-  FormGroup,
-  Form,
-  Input,
-  Col,
-  DropdownMenu,
-  DropdownItem,
-  Button,
-  Select,
+  Card, CardHeader, CardBody, CardFooter, CardTitle,
+  Row, FormGroup, Form, Input, Col,
+  DropdownMenu, DropdownItem, Button, Select
 } from "reactstrap";
 
 // เรียกใช้ module
@@ -175,26 +165,14 @@ function Insert() {
   //   });
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      className="content"
-    >
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
+
       <Col md="7">
         <Card className="card-user">
           <CardBody>
             <Form>
-              <CardTitle
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                className="content"
-              >
+              <CardTitle style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                className="content">
                 <h3></h3>
               </CardTitle>
               <Row>
@@ -202,19 +180,10 @@ function Insert() {
                   <FormGroup>
                     <label>Step 1 Enter all the information.</label>
                     <p>
-                      Where Format is as follows: Name1 Surname1, Name2
-                      Surname2, Title, Journal, Year
+                      Where Format is as follows: Name1 Surname1, Name2 Surname2, Title, Journal, Year
                     </p>
-                    <Input
-                      type="textarea"
-                      onChange={(e) => setall(e.target.value)}
-                    ></Input>
-                    <button
-                      type="button"
-                      right
-                      class="btn btn-outline-danger"
-                      onClick={() => Split()}
-                    >
+                    <Input type="textarea" onChange={(e) => setall(e.target.value)}></Input>
+                    <button type="button" right class="btn btn-outline-danger" onClick={() => Split()}>
                       Sorted by field
                     </button>
                   </FormGroup>
@@ -240,37 +209,22 @@ function Insert() {
                     })}
 
                     <p>Title</p>
-                    <Input
-                      type="textarea"
-                      onChange={(e) => setname(e.target.value)}
-                      value={name}
-                    ></Input>
+                    <Input type="textarea" onChange={(e) => setname(e.target.value)} value={name}></Input>
 
                     <br></br>
 
                     <p>Journal</p>
-                    <Input
-                      onChange={(e) => setjournal(e.target.value)}
-                      value={journal}
-                    ></Input>
+                    <Input onChange={(e) => setjournal(e.target.value)} value={journal}></Input>
 
                     <br></br>
 
                     <p>Year</p>
-                    <Input
-                      onChange={(e) => setyear(e.target.value)}
-                      value={year}
-                    ></Input>
+                    <Input onChange={(e) => setyear(e.target.value)} value={year}></Input>
 
                     <br></br>
 
                     <p>Quartile</p>
-                    <Input
-                      bsSize=""
-                      type="select"
-                      id="ddlViewBy"
-                      onChange={(e) => setquartile(e.target.value)}
-                    >
+                    <Input bsSize="" type="select" id="ddlViewBy" onChange={(e) => setquartile(e.target.value)}>
                       <option value="None">-- Select --</option>
                       <option value="Q1">Q1</option>
                       <option value="Q2">Q2</option>
@@ -293,11 +247,7 @@ function Insert() {
 
               <Row>
                 <div className="update ml-auto mr-auto">
-                  <Button
-                    classname="btn btn-"
-                    onClick={insertDocument}
-                    color="danger"
-                  >
+                  <Button classname="btn btn-" onClick={insertDocument} color="danger">
                     Save
                   </Button>
                 </div>

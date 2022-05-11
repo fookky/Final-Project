@@ -92,9 +92,7 @@ function Dashboard() {
     setQuartile("")
   }
 
-  const goToSeemore = () => {
-    window.location.href = "/admin/seemore";
-  }
+  const goToSeemore = () => { window.location.href = "/admin/seemore"; }
 
   function find() {
     const researchAll = research
@@ -181,13 +179,7 @@ function Dashboard() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-      className="content"
-    >
+    <div style={{ display: "flex", justifyContent: "center" }} className="content">
       <Col md="12">
         <Row>
 
@@ -197,18 +189,12 @@ function Dashboard() {
                 <h5>Select Filter</h5>
                 <Form id="formFind">
                   <FormGroup>
-                    <Input
-                      onChange={(e) => setSearch(e.target.value)}
-                      placeholder="Author, Title, Journal"
-                      name="search"
-                    />
+                    <Input onChange={(e) => setSearch(e.target.value)}
+                      placeholder="Author, Title, Journal" name="search"></Input>
                   </FormGroup>
                   <FormGroup>
-                    <Input
-                      onChange={(e) => setDropdown(e.target.value)}
-                      name="select"
-                      type="select"
-                    >
+                    <Input onChange={(e) => setDropdown(e.target.value)}
+                      name="select" type="select">
                       <option value="">Select</option>
                       <option value="researcher">Author</option>
                       <option value="title">Title</option>
@@ -248,18 +234,10 @@ function Dashboard() {
                   </tbody>
                 </Table>
                 <div className="button-container">
-                  <Button
-                    onClick={() => clearall()}
-                    class="btn btn"
-                    color="info"
-                  >
+                  <Button onClick={() => clearall()} class="btn btn" color="info">
                     Clear All
                   </Button>
-                  <Button
-                    onClick={() => find()}
-                    class="btn btn"
-                    color="danger"
-                  >
+                  <Button onClick={() => find()} class="btn btn" color="danger">
                     Search
                   </Button>
                 </div>
@@ -270,9 +248,8 @@ function Dashboard() {
           <Col md="9">
             <Card className="card-user">
               <CardBody>
-                <CardTitle
-                  className="content"
-                ><h3>Research</h3>
+                <CardTitle className="content">
+                  <h3>Research</h3>
                 </CardTitle>
                 <Col md="12">
                   <Row className="ex1">
@@ -289,10 +266,7 @@ function Dashboard() {
 														<p className='ml-2'>Quartile : {filter[id].quartile}</p>
 														<p className='ml-2'>Impact Factor : {filter[id].factor}</p> */}
                             <div className="others">
-                              <Link
-                                className="others"
-                                onClick={() => seeDocModal(id)}>See More
-                              </Link>
+                              <Link className="others" onClick={() => seeDocModal(id)}>See More</Link>
                             </div>
                           </Card>
                         </div>
@@ -305,7 +279,7 @@ function Dashboard() {
           </Col>
 
         </Row>
-      </Col >
+      </Col>
 
       <Modal isOpen={seeMoreModalShow} size="md">
         <ModalHeader>See More</ModalHeader>
@@ -329,4 +303,5 @@ function Dashboard() {
     </div >
   );
 }
+
 export default Dashboard;

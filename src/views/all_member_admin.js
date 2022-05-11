@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import firebaseApp from '../firebase.js';
 import { Redirect, Link } from 'react-router-dom'
@@ -8,21 +9,9 @@ import profile from "views/profile_member_admin.js";
 import Popup from "views/Popup.js";
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  FormGroup,
-  Form,
-  Input,
-  Row,
-  Col,
-  Table,
-  Modal,
-  ModalHeader,
-  ModalBody,
+  Button, Card, CardHeader, CardBody, CardFooter,
+  CardTitle, FormGroup, Form, Input, Row,
+  Col, Table, Modal, ModalHeader, ModalBody,
   ModalFooter
 } from "reactstrap";
 import Carousel from 'react-bootstrap/Carousel'
@@ -123,10 +112,7 @@ const Member = () => {
 
   const AllUid = [];
 
-  function GetAllUid(e) {
-    AllUid.push(e)
-  }
-
+  function GetAllUid(e) { AllUid.push(e) }
 
   // async function AddPromotion() {
   //   const Uid = [];
@@ -175,13 +161,9 @@ const Member = () => {
   //   });
   // }
 
-  const goToInsert = () => {
-    window.location.href = "/admin/insert";
-  }
+  const goToInsert = () => { window.location.href = "/admin/insert"; }
 
-  if (currentUser) {
-    return <Redirect to="/member/profile" />;
-  }
+  if (currentUser) { return <Redirect to="/member/profile" />; }
 
   function delDocModal(id) {
     setIdDoc(id)
@@ -237,8 +219,12 @@ const Member = () => {
     const researchRef = db.collection('research')
 
     const res = await researchRef.doc(idDoc).update({
-      name: name, writer: writer, journal: journal,
-      year: year, quartile: quartile, factor: factor
+      name: name,
+      writer: writer,
+      journal: journal,
+      year: year,
+      quartile: quartile,
+      factor: factor
     });
 
     // alert(`Edited`)
@@ -247,36 +233,19 @@ const Member = () => {
   }
 
   return (
-    <div style={{
-      display: "flex",
-      justifyContent: "center",
-    }} className="content">
+    <div style={{ display: "flex", justifyContent: "center" }} className="content">
       <Col md="10" className="admin-insert">
         <Card className="card-user">
           <CardBody>
-            <CardTitle
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            ><br></br>
+            <CardTitle style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <br></br>
             </CardTitle>
             <div className="insert">
-
-              <Button
-                classname="btn btn-"
-                color="danger"
-                onClick={() => goToInsert()}
-              ><i class="fa fa-solid fa-plus"></i>
+              <Button classname="btn btn-" color="danger" onClick={() => goToInsert()}>
+                <i class="fa fa-solid fa-plus"></i>
               </Button>
-
             </div>
-            <Table
-              hover
-              responsive
-              className="table-admin"
-            >
+            <Table hover responsive className="table-admin">
               <thead>
                 <tr>
                   <th>#</th>
@@ -286,33 +255,35 @@ const Member = () => {
                 </tr>
               </thead>
               {Object.keys(Research).map((id) => {
-                return <tbody>
-                  <tr>
-                    <th scope="row"></th>
-                    <td>
-                      {Object.keys(Research[id].writer).map((id2) => {
-                        return <p>{Research[id].writer[id2]}</p>
-                      })}
-                    </td>
-                    <td>
-                      <p>{Research[id].name}</p>
-                    </td>
-                    <td>
-                      <a title class="btn btn-info btn-link btn-xs"
-                        onClick={() => seeDocModal(id)}>
-                        <i class="fa fa-solid fa-eye"></i>
-                      </a>
-                      <a title class="btn btn-success btn-link btn-xs"
-                        onClick={() => editDocModal(id)}>
-                        <i class="fa fa-solid fa-pen"></i>
-                      </a>
-                      <a title class="btn btn-danger btn-link btn-xs"
-                        onClick={() => delDocModal(id)}>
-                        <i class="fa fa-solid fa-trash"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
+                return (
+                  <tbody>
+                    <tr>
+                      <th scope="row"></th>
+                      <td>
+                        {Object.keys(Research[id].writer).map((id2) => {
+                          return <p>{Research[id].writer[id2]}</p>
+                        })}
+                      </td>
+                      <td>
+                        <p>{Research[id].name}</p>
+                      </td>
+                      <td>
+                        <a title class="btn btn-info btn-link btn-xs"
+                          onClick={() => seeDocModal(id)}>
+                          <i class="fa fa-solid fa-eye"></i>
+                        </a>
+                        <a title class="btn btn-success btn-link btn-xs"
+                          onClick={() => editDocModal(id)}>
+                          <i class="fa fa-solid fa-pen"></i>
+                        </a>
+                        <a title class="btn btn-danger btn-link btn-xs"
+                          onClick={() => delDocModal(id)}>
+                          <i class="fa fa-solid fa-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
               })}
             </Table>
           </CardBody>
@@ -344,12 +315,15 @@ const Member = () => {
         <ModalBody>
           <p>title</p>
           <Input type="textarea" value={name} onChange={(e) => setName(e.target.value)}></Input>
+
           <p>writer</p>
           {Object.keys(writer).map((id2) => {
             return (
-              <Input type='text' onChange={(e) => updateData(id2, e.target.value)} defaultValue={writer[id2]} ></Input>
+              <Input type='text' onChange={(e) => updateData(id2, e.target.value)}
+                defaultValue={writer[id2]} ></Input>
             );
           })}
+
           <p> journal</p>
           <Input type="textarea" onChange={e => setJournal(e.target.value)}
             defaultValue={journal}></Input>
