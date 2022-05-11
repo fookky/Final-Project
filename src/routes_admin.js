@@ -1,7 +1,7 @@
 
 import menu from "views/admin_menu.jsx";
-import random from "views/tong.js";
-import member from "views/member_admin.js";
+import stat from "views/stat.js";
+import manage from "views/member_admin.js";
 import explore from "views/explore.js";
 import insert from "views/insertmenu.jsx";
 import Seemore from "views/seemore_admin.js";
@@ -11,7 +11,7 @@ var routes = [
     path: "/stat",
     name: "Research Statistics",
     icon: "nc-icon nc-chart-bar-32",
-    component: random,
+    component: stat,
     layout: "/admin",
   },
   {
@@ -25,7 +25,7 @@ var routes = [
     path: "/manage",
     name: "Research Management",
     icon: "nc-icon nc-paper",
-    component: member,
+    component: manage,
     layout: "/admin",
   },
   {

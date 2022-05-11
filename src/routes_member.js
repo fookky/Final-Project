@@ -8,14 +8,6 @@ import profile from "views/profile_member.js";
 import Seemore from "views/seemore_member.js";
 
 var routes = [
-
-  // {
-  //   path: "/home",
-  //   name: "Home",
-  //   icon: "nc-icon nc-satisfied",
-  //   component: home,
-  //   layout: "/member",
-  // },
   {
     path: "/stat",
     name: "Research Statistics",
@@ -33,6 +25,14 @@ var routes = [
   {
     pro: true,
     path: "/profile",
+    name: "Profile",
+    icon: "nc-icon nc-circle-10",
+    component: profile,
+    layout: "/member",
+  },
+  {
+    pro: true,
+    path: "/",
     name: "Profile",
     icon: "nc-icon nc-circle-10",
     component: profile,
