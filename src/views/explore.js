@@ -69,7 +69,6 @@ function Dashboard() {
       // ตัวแปร local
       const research = []
 
-
       ss.forEach(document => {
         // manipulate ตัวแปร local
         research.push(document.data())
@@ -153,8 +152,7 @@ function Dashboard() {
     // console.log(search)
   }
 
-  const { currentUser } = useContext(AuthContext);
-
+  // const { currentUser } = useContext(AuthContext);
   // if (currentUser) { return <Redirect to="/member/menu" />; }
 
   function deleteDocument(id) {

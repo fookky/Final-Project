@@ -50,10 +50,9 @@ const Member = () => {
   const [PromotionCode, setPromotionCode] = useState('')
   const [PromotionExpire, setPromotionExpire] = useState('')
 
-  const { currentUser } = useContext(AuthContext);
-
   const history = useHistory()
 
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
@@ -161,9 +160,9 @@ const Member = () => {
   //   });
   // }
 
-  const goToInsert = () => { window.location.href = "/admin/insert"; }
-
   if (currentUser) { return <Redirect to="/member/profile" />; }
+
+  const goToInsert = () => { window.location.href = "/admin/insert"; }
 
   function delDocModal(id) {
     setIdDoc(id)
@@ -258,7 +257,7 @@ const Member = () => {
                 return (
                   <tbody>
                     <tr>
-                      <th scope="row"></th>
+                      <th scope="row">เลข</th>
                       <td>
                         {Object.keys(Research[id].writer).map((id2) => {
                           return <p>{Research[id].writer[id2]}</p>

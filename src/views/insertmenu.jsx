@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import { AuthContext } from "components/Auth/Auth.js";
+import { Redirect } from 'react-router-dom'
 import Display from "components/Display.jsx";
 import { AppContext } from "views/admin_menu.jsx";
 import {
@@ -47,6 +49,9 @@ function Insert() {
   const [cate4, setcate4] = useState("");
   const [RestaurantName, setRestaurantName] = useState({});
 
+  const [userMe, setUserMe] = useState({})
+  const [userMeRole, setUserMeRole] = useState("")
+
   const [all, setall] = useState("");
   const [writer, setwriter] = useState([]);
   const [name, setname] = useState("");
@@ -56,6 +61,36 @@ function Insert() {
   const [factor, setfactor] = useState("");
 
   const [allWriter, setallWriter] = useState("");
+
+  const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
+    firebaseApp.auth().onAuthStateChanged(user => {
+      const db = firebaseApp.firestore()
+      const userRef = db.collection('User').where('Uid', '==', firebaseApp.auth().currentUser.uid)
+
+      // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
+      const unsubscribe = userRef.onSnapshot(ss => {
+        // ตัวแปร local
+        const User = {}
+
+        ss.forEach(document => {
+          // manipulate ตัวแปร local
+          User[document.id] = document.data()
+          setUserMeRole(User[document.id].Role)
+        })
+
+        // เปลี่ยนค่าตัวแปร state
+        setUserMe(User)
+      })
+
+      return () => {
+        // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
+        unsubscribe()
+      }
+    });
+  }, [])
 
   useEffect(() => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
@@ -86,31 +121,36 @@ function Insert() {
     });
   }, []);
 
+  if (!currentUser) { return (<Redirect to="/general/login" />); }
+
   // ประกาศตัวแปรเพื่ออ้างอิง user collection
   const db = firebaseApp.firestore();
   const researchCollection = db.collection("research");
 
   async function insertDocument() {
-    if (name !== '' && journal !== '' && year !== '' && factor !== '') {
-      // insert และคืน document reference
-      const documentRef = await researchCollection.add({
-        writer,
-        name,
-        journal,
-        year,
-        quartile,
-        factor,
-      });
+    if (userMeRole.localeCompare('admin') !== 0) { alert(`u are not admin. u can not`); }
+    else {
+      if (name !== '' && journal !== '' && year !== '' && factor !== '') {
+        // insert และคืน document reference
+        const documentRef = await researchCollection.add({
+          writer,
+          name,
+          journal,
+          year,
+          quartile,
+          factor,
+        });
 
-      // ใช้ document reference เข้าถึงค่า document id
-      // alert(`New document has been inserted as ${documentRef.id}`);
-      alert(`Successful`);
+        // ใช้ document reference เข้าถึงค่า document id
+        // alert(`New document has been inserted as ${documentRef.id}`);
+        alert(`Successful`);
 
-      window.location.reload(false);
+        window.location.reload(false);
 
-      window.location.href = "/admin/insert";
+        window.location.href = "/admin/insert";
+      }
+      else { alert(`please fill in the blank`); }
     }
-    else { alert(`please fill in the blank`); }
   }
 
   const Split = () => {

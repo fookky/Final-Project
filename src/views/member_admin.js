@@ -12,8 +12,7 @@ const Member = () => {
 
   const hist = createBrowserHistory();
 
-  const { currentUser } = useContext(AuthContext);
-
+  // const { currentUser } = useContext(AuthContext);
   // if (currentUser) { return <Redirect to="/member/profile" />; }
 
   return (

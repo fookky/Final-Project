@@ -21,7 +21,6 @@ var routes = [
   //   component: random,
   //   layout: "/general",
   // },
-
   // {
   //   path: "/menu",
   //   name: "Research Explore",
