@@ -20,7 +20,7 @@ function Home() {
 
   const { currentUser } = useContext(AuthContext);
 
-  if (!currentUser) { return <Redirect to="/general/home" />; }
+  if (!currentUser) { return <Redirect to="/general/login" />; }
 
   return (
     <div>

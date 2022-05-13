@@ -43,10 +43,6 @@ function Insert() {
   // ประกาศตัวแปร state และ method สำหรับเปลี่ยนค่าตัวแปร
   const [image, setimage] = useState("");
   const [restaurant, setrestaurant] = useState("");
-  const [cate1, setcate1] = useState("");
-  const [cate2, setcate2] = useState("");
-  const [cate3, setcate3] = useState("");
-  const [cate4, setcate4] = useState("");
   const [RestaurantName, setRestaurantName] = useState({});
 
   const [userMe, setUserMe] = useState({})
@@ -128,7 +124,7 @@ function Insert() {
   const researchCollection = db.collection("research");
 
   async function insertDocument() {
-    if (userMeRole.localeCompare('admin') !== 0) { alert(`u are not admin. u can not`); }
+    if (userMeRole.localeCompare('admin') !== 0) { alert(`Sorry, you are not admin.`); }
     else {
       if (name !== '' && journal !== '' && year !== '' && factor !== '') {
         // insert และคืน document reference
@@ -149,7 +145,7 @@ function Insert() {
 
         window.location.href = "/admin/insert";
       }
-      else { alert(`please fill in the blank`); }
+      else { alert(`Please fill in the blanks.`); }
     }
   }
 
@@ -207,7 +203,7 @@ function Insert() {
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
 
-      <Col md="7">
+      <Col md="10">
         <Card className="card-user">
           <CardBody>
             <Form>
@@ -254,29 +250,31 @@ function Insert() {
                     <br></br>
 
                     <p>Journal</p>
-                    <Input onChange={(e) => setjournal(e.target.value)} value={journal}></Input>
+                    <Input type="textarea" onChange={(e) => setjournal(e.target.value)} value={journal}></Input>
 
                     <br></br>
 
-                    <p>Year</p>
-                    <Input onChange={(e) => setyear(e.target.value)} value={year}></Input>
-
-                    <br></br>
-
-                    <p>Quartile</p>
-                    <Input bsSize="" type="select" id="ddlViewBy" onChange={(e) => setquartile(e.target.value)}>
-                      <option value="None">-- Select --</option>
-                      <option value="Q1">Q1</option>
-                      <option value="Q2">Q2</option>
-                      <option value="Q3">Q3</option>
-                      <option value="Q4">Q4</option>
-                    </Input>
-
-                    <br></br>
-
-                    <p>Impact Factor</p>
-                    <Input onChange={(e) => setfactor(e.target.value)}></Input>
-
+                    <Row>
+                      <Col md="4">
+                        <p>Year</p>
+                        <Input onChange={(e) => setyear(e.target.value)} value={year}></Input>
+                      </Col>
+                      <Col md="4">
+                        <p>Quartile</p>
+                        <Input bsSize="" type="select" id="ddlViewBy" onChange={(e) => setquartile(e.target.value)}>
+                          <option value="None">-- Select --</option>
+                          <option value="Q1">Q1</option>
+                          <option value="Q2">Q2</option>
+                          <option value="Q3">Q3</option>
+                          <option value="Q4">Q4</option>
+                        </Input>
+                      </Col>
+                      <Col md="4">
+                        <p>Impact Factor</p>
+                        <Input onChange={(e) => setfactor(e.target.value)}></Input>
+                      </Col>
+                    </Row>
+                    
                     <br></br>
 
                     <p>File</p>

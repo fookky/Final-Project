@@ -17,6 +17,8 @@ import {
 import Carousel from 'react-bootstrap/Carousel'
 
 const Member = () => {
+  let no = 0
+
   const db = firebaseApp.firestore()
   const PromotionsCollection = db.collection('Promotions')
   const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +31,9 @@ const Member = () => {
 
   const [User, setUser] = useState({})
   const [Research, setResearch] = useState({})
+
+  const [userMe, setUserMe] = useState({})
+  const [userMeRole, setUserMeRole] = useState("")
 
   const [name, setName] = useState('')
   const [writer, setWriter] = useState([])
@@ -43,16 +48,37 @@ const Member = () => {
 
   const [idDoc, setIdDoc] = useState('')
 
-  const [CurrentUid, setCurrentUid] = useState('')
-  const [CurrentFname, setCurrentFname] = useState('')
-
-  const [PromotionDetail, setPromotionDetail] = useState('')
-  const [PromotionCode, setPromotionCode] = useState('')
-  const [PromotionExpire, setPromotionExpire] = useState('')
-
   const history = useHistory()
 
   const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
+    firebaseApp.auth().onAuthStateChanged(user => {
+      const db = firebaseApp.firestore()
+      const userRef = db.collection('User').where('Uid', '==', firebaseApp.auth().currentUser.uid)
+
+      // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
+      const unsubscribe = userRef.onSnapshot(ss => {
+        // ตัวแปร local
+        const User = {}
+
+        ss.forEach(document => {
+          // manipulate ตัวแปร local
+          User[document.id] = document.data()
+          setUserMeRole(User[document.id].Role)
+        })
+
+        // เปลี่ยนค่าตัวแปร state
+        setUserMe(User)
+      })
+
+      return () => {
+        // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
+        unsubscribe()
+      }
+    });
+  }, [])
 
   useEffect(() => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
@@ -160,9 +186,10 @@ const Member = () => {
   //   });
   // }
 
-  if (currentUser) { return <Redirect to="/member/profile" />; }
+  // if (currentUser) { return <Redirect to="/member/profile" />; }
 
-  const goToInsert = () => { window.location.href = "/admin/insert"; }
+  const goToInsert = () => { window.location.href = "/member/insert"; }
+  const goToHome = () => { window.location.href = "/member/home"; }
 
   function delDocModal(id) {
     setIdDoc(id)
@@ -205,6 +232,7 @@ const Member = () => {
     setQuartile(Research[id].quartile)
     setFactor(Research[id].factor)
   }
+
   const updateData = (index, e) => {
     let newArr = writer
     newArr[index] = e
@@ -229,6 +257,11 @@ const Member = () => {
     // alert(`Edited`)
 
     setEditModalShow(false)
+  }
+
+  function rowNumber() {
+    no = no + 1
+    return (<div>{no}</div>)
   }
 
   return (
@@ -257,7 +290,7 @@ const Member = () => {
                 return (
                   <tbody>
                     <tr>
-                      <th scope="row">เลข</th>
+                      <th scope="row">{rowNumber()}</th>
                       <td>
                         {Object.keys(Research[id].writer).map((id2) => {
                           return <p>{Research[id].writer[id2]}</p>
@@ -288,6 +321,17 @@ const Member = () => {
           </CardBody>
         </Card>
       </Col>
+
+      {(userMeRole.localeCompare('admin') !== 0) ? (
+        <Modal isOpen={true} size="sm">
+          <ModalHeader>Warning</ModalHeader>
+          <ModalBody>Sorry, you are not admin.</ModalBody>
+          <ModalFooter>
+            {/* <button onClick={() => setDelModalShow(false)}>close</button> */}
+            <button onClick={() => goToHome()}>OK</button>
+          </ModalFooter>
+        </Modal>
+      ) : null}
 
       <Modal isOpen={seeMoreModalShow} size="md">
         <ModalHeader>See More</ModalHeader>
@@ -350,7 +394,7 @@ const Member = () => {
 
       <Modal isOpen={delModalShow} size="sm">
         <ModalHeader>Delete</ModalHeader>
-        <ModalBody>confirm ?</ModalBody>
+        <ModalBody>Confirm ?</ModalBody>
         <ModalFooter>
           <button onClick={() => setDelModalShow(false)}>close</button>
           <button onClick={() => delDoc()}>yes</button>
