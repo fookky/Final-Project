@@ -279,23 +279,28 @@ function Dashboard() {
         </Row>
       </Col>
 
-      <Modal isOpen={seeMoreModalShow} size="md">
+      <Modal isOpen={seeMoreModalShow} size="md" className="modal-seemore">
         <ModalHeader>See More</ModalHeader>
         <ModalBody>
-          <p>title : {filterTitle}</p>
-          <p>writer : </p>
+          <p>Author : </p>
           {Object.keys(filterWriters).map((id2) => {
             return (
               <p>{filterWriters[id2]}</p>
             );
           })}
-          <p>journal : {filterJournal}</p>
-          <p>year : {filterYear}</p>
-          <p>quartile : {filterQuartile}</p>
-          <p>impact factor : {filterFactor}</p>
+          <p>Title : {filterTitle}</p>
+          <p>Journal : {filterJournal}</p>
+          <p>Year : {filterYear}</p>
+          <p>Quartile : {filterQuartile}</p>
+          <p>Impact factor : {filterFactor}</p>
         </ModalBody>
         <ModalFooter>
-          <button onClick={() => setSeeMoreModalShow(false)}>close</button>
+          <Button
+            onClick={() => setSeeMoreModalShow(false)}
+            class="btn btn"
+            color="danger">
+            close
+          </Button>
         </ModalFooter>
       </Modal>
     </div >

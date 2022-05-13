@@ -1,15 +1,25 @@
-
 import React, { useState, useEffect, useContext } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import { AuthContext } from "components/Auth/Auth.js";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 import Display from "components/Display.jsx";
 import { AppContext } from "views/admin_menu.jsx";
 import {
-  Card, CardHeader, CardBody, CardFooter, CardTitle,
-  Row, FormGroup, Form, Input, Col,
-  DropdownMenu, DropdownItem, Button, Select
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  CardTitle,
+  Row,
+  FormGroup,
+  Form,
+  Input,
+  Col,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  Select,
 } from "reactstrap";
 
 // เรียกใช้ module
@@ -45,8 +55,8 @@ function Insert() {
   const [restaurant, setrestaurant] = useState("");
   const [RestaurantName, setRestaurantName] = useState({});
 
-  const [userMe, setUserMe] = useState({})
-  const [userMeRole, setUserMeRole] = useState("")
+  const [userMe, setUserMe] = useState({});
+  const [userMeRole, setUserMeRole] = useState("");
 
   const [all, setall] = useState("");
   const [writer, setwriter] = useState([]);
@@ -62,31 +72,33 @@ function Insert() {
 
   useEffect(() => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
-    firebaseApp.auth().onAuthStateChanged(user => {
-      const db = firebaseApp.firestore()
-      const userRef = db.collection('User').where('Uid', '==', firebaseApp.auth().currentUser.uid)
+    firebaseApp.auth().onAuthStateChanged((user) => {
+      const db = firebaseApp.firestore();
+      const userRef = db
+        .collection("User")
+        .where("Uid", "==", firebaseApp.auth().currentUser.uid);
 
       // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
-      const unsubscribe = userRef.onSnapshot(ss => {
+      const unsubscribe = userRef.onSnapshot((ss) => {
         // ตัวแปร local
-        const User = {}
+        const User = {};
 
-        ss.forEach(document => {
+        ss.forEach((document) => {
           // manipulate ตัวแปร local
-          User[document.id] = document.data()
-          setUserMeRole(User[document.id].Role)
-        })
+          User[document.id] = document.data();
+          setUserMeRole(User[document.id].Role);
+        });
 
         // เปลี่ยนค่าตัวแปร state
-        setUserMe(User)
-      })
+        setUserMe(User);
+      });
 
       return () => {
         // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
-        unsubscribe()
-      }
+        unsubscribe();
+      };
     });
-  }, [])
+  }, []);
 
   useEffect(() => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
@@ -117,16 +129,19 @@ function Insert() {
     });
   }, []);
 
-  if (!currentUser) { return (<Redirect to="/general/login" />); }
+  if (!currentUser) {
+    return <Redirect to="/general/login" />;
+  }
 
   // ประกาศตัวแปรเพื่ออ้างอิง user collection
   const db = firebaseApp.firestore();
   const researchCollection = db.collection("research");
 
   async function insertDocument() {
-    if (userMeRole.localeCompare('admin') !== 0) { alert(`Sorry, you are not admin.`); }
-    else {
-      if (name !== '' && journal !== '' && year !== '' && factor !== '') {
+    if (userMeRole.localeCompare("admin") !== 0) {
+      alert(`Sorry, you are not admin.`);
+    } else {
+      if (name !== "" && journal !== "" && year !== "" && factor !== "") {
         // insert และคืน document reference
         const documentRef = await researchCollection.add({
           writer,
@@ -144,33 +159,42 @@ function Insert() {
         window.location.reload(false);
 
         window.location.href = "/admin/insert";
+      } else {
+        alert(`Please fill in the blanks.`);
       }
-      else { alert(`Please fill in the blanks.`); }
     }
   }
 
   const Split = () => {
-    var subData = all.split(',');
+    var subData = all.split(",");
     var writers = [];
     var text = "";
     // console.log(subData[1].length)
 
     for (let i = 0; i < subData.length; i++) {
-      if ((subData[i].split(" ").length - 1) <= 2) { writers.push(subData[i]) }
-      if ((subData[i].split(" ").length - 1) > 2) { break; }
+      if (subData[i].split(" ").length - 1 <= 2) {
+        writers.push(subData[i]);
+      }
+      if (subData[i].split(" ").length - 1 > 2) {
+        break;
+      }
     }
     // console.log(writer.length)
 
     for (let i = 0; i < writers.length; i++) {
-      if (i == writers.length - 1) { text = text + writers[i]; }
-      if (i < writers.length - 1) { text = text + writers[i] + ", "; }
+      if (i == writers.length - 1) {
+        text = text + writers[i];
+      }
+      if (i < writers.length - 1) {
+        text = text + writers[i] + ", ";
+      }
     }
 
-    setwriter(writers)
-    setallWriter(text)
-    setname(subData[writers.length])
-    setjournal(subData[writers.length + 1])
-    setyear(subData[writers.length + 2])
+    setwriter(writers);
+    setallWriter(text);
+    setname(subData[writers.length]);
+    setjournal(subData[writers.length + 1]);
+    setyear(subData[writers.length + 2]);
 
     // console.log(writer)      // ทดสอบ print ข้อมูลใน writer
   };
@@ -201,14 +225,26 @@ function Insert() {
   //   });
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
-
-      <Col md="10">
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      className="content"
+    >
+      <Col md="8">
         <Card className="card-user">
           <CardBody>
             <Form>
-              <CardTitle style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-                className="content">
+              <CardTitle
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                className="content"
+              >
                 <h3></h3>
               </CardTitle>
               <Row>
@@ -216,10 +252,19 @@ function Insert() {
                   <FormGroup>
                     <label>Step 1 Enter all the information.</label>
                     <p>
-                      Where Format is as follows: Name1 Surname1, Name2 Surname2, Title, Journal, Year
+                      Where Format is as follows: Name1 Surname1, Name2
+                      Surname2, Title, Journal, Year
                     </p>
-                    <Input type="textarea" onChange={(e) => setall(e.target.value)}></Input>
-                    <button type="button" right class="btn btn-outline-danger" onClick={() => Split()}>
+                    <Input
+                      type="textarea"
+                      onChange={(e) => setall(e.target.value)}
+                    ></Input>
+                    <button
+                      type="button"
+                      right
+                      class="btn btn-outline-danger"
+                      onClick={() => Split()}
+                    >
                       Sorted by field
                     </button>
                   </FormGroup>
@@ -245,23 +290,39 @@ function Insert() {
                     })}
 
                     <p>Title</p>
-                    <Input type="textarea" onChange={(e) => setname(e.target.value)} value={name}></Input>
+                    <Input
+                      type="textarea"
+                      onChange={(e) => setname(e.target.value)}
+                      value={name}
+                    ></Input>
 
                     <br></br>
 
                     <p>Journal</p>
-                    <Input type="textarea" onChange={(e) => setjournal(e.target.value)} value={journal}></Input>
+                    <Input
+                      type="textarea"
+                      onChange={(e) => setjournal(e.target.value)}
+                      value={journal}
+                    ></Input>
 
                     <br></br>
 
                     <Row>
                       <Col md="4">
                         <p>Year</p>
-                        <Input onChange={(e) => setyear(e.target.value)} value={year}></Input>
+                        <Input
+                          onChange={(e) => setyear(e.target.value)}
+                          value={year}
+                        ></Input>
                       </Col>
                       <Col md="4">
                         <p>Quartile</p>
-                        <Input bsSize="" type="select" id="ddlViewBy" onChange={(e) => setquartile(e.target.value)}>
+                        <Input
+                          bsSize=""
+                          type="select"
+                          id="ddlViewBy"
+                          onChange={(e) => setquartile(e.target.value)}
+                        >
                           <option value="None">-- Select --</option>
                           <option value="Q1">Q1</option>
                           <option value="Q2">Q2</option>
@@ -271,10 +332,12 @@ function Insert() {
                       </Col>
                       <Col md="4">
                         <p>Impact Factor</p>
-                        <Input onChange={(e) => setfactor(e.target.value)}></Input>
+                        <Input
+                          onChange={(e) => setfactor(e.target.value)}
+                        ></Input>
                       </Col>
                     </Row>
-                    
+
                     <br></br>
 
                     <p>File</p>
@@ -285,7 +348,11 @@ function Insert() {
 
               <Row>
                 <div className="update ml-auto mr-auto">
-                  <Button classname="btn btn-" onClick={insertDocument} color="danger">
+                  <Button
+                    classname="btn btn-"
+                    onClick={insertDocument}
+                    color="danger"
+                  >
                     Save
                   </Button>
                 </div>

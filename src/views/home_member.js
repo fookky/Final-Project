@@ -28,7 +28,7 @@ function Home() {
         <Row style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
           <Col md="10">
             <img alt="..."
-              src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031313/Food/rrr_mvaxsx.gif" />
+              src="https://sv1.picz.in.th/images/2022/05/13/HcZ1Xa.gif" />
           </Col>
         </Row>
       </div>
