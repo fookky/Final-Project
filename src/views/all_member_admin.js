@@ -280,10 +280,10 @@ const Member = () => {
             <Table hover responsive className="table-admin">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Author</th>
-                  <th>Title</th>
-                  <th>Actions</th>
+                  <th width="30px">#</th>
+                  <th width="50px">Author</th>
+                  <th width="30px">Title</th>
+                  <th width="30px">Actions</th>
                 </tr>
               </thead>
               {Object.keys(Research).map((id) => {
@@ -333,71 +333,77 @@ const Member = () => {
         </Modal>
       ) : null}
 
-      <Modal isOpen={seeMoreModalShow} size="md">
+      <Modal isOpen={seeMoreModalShow} size="md" className="modal-seemore">
         <ModalHeader>See More</ModalHeader>
         <ModalBody>
-          <p>title : {name}</p>
-          <p>writer : </p>
+          <p>Author : </p>
           {Object.keys(writer).map((id2) => {
             return (
               <p>{writer[id2]}</p>
             );
           })}
-          <p>journal : {journal}</p>
-          <p>year : {year}</p>
-          <p>quartile : {quartile}</p>
-          <p>impact factor : {factor}</p>
+          <p>Title : {name}</p>
+          <p>Journal : {journal}</p>
+          <p>Year : {year}</p>
+          <p>Quartile : {quartile}</p>
+          <p>Impact factor : {factor}</p>
         </ModalBody>
         <ModalFooter>
-          <button onClick={() => setSeeMoreModalShow(false)}>close</button>
+          <Button onClick={() => setSeeMoreModalShow(false)} class="btn" color="danger">close</Button>
         </ModalFooter>
       </Modal>
 
-      <Modal isOpen={editModalShow} size="lg">
+      <Modal isOpen={editModalShow} size="lg" className="modal-seemore">
         <ModalHeader>Edit</ModalHeader>
         <ModalBody>
-          <p>title</p>
-          <Input type="textarea" value={name} onChange={(e) => setName(e.target.value)}></Input>
 
-          <p>writer</p>
+          <p>Author</p>
           {Object.keys(writer).map((id2) => {
             return (
-              <Input type='text' onChange={(e) => updateData(id2, e.target.value)}
-                defaultValue={writer[id2]} ></Input>
+              <Col md="12">
+                <Row>
+                  <Input type='text' onChange={(e) => updateData(id2, e.target.value)}
+                    defaultValue={writer[id2]} ></Input>
+                </Row>
+                <br></br>
+              </Col>
             );
           })}
 
-          <p> journal</p>
+          <p>Title</p>
+          <Input type="textarea" value={name} onChange={(e) => setName(e.target.value)}></Input>
+
+          <p>Journal</p>
           <Input type="textarea" onChange={e => setJournal(e.target.value)}
             defaultValue={journal}></Input>
 
-          <p>year</p>
+          <p>Year</p>
           <Input onChange={e => setYear(e.target.value)} defaultValue={year}></Input>
 
-          <p>quartile</p>
+          <p>Quartile</p>
           <select onChange={e => setQuartile(e.target.value)}>
-            <option value="None">-- Select --</option>
+            <option>{quartile}</option>
             <option value="Q1">Q1</option>
             <option value="Q2">Q2</option>
             <option value="Q3">Q3</option>
             <option value="Q4">Q4</option>
           </select>
 
-          <p>impact factor</p>
+          <p>Impact factor</p>
           <Input defaultValue={factor} onChange={e => setFactor(e.target.value)}></Input>
         </ModalBody>
         <ModalFooter>
-          <button onClick={() => setEditModalShow(false)}>close</button>
-          <button onClick={() => editSubmit()}>yes</button>
+          <Button className="btn" color="info" onClick={() => setEditModalShow(false)}>Close</Button>
+          <Button className="btn" color="danger" onClick={() => editSubmit()}>Apply</Button>
         </ModalFooter>
       </Modal>
 
-      <Modal isOpen={delModalShow} size="sm">
+      <Modal isOpen={delModalShow} size="sm" className="modal-seemore">
         <ModalHeader>Delete</ModalHeader>
         <ModalBody>Confirm ?</ModalBody>
         <ModalFooter>
-          <button onClick={() => setDelModalShow(false)}>close</button>
-          <button onClick={() => delDoc()}>yes</button>
+          <Button className="btn" color="info" onClick={() => setDelModalShow(false)}>No</Button>
+          <Button classname="btn" color="danger" onClick={() => delDoc()}>Yes</Button>
         </ModalFooter>
       </Modal>
     </div>

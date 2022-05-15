@@ -153,6 +153,7 @@ function Dashboard() {
                         src="https://sv1.picz.in.th/images/2022/04/27/8mufYa.png" />
                       <h5 className="title">{User[id].FirstName} {User[id].LastName}</h5>
                     </a>
+                    <p className="description">{User[id].Role}</p>
                     <p className="description">{User[id].Email}</p>
                   </div>
                   <div className="button-container">

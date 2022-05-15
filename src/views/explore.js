@@ -39,6 +39,7 @@ function Dashboard() {
 
   const [idDoc, setIdDoc] = useState('')
   const [seeMoreModalShow, setSeeMoreModalShow] = useState(false)
+  const [resultShow, setResultShow] = useState(false)
 
   const [filterTitle, setFilterTile] = useState('')
   const [filterWriters, setFilterWriters] = useState([])
@@ -89,6 +90,7 @@ function Dashboard() {
     document.getElementById("formFind").reset()
     setYear("")
     setQuartile("")
+    setResultShow(false)
   }
 
   const goToSeemore = () => { window.location.href = "/admin/seemore"; }
@@ -146,6 +148,7 @@ function Dashboard() {
     }
 
     setFilter(filter)
+    setResultShow(true)
     // console.log(filter[1].writer)
     // console.log(researchAll.name)
     // console.log(dropdown)
@@ -243,7 +246,7 @@ function Dashboard() {
             </Card>
           </Col>
 
-          <Col md="9">
+          {(resultShow) ? (<Col md="9">
             <Card className="card-user">
               <CardBody>
                 <CardTitle className="content">
@@ -274,7 +277,16 @@ function Dashboard() {
                 </Col>
               </CardBody>
             </Card>
-          </Col>
+          </Col>) : (<Col md='9'>
+            <Card>
+              <CardBody>
+                <CardTitle className="content"><h3>Research</h3></CardTitle>
+                <Col md="12"><Row className="ex1 border rounded border-secondary">
+                  <h6 className='m-auto'>the result will be displayed here</h6>
+                </Row></Col>
+              </CardBody>
+            </Card>
+          </Col>)}
 
         </Row>
       </Col>
@@ -295,10 +307,7 @@ function Dashboard() {
           <p>Impact factor : {filterFactor}</p>
         </ModalBody>
         <ModalFooter>
-          <Button
-            onClick={() => setSeeMoreModalShow(false)}
-            class="btn btn"
-            color="danger">
+          <Button onClick={() => setSeeMoreModalShow(false)} class="btn btn" color="danger">
             close
           </Button>
         </ModalFooter>
