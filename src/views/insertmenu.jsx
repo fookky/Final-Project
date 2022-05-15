@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import { AuthContext } from "components/Auth/Auth.js";
+import { Redirect } from "react-router-dom";
 import Display from "components/Display.jsx";
 import { AppContext } from "views/admin_menu.jsx";
 import {
@@ -51,11 +53,10 @@ function Insert() {
   // ประกาศตัวแปร state และ method สำหรับเปลี่ยนค่าตัวแปร
   const [image, setimage] = useState("");
   const [restaurant, setrestaurant] = useState("");
-  const [cate1, setcate1] = useState("");
-  const [cate2, setcate2] = useState("");
-  const [cate3, setcate3] = useState("");
-  const [cate4, setcate4] = useState("");
   const [RestaurantName, setRestaurantName] = useState({});
+
+  const [userMe, setUserMe] = useState({});
+  const [userMeRole, setUserMeRole] = useState("");
 
   const [all, setall] = useState("");
   const [writer, setwriter] = useState([]);
@@ -66,6 +67,38 @@ function Insert() {
   const [factor, setfactor] = useState("");
 
   const [allWriter, setallWriter] = useState("");
+
+  const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
+    firebaseApp.auth().onAuthStateChanged((user) => {
+      const db = firebaseApp.firestore();
+      const userRef = db
+        .collection("User")
+        .where("Uid", "==", firebaseApp.auth().currentUser.uid);
+
+      // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
+      const unsubscribe = userRef.onSnapshot((ss) => {
+        // ตัวแปร local
+        const User = {};
+
+        ss.forEach((document) => {
+          // manipulate ตัวแปร local
+          User[document.id] = document.data();
+          setUserMeRole(User[document.id].Role);
+        });
+
+        // เปลี่ยนค่าตัวแปร state
+        setUserMe(User);
+      });
+
+      return () => {
+        // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
+        unsubscribe();
+      };
+    });
+  }, []);
 
   useEffect(() => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
@@ -96,52 +129,72 @@ function Insert() {
     });
   }, []);
 
+  if (!currentUser) {
+    return <Redirect to="/general/login" />;
+  }
+
   // ประกาศตัวแปรเพื่ออ้างอิง user collection
   const db = firebaseApp.firestore();
   const researchCollection = db.collection("research");
 
   async function insertDocument() {
-    // insert และคืน document reference
-    const documentRef = await researchCollection.add({
-      writer,
-      name,
-      journal,
-      year,
-      quartile,
-      factor,
-    });
+    if (userMeRole.localeCompare("admin") !== 0) {
+      alert(`Sorry, you are not admin.`);
+    } else {
+      if (name !== "" && journal !== "" && year !== "" && factor !== "") {
+        // insert และคืน document reference
+        const documentRef = await researchCollection.add({
+          writer,
+          name,
+          journal,
+          year,
+          quartile,
+          factor,
+        });
 
-    // ใช้ document reference เข้าถึงค่า document id
-    // alert(`New document has been inserted as ${documentRef.id}`);
-    alert(`Successful`);
+        // ใช้ document reference เข้าถึงค่า document id
+        // alert(`New document has been inserted as ${documentRef.id}`);
+        alert(`Successful`);
 
-    window.location.reload(false);
+        window.location.reload(false);
 
-    window.location.href="/admin/insert";
+        window.location.href = "/admin/insert";
+      } else {
+        alert(`Please fill in the blanks.`);
+      }
+    }
   }
 
   const Split = () => {
-    var subData = all.split(',');
+    var subData = all.split(",");
     var writers = [];
     var text = "";
     // console.log(subData[1].length)
 
     for (let i = 0; i < subData.length; i++) {
-      if ((subData[i].split(" ").length - 1) <= 2) { writers.push(subData[i]) }
-      if ((subData[i].split(" ").length - 1) > 2) { break; }
+      if (subData[i].split(" ").length - 1 <= 2) {
+        writers.push(subData[i]);
+      }
+      if (subData[i].split(" ").length - 1 > 2) {
+        break;
+      }
     }
     // console.log(writer.length)
 
     for (let i = 0; i < writers.length; i++) {
-      if (i == writers.length - 1) { text = text + writers[i]; }
-      if (i < writers.length - 1) { text = text + writers[i] + ", "; }
+      if (i == writers.length - 1) {
+        text = text + writers[i];
+      }
+      if (i < writers.length - 1) {
+        text = text + writers[i] + ", ";
+      }
     }
 
-    setwriter(writers)
-    setallWriter(text)
-    setname(subData[writers.length])
-    setjournal(subData[writers.length + 1])
-    setyear(subData[writers.length + 2])
+    setwriter(writers);
+    setallWriter(text);
+    setname(subData[writers.length]);
+    setjournal(subData[writers.length + 1]);
+    setyear(subData[writers.length + 2]);
 
     // console.log(writer)      // ทดสอบ print ข้อมูลใน writer
   };
@@ -180,7 +233,7 @@ function Insert() {
       }}
       className="content"
     >
-      <Col md="7">
+      <Col md="8">
         <Card className="card-user">
           <CardBody>
             <Form>
@@ -247,38 +300,43 @@ function Insert() {
 
                     <p>Journal</p>
                     <Input
+                      type="textarea"
                       onChange={(e) => setjournal(e.target.value)}
                       value={journal}
                     ></Input>
 
                     <br></br>
 
-                    <p>Year</p>
-                    <Input
-                      onChange={(e) => setyear(e.target.value)}
-                      value={year}
-                    ></Input>
-
-                    <br></br>
-
-                    <p>Quartile</p>
-                    <Input
-                      bsSize=""
-                      type="select"
-                      id="ddlViewBy"
-                      onChange={(e) => setquartile(e.target.value)}
-                    >
-                      <option value="None">-- Select --</option>
-                      <option value="Q1">Q1</option>
-                      <option value="Q2">Q2</option>
-                      <option value="Q3">Q3</option>
-                      <option value="Q4">Q4</option>
-                    </Input>
-
-                    <br></br>
-
-                    <p>Impact Factor</p>
-                    <Input onChange={(e) => setfactor(e.target.value)}></Input>
+                    <Row>
+                      <Col md="4">
+                        <p>Year</p>
+                        <Input
+                          onChange={(e) => setyear(e.target.value)}
+                          value={year}
+                        ></Input>
+                      </Col>
+                      <Col md="4">
+                        <p>Quartile</p>
+                        <Input
+                          bsSize=""
+                          type="select"
+                          id="ddlViewBy"
+                          onChange={(e) => setquartile(e.target.value)}
+                        >
+                          <option value="None">-- Select --</option>
+                          <option value="Q1">Q1</option>
+                          <option value="Q2">Q2</option>
+                          <option value="Q3">Q3</option>
+                          <option value="Q4">Q4</option>
+                        </Input>
+                      </Col>
+                      <Col md="4">
+                        <p>Impact Factor</p>
+                        <Input
+                          onChange={(e) => setfactor(e.target.value)}
+                        ></Input>
+                      </Col>
+                    </Row>
 
                     <br></br>
 

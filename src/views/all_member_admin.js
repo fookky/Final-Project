@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import firebaseApp from '../firebase.js';
 import { Redirect, Link } from 'react-router-dom'
@@ -8,38 +9,31 @@ import profile from "views/profile_member_admin.js";
 import Popup from "views/Popup.js";
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  FormGroup,
-  Form,
-  Input,
-  Row,
-  Col,
-  Table,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  Button, Card, CardHeader, CardBody, CardFooter,
+  CardTitle, FormGroup, Form, Input, Row,
+  Col, Table, Modal, ModalHeader, ModalBody,
+  ModalFooter
 } from "reactstrap";
 import Carousel from 'react-bootstrap/Carousel'
 
 const Member = () => {
+  let no = 0
+
   const db = firebaseApp.firestore()
   const PromotionsCollection = db.collection('Promotions')
   const [isOpen, setIsOpen] = useState(false);
 
-  const togglePopup = (Uid, FName) => {
-    setIsOpen(!isOpen);
-    setCurrentUid(Uid)
-    setCurrentFname(FName)
-  }
+  // const togglePopup = (Uid, FName) => {
+  //   setIsOpen(!isOpen);
+  //   setCurrentUid(Uid)
+  //   setCurrentFname(FName)
+  // }
 
   const [User, setUser] = useState({})
   const [Research, setResearch] = useState({})
+
+  const [userMe, setUserMe] = useState({})
+  const [userMeRole, setUserMeRole] = useState("")
 
   const [name, setName] = useState('')
   const [writer, setWriter] = useState([])
@@ -48,22 +42,43 @@ const Member = () => {
   const [quartile, setQuartile] = useState('')
   const [factor, setFactor] = useState('')
 
-  const [seeMoreShow, setSeeMoreShow] = useState(false)
-  const [editShow, setEditShow] = useState(false)
+  const [seeMoreModalShow, setSeeMoreModalShow] = useState(false)
+  const [editModalShow, setEditModalShow] = useState(false)
+  const [delModalShow, setDelModalShow] = useState(false)
 
   const [idDoc, setIdDoc] = useState('')
 
-  const [CurrentUid, setCurrentUid] = useState('')
-  const [CurrentFname, setCurrentFname] = useState('')
-
-  const [PromotionDetail, setPromotionDetail] = useState('')
-  const [PromotionCode, setPromotionCode] = useState('')
-  const [PromotionExpire, setPromotionExpire] = useState('')
+  const history = useHistory()
 
   const { currentUser } = useContext(AuthContext);
 
-  const history = useHistory()
+  useEffect(() => {
+    //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
+    firebaseApp.auth().onAuthStateChanged(user => {
+      const db = firebaseApp.firestore()
+      const userRef = db.collection('User').where('Uid', '==', firebaseApp.auth().currentUser.uid)
 
+      // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
+      const unsubscribe = userRef.onSnapshot(ss => {
+        // ตัวแปร local
+        const User = {}
+
+        ss.forEach(document => {
+          // manipulate ตัวแปร local
+          User[document.id] = document.data()
+          setUserMeRole(User[document.id].Role)
+        })
+
+        // เปลี่ยนค่าตัวแปร state
+        setUserMe(User)
+      })
+
+      return () => {
+        // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
+        unsubscribe()
+      }
+    });
+  }, [])
 
   useEffect(() => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
@@ -122,103 +137,103 @@ const Member = () => {
 
   const AllUid = [];
 
-  function GetAllUid(e) {
-    AllUid.push(e)
+  function GetAllUid(e) { AllUid.push(e) }
+
+  // async function AddPromotion() {
+  //   const Uid = [];
+  //   Uid.push(CurrentUid)
+  //   // insert และคืน document reference
+  //   const documentRef = await PromotionsCollection.add({
+
+  //     PromotionDetail,
+  //     PromotionCode,
+  //     PromotionExpire,
+  //     Uid,
+
+  //   })
+
+  //   // ใช้ document reference เข้าถึงค่า document id
+  //   alert(`new document has been inserted as ${documentRef.id}`)
+  //   setPromotionDetail('')
+  //   setPromotionCode('')
+  //   setPromotionExpire('')
+  // }
+
+  // async function AddPromotionALL() {
+  //   const Uid = AllUid;
+  //   // insert และคืน document reference
+  //   const documentRef = await PromotionsCollection.add({
+
+  //     PromotionDetail,
+  //     PromotionCode,
+  //     PromotionExpire,
+  //     Uid,
+
+  //   })
+
+  //   // ใช้ document reference เข้าถึงค่า document id
+  //   alert(`new document has been inserted as ${documentRef.id}`)
+  //   setPromotionDetail('')
+  //   setPromotionCode('')
+  //   setPromotionExpire('')
+  // }
+
+  // const routeChange = (e) => {
+  //   history.push({
+  //     pathname: '/admin/member/profile',
+  //     search: e,
+  //     state: { detail: e }
+  //   });
+  // }
+
+  // if (currentUser) { return <Redirect to="/member/profile" />; }
+
+  const goToInsert = () => { window.location.href = "/member/insert"; }
+  const goToHome = () => { window.location.href = "/member/home"; }
+
+  function delDocModal(id) {
+    setIdDoc(id)
+    setDelModalShow(true)
   }
 
-
-  async function AddPromotion() {
-    const Uid = [];
-    Uid.push(CurrentUid)
-    // insert และคืน document reference
-    const documentRef = await PromotionsCollection.add({
-
-      PromotionDetail,
-      PromotionCode,
-      PromotionExpire,
-      Uid,
-
-    })
-
-    // ใช้ document reference เข้าถึงค่า document id
-    alert(`new document has been inserted as ${documentRef.id}`)
-    setPromotionDetail('')
-    setPromotionCode('')
-    setPromotionExpire('')
-  }
-
-  async function AddPromotionALL() {
-    const Uid = AllUid;
-    // insert และคืน document reference
-    const documentRef = await PromotionsCollection.add({
-
-      PromotionDetail,
-      PromotionCode,
-      PromotionExpire,
-      Uid,
-
-    })
-
-    // ใช้ document reference เข้าถึงค่า document id
-    alert(`new document has been inserted as ${documentRef.id}`)
-    setPromotionDetail('')
-    setPromotionCode('')
-    setPromotionExpire('')
-  }
-
-  const routeChange = (e) => {
-    history.push({
-      pathname: '/admin/member/profile',
-      search: e,
-      state: { detail: e }
-    });
-  }
-
-  const goToInsert = () => {
-    window.location.href = "/admin/insert";
-  }
-
-  if (currentUser) {
-    return <Redirect to="/member/profile" />;
-  }
-
-  function deleteDoc(id) {
+  function delDoc() {
     const db = firebaseApp.firestore()
     const researchRef = db.collection('research')
 
     // ประกาศตัวแปรเพื่ออ้างอิงไปยัง document ที่จะทำการลบ
-    const documentRef = researchRef.doc(id)
+    const documentRef = researchRef.doc(idDoc)
     // ลบ document
     documentRef.delete()
 
-    alert(`Deleted`)
+    // alert(`Deleted`)
+    setDelModalShow(false)
   }
 
-  function seeDoc(id) {
-
+  function seeDocModal(id) {
     setIdDoc(id)
+    setSeeMoreModalShow(true)
 
-    setEditShow(false)
-    setSeeMoreShow(true)
-  }
-
-  function editDoc(id) {
-
-    setIdDoc(id)
     setName(Research[id].name)
     setWriter(Research[id].writer)
     setJournal(Research[id].journal)
     setYear(Research[id].year)
     setQuartile(Research[id].quartile)
     setFactor(Research[id].factor)
-
-    setSeeMoreShow(false)
-    setEditShow(true)
   }
-  const updateData = (index, e) => {
-    // console.log('index: ' + index);
-    // console.log('property name: '+ e.target.value);
 
+  function editDocModal(id) {
+    setIdDoc(id)
+    setEditModalShow(true)
+
+    setName(Research[id].name)
+    setWriter(Research[id].writer)
+    setJournal(Research[id].journal)
+    setYear(Research[id].year)
+    setQuartile(Research[id].quartile)
+    setFactor(Research[id].factor)
+  }
+
+  const updateData = (index, e) => {
     let newArr = writer
     newArr[index] = e
 
@@ -227,61 +242,42 @@ const Member = () => {
 
   const editSubmit = async () => {
 
-    // const newData = {
-    //   name: name,
-    //   writer: writer,
-    //   journal: journal,
-    //   year: year,
-    //   quartile: quartile,
-    //   factor: factor
-    // }
-
     const db = firebaseApp.firestore()
     const researchRef = db.collection('research')
 
     const res = await researchRef.doc(idDoc).update({
-      name: name, writer: writer, journal: journal, year: year, quartile: quartile, factor: factor
+      name: name,
+      writer: writer,
+      journal: journal,
+      year: year,
+      quartile: quartile,
+      factor: factor
     });
 
-    alert(`Edited`)
+    // alert(`Edited`)
 
-    setEditShow(false)
+    setEditModalShow(false)
+  }
+
+  function rowNumber() {
+    no = no + 1
+    return (<div>{no}</div>)
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-      className="content"
-    >
+    <div style={{ display: "flex", justifyContent: "center" }} className="content">
       <Col md="10" className="admin-insert">
         <Card className="card-user">
           <CardBody>
-            <CardTitle
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            ><br></br>
+            <CardTitle style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <br></br>
             </CardTitle>
             <div className="insert">
-
-              <Button
-                classname="btn btn-"
-                color="danger"
-                onClick={() => goToInsert()}
-              ><i class="fa fa-solid fa-plus"></i>
+              <Button classname="btn btn-" color="danger" onClick={() => goToInsert()}>
+                <i class="fa fa-solid fa-plus"></i>
               </Button>
-
             </div>
-            <Table
-              hover
-              responsive
-              className="table-admin"
-            >
+            <Table hover responsive className="table-admin">
               <thead>
                 <tr>
                   <th>#</th>
@@ -291,93 +287,119 @@ const Member = () => {
                 </tr>
               </thead>
               {Object.keys(Research).map((id) => {
-                return <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>
-                      {Object.keys(Research[id].writer).map((id2) => {
-                        return <p>{Research[id].writer[id2]}</p>
-                      })}
-                    </td>
-                    <td>
-                      <p>{Research[id].name}</p>
-                    </td>
-                    <td>
-                      <a title class="btn btn-info btn-link btn-xs"
-                        onClick={() => seeDoc(id)}>
-                        <i class="fa fa-solid fa-eye"></i>
-                      </a>
-                      <a title class="btn btn-success btn-link btn-xs"
-                        onClick={() => editDoc(id)}>
-                        <i class="fa fa-solid fa-pen"></i>
-                      </a>
-                      <a title class="btn btn-danger btn-link btn-xs"
-                        onClick={() => deleteDoc(id)}>
-                        <i class="fa fa-solid fa-trash"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
+                return (
+                  <tbody>
+                    <tr>
+                      <th scope="row">{rowNumber()}</th>
+                      <td>
+                        {Object.keys(Research[id].writer).map((id2) => {
+                          return <p>{Research[id].writer[id2]}</p>
+                        })}
+                      </td>
+                      <td>
+                        <p>{Research[id].name}</p>
+                      </td>
+                      <td>
+                        <a title class="btn btn-info btn-link btn-xs"
+                          onClick={() => seeDocModal(id)}>
+                          <i class="fa fa-solid fa-eye"></i>
+                        </a>
+                        <a title class="btn btn-success btn-link btn-xs"
+                          onClick={() => editDocModal(id)}>
+                          <i class="fa fa-solid fa-pen"></i>
+                        </a>
+                        <a title class="btn btn-danger btn-link btn-xs"
+                          onClick={() => delDocModal(id)}>
+                          <i class="fa fa-solid fa-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
               })}
             </Table>
           </CardBody>
         </Card>
       </Col>
-      <Col md='4'>
-        {seeMoreShow ? (
-          <Card>
-            <CardHeader><h3>see more</h3></CardHeader>
-            <CardBody>
-              <p>title : {Research[idDoc].name}</p>
-              <p>writer : </p>
-              {Object.keys(Research[idDoc].writer).map((id2) => {
-                return (
-                  <p>{Research[idDoc].writer[id2]}</p>
-                );
-              })}
-              <p>journal : {Research[idDoc].journal}</p>
-              <p>year : {Research[idDoc].year}</p>
-              <p>quartile : {Research[idDoc].quartile}</p>
-              <p>impact factor : {Research[idDoc].factor}</p>
-            </CardBody>
-          </Card>
-        ) : null}
 
-        {editShow ? (
-          <Card>
-            <CardHeader><h3>edit</h3></CardHeader>
-            <CardBody>
-              <p>title</p>
-              <Input type="textarea" value={name} onChange={(e) => setName(e.target.value)}></Input>
-              <p>writer</p>
-              {Object.keys(Research[idDoc].writer).map((id2) => {
-                return (
-                  <Input type='text' onChange={(e) => updateData(id2, e.target.value)} defaultValue={writer[id2]} ></Input>
-                );
-              })}
-              <p> journal</p>
-              <Input type="textarea" onChange={e => setJournal(e.target.value)}
-                defaultValue={journal}></Input>
+      {(userMeRole.localeCompare('admin') !== 0) ? (
+        <Modal isOpen={true} size="sm">
+          <ModalHeader>Warning</ModalHeader>
+          <ModalBody>Sorry, you are not admin.</ModalBody>
+          <ModalFooter>
+            {/* <button onClick={() => setDelModalShow(false)}>close</button> */}
+            <button onClick={() => goToHome()}>OK</button>
+          </ModalFooter>
+        </Modal>
+      ) : null}
 
-              <p>year</p>
-              <Input onChange={e => setYear(e.target.value)} defaultValue={year}></Input>
+      <Modal isOpen={seeMoreModalShow} size="md">
+        <ModalHeader>See More</ModalHeader>
+        <ModalBody>
+          <p>title : {name}</p>
+          <p>writer : </p>
+          {Object.keys(writer).map((id2) => {
+            return (
+              <p>{writer[id2]}</p>
+            );
+          })}
+          <p>journal : {journal}</p>
+          <p>year : {year}</p>
+          <p>quartile : {quartile}</p>
+          <p>impact factor : {factor}</p>
+        </ModalBody>
+        <ModalFooter>
+          <button onClick={() => setSeeMoreModalShow(false)}>close</button>
+        </ModalFooter>
+      </Modal>
 
-              <p>quartile</p>
-              <select onChange={e => setQuartile(e.target.value)}>
-                <option value="None">-- Select --</option>
-                <option value="Q1">Q1</option>
-                <option value="Q2">Q2</option>
-                <option value="Q3">Q3</option>
-                <option value="Q4">Q4</option>
-              </select>
+      <Modal isOpen={editModalShow} size="lg">
+        <ModalHeader>Edit</ModalHeader>
+        <ModalBody>
+          <p>title</p>
+          <Input type="textarea" value={name} onChange={(e) => setName(e.target.value)}></Input>
 
-              <p>impact factor</p>
-              <Input defaultValue={factor} onChange={e => setFactor(e.target.value)}></Input>
-              <button onClick={() => editSubmit()}>edit</button>
-            </CardBody>
-          </Card>
-        ) : null}
-      </Col>
+          <p>writer</p>
+          {Object.keys(writer).map((id2) => {
+            return (
+              <Input type='text' onChange={(e) => updateData(id2, e.target.value)}
+                defaultValue={writer[id2]} ></Input>
+            );
+          })}
+
+          <p> journal</p>
+          <Input type="textarea" onChange={e => setJournal(e.target.value)}
+            defaultValue={journal}></Input>
+
+          <p>year</p>
+          <Input onChange={e => setYear(e.target.value)} defaultValue={year}></Input>
+
+          <p>quartile</p>
+          <select onChange={e => setQuartile(e.target.value)}>
+            <option value="None">-- Select --</option>
+            <option value="Q1">Q1</option>
+            <option value="Q2">Q2</option>
+            <option value="Q3">Q3</option>
+            <option value="Q4">Q4</option>
+          </select>
+
+          <p>impact factor</p>
+          <Input defaultValue={factor} onChange={e => setFactor(e.target.value)}></Input>
+        </ModalBody>
+        <ModalFooter>
+          <button onClick={() => setEditModalShow(false)}>close</button>
+          <button onClick={() => editSubmit()}>yes</button>
+        </ModalFooter>
+      </Modal>
+
+      <Modal isOpen={delModalShow} size="sm">
+        <ModalHeader>Delete</ModalHeader>
+        <ModalBody>Confirm ?</ModalBody>
+        <ModalFooter>
+          <button onClick={() => setDelModalShow(false)}>close</button>
+          <button onClick={() => delDoc()}>yes</button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 

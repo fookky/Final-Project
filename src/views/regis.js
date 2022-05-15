@@ -1,21 +1,13 @@
+
 import React, { useState } from 'react';
 import firebaseApp from '../firebase.js';
 import { Redirect } from 'react-router-dom'
 
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  FormGroup,
-  Form,
-  Input,
-  Row,
-  Col,
-  Table,
+  Button, Card, CardHeader, CardBody, CardFooter,
+  CardTitle, FormGroup, Form, Input, Row,
+  Col, Table
 } from "reactstrap";
 import Carousel from 'react-bootstrap/Carousel'
 import { css } from 'jquery';
@@ -31,6 +23,7 @@ const Register = () => {
   const [Email, setEmail] = useState('')
   const [Password, setPassword] = useState('')
   const [ConfirmPassword, setConfirmPassword] = useState('')
+  const [Role, setRole] = useState('member')
 
   const [FirstNameError, setFirstNameError] = useState('')
   const [LastNameError, setLastNameError] = useState('')
@@ -49,11 +42,12 @@ const Register = () => {
       FirstName,
       LastName,
       Email,
-      Register_Date,
-      Register_Year_Mounth,
+      // Register_Date,
+      // Register_Year_Mounth,
       Uid,
-      FoodList: [],
-      RandomList: []
+      Role
+      // FoodList: [],
+      // RandomList: []
     })
   }
 
@@ -64,14 +58,12 @@ const Register = () => {
     if (ConfirmPassword !== Password) setConfirmPasswordError('Passwords do not match.')
   }
 
-
   const clearErrors = () => {
     setEmailError('');
     setPasswordError('');
     setFirstNameError('');
     setLastNameError('');
     setConfirmPasswordError('');
-
   }
 
   const handleSubmit = (e) => {
@@ -82,21 +74,18 @@ const Register = () => {
     const { email, password } = e.target.elements;
 
     try {
-
       if (FirstName !== '' && LastName !== '' && Date !== '' && ConfirmPassword !== '' && ConfirmPassword == Password) {
         firebaseApp.auth().createUserWithEmailAndPassword(email.value, password.value)
           .then(res => {
             if (res.user) {
-
               insertDocument(firebaseApp.auth().currentUser.uid)
               console.log(res.user);
               setCurrentUser(true)
-
             }
           })
           .catch((error) => {
             switch (error.code) {
-              case "auth/email-already-in-use":
+              case "auth/email-already-in-use": break;
               case "auth/invalid-email":
                 setEmailError(error.message);
                 break;
@@ -104,46 +93,30 @@ const Register = () => {
                 setPasswordError(error.message);
                 break;
             }
-
           });
       }
-
-    } catch (error) {
-      alert(error);
-    }
+    } catch (error) { alert(error); }
   }
 
-  if (currentUser) {
-    return <Redirect to="login" />
-  }
+  if (currentUser) { return <Redirect to="login" /> }
 
   return (
-    <div style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }} className="content">
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
       <Col md="4">
         <Card className="card-user">
           <CardBody>
             <Form onSubmit={handleSubmit}>
-              <CardTitle style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-
-              }} className="content"><h3>Register</h3></CardTitle>
+              <CardTitle style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                className="content">
+                <h3>Register</h3>
+              </CardTitle>
               <Row>
                 <Col md="12">
                   <FormGroup>
                     <label>Name</label>
-                    <Input
-                      onChange={e => setFirstName(e.target.value)}
-                      type="text"
-                      pattern="^[ก-๏\sa-zA-Z\s]+$"
-                      title="กรอกตัวหนังสือเท่านั้น"
-                      required
-                    />
+                    <Input onChange={e => setFirstName(e.target.value)}
+                      type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="กรอกตัวหนังสือเท่านั้น"
+                      required></Input>
                     <a className="color-error">{FirstNameError}</a>
                   </FormGroup>
                 </Col>
@@ -153,13 +126,9 @@ const Register = () => {
                 <Col md="12">
                   <FormGroup>
                     <label>Lastname</label>
-                    <Input
-                      onChange={e => setLastName(e.target.value)}
-                      type="text"
-                      pattern="^[ก-๏\sa-zA-Z\s]+$"
-                      title="กรอกตัวหนังสือเท่านั้น"
-                      required
-                    />
+                    <Input onChange={e => setLastName(e.target.value)}
+                      type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="กรอกตัวหนังสือเท่านั้น"
+                      required></Input>
                     <a className="color-error">{LastNameError}</a>
                   </FormGroup>
                 </Col>
@@ -169,12 +138,8 @@ const Register = () => {
                 <Col md="12">
                   <FormGroup>
                     <label>Email</label>
-                    <Input
-                      onChange={e => setEmail(e.target.value)}
-                      name="email"
-                      type="email"
-                      required
-                    />
+                    <Input onChange={e => setEmail(e.target.value)}
+                      name="email" type="email" required></Input>
                     <a className="color-error">{EmailError}</a>
                   </FormGroup>
                 </Col>
@@ -184,12 +149,8 @@ const Register = () => {
                 <Col md="12">
                   <FormGroup>
                     <label>Password</label>
-                    <Input
-                      onChange={e => setPassword(e.target.value)}
-                      name="password"
-                      type="password"
-                      required
-                    />
+                    <Input onChange={e => setPassword(e.target.value)}
+                      name="password" type="password" required></Input>
                     <a className="color-error">{PasswordError}</a>
                   </FormGroup>
                 </Col>
@@ -199,30 +160,17 @@ const Register = () => {
                 <Col md="12">
                   <FormGroup>
                     <label>Re-Password</label>
-                    <Input
-                      onChange={e => setConfirmPassword(e.target.value)}
-                      type="password"
-                      required
-                    />
+                    <Input onChange={e => setConfirmPassword(e.target.value)}
+                      type="password" required></Input>
                     <a className="color-error">{ConfirmPasswordError}</a>
                   </FormGroup>
                 </Col>
               </Row>
 
-              <Row style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-
-              }}>
-              </Row>
+              <Row style={{ display: "flex", justifyContent: "center", alignItems: "center" }}></Row>
               <Row>
                 <div className="update ml-auto mr-auto">
-                  <Button
-                    class="btn btn-info"
-                    color="danger"
-                    type="submit"
-                  >
+                  <Button class="btn btn-info" color="danger" type="submit">
                     Create
                   </Button>
                 </div>
@@ -234,4 +182,5 @@ const Register = () => {
     </div>
   );
 }
+
 export default Register;
