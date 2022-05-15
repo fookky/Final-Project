@@ -321,6 +321,7 @@ function Insert() {
                           bsSize=""
                           type="select"
                           id="ddlViewBy"
+                          className="modal-seemore"
                           onChange={(e) => setquartile(e.target.value)}
                         >
                           <option value="None">-- Select --</option>
