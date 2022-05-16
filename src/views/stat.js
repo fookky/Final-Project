@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import firebaseApp from '../firebase.js';
 import { Redirect, useHistory } from 'react-router-dom'
@@ -5,13 +6,8 @@ import { Redirect, useHistory } from 'react-router-dom'
 import { Line, Pie, Bar } from "react-chartjs-2";
 // reactstrap components
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  Row,
-  Col,
+  Card, CardHeader, CardBody, CardFooter, CardTitle,
+  Row, Col
 } from "reactstrap";
 // core components
 import Popup from "views/Popup.js";
@@ -40,21 +36,13 @@ function Dashboard() {
   const [Food, setFood] = useState({})
   const history = useHistory()
   const [isOpen, setIsOpen] = useState(false);
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
 
-  }
+  const togglePopup = () => { setIsOpen(!isOpen); }
+
   const dashboardNASDAQChart = {
     data: (canvas) => {
       return {
-        labels: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-
-        ],
+        labels: ["Jan", "Feb", "Mar", "Apr", "May"],
         datasets: [
           {
             data: [User1, User2, User3, User4, User5, User6, User7, User8, User9, User10, User11, User12],
@@ -94,9 +82,7 @@ function Dashboard() {
       };
     },
     options: {
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
 
       pieceLabel: {
         render: "percentage",
@@ -104,16 +90,12 @@ function Dashboard() {
         precision: 2,
       },
 
-      tooltips: {
-        enabled: false,
-      },
+      tooltips: { enabled: false },
 
       scales: {
         yAxes: [
           {
-            ticks: {
-              display: false,
-            },
+            ticks: { display: false },
             gridLines: {
               drawBorder: false,
               zeroLineColor: "transparent",
@@ -130,9 +112,7 @@ function Dashboard() {
               color: "rgba(255,255,255,0.1)",
               zeroLineColor: "transparent",
             },
-            ticks: {
-              display: false,
-            },
+            ticks: { display: false },
           },
         ],
       },
@@ -142,6 +122,7 @@ function Dashboard() {
   var today = new Date()
   const now = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + today.getDate()).slice(-2);
   const currentyear = today.getFullYear();
+
   function decrementDate(date_str, decrementor) {
     var parts = date_str.split("-");
     var dt = new Date(
@@ -152,13 +133,12 @@ function Dashboard() {
     dt.setTime(dt.getTime() - decrementor * 86400000);
     parts[0] = "" + dt.getFullYear();
     parts[1] = "" + (dt.getMonth() + 1);
-    if (parts[1].length < 2) {
-      parts[1] = "0" + parts[1];
-    }
+
+    if (parts[1].length < 2) { parts[1] = "0" + parts[1]; }
     parts[2] = "" + dt.getDate();
-    if (parts[2].length < 2) {
-      parts[2] = "0" + parts[2];
-    }
+
+    if (parts[2].length < 2) { parts[2] = "0" + parts[2]; }
+
     return parts.join("-");
   };
 
@@ -422,23 +402,15 @@ function Dashboard() {
         setRestaurantName(RestaurantName)
         setRestaurantCount(count)
       })
-
-
     });
   }, [])
 
-  const gtmember = () => {
-    history.push("/admin/member");
-  }
-  const gtmenu = () => {
-    history.push("/admin/menu");
-  }
-
+  const gtmember = () => { history.push("/admin/member"); }
+  const gtmenu = () => { history.push("/admin/menu"); }
 
   return (
-    <>
-
-      <div className="content">
+    <div>
+      <div className="content ml-2 mr-2">
         <Row>
           <Col lg="3" md="6" sm="6">
             <Card className="card-stats">
@@ -461,8 +433,8 @@ function Dashboard() {
               <CardFooter>
                 <hr />
                 <div className="stats">
-
-                  <button class="btn22 default" onClick={gtmember}><i className="fa fa-list" /> ดูสมาชิก</button>
+                  <button class="btn22 default" onClick={gtmember}>
+                    <i className="fa fa-list" /> ดูสมาชิก</button>
                 </div>
               </CardFooter>
             </Card>
@@ -478,7 +450,7 @@ function Dashboard() {
                   </Col>
                   <Col md="8" xs="7">
                     <div className="numbers">
-                      <p className="card-category">จำนวนหมวดหมู่</p>
+                      <p className="card-category">จำนวน Author</p>
                       <CardTitle tag="p">24</CardTitle>
                       <p />
                     </div>
@@ -488,7 +460,8 @@ function Dashboard() {
               <CardFooter>
                 <hr />
                 <div className="stats">
-                  <button class="btn22 default" onClick={gtmenu}><i className="fa fa-list" /> ดูหมวดหมู่</button>
+                  <button class="btn22 default" onClick={gtmenu}>
+                    <i className="fa fa-list" /> {/*ดูหมวดหมู่*/}</button>
                 </div>
               </CardFooter>
             </Card>
@@ -504,7 +477,7 @@ function Dashboard() {
                   </Col>
                   <Col md="8" xs="7">
                     <div className="numbers">
-                      <p className="card-category">จำนวนเมนู</p>
+                      <p className="card-category">จำนวน Research</p>
                       <CardTitle tag="p">{FoodCount}</CardTitle>
                       <p />
                     </div>
@@ -514,7 +487,8 @@ function Dashboard() {
               <CardFooter>
                 <hr />
                 <div className="stats">
-                  <button class="btn22 default" onClick={gtmenu}> <i className="fa fa-list" /> ดูเมนู </button>
+                  <button class="btn22 default" onClick={gtmenu}>
+                    <i className="fa fa-list" /> {/*ดูเมนู*/} </button>
                 </div>
               </CardFooter>
             </Card>
@@ -530,7 +504,7 @@ function Dashboard() {
                   </Col>
                   <Col md="8" xs="7">
                     <div className="numbers">
-                      <p className="card-category">จำนวนร้านอาหาร</p>
+                      <p className="card-category">จำนวน Year</p>
                       <CardTitle tag="p">{RestaurantCount}</CardTitle>
                       <p />
                     </div>
@@ -540,7 +514,8 @@ function Dashboard() {
               <CardFooter>
                 <hr />
                 <div className="stats">
-                  <button class="btn22 default" onClick={e => togglePopup(e.target.value)} ><i className="fa fa-list" /> รายชื่อร้านอาหาร</button>
+                  <button class="btn22 default" onClick={e => togglePopup(e.target.value)} >
+                    <i className="fa fa-list" /> {/*รายชื่อร้านอาหาร*/}</button>
                 </div>
               </CardFooter>
             </Card>
@@ -555,12 +530,8 @@ function Dashboard() {
                 <CardTitle tag="h5">ระบบสมาชิก</CardTitle>
               </CardHeader>
               <CardBody >
-                <Line
-                  data={dashboardNASDAQChart.data}
-                  options={dashboardNASDAQChart.options}
-                  width={400}
-                  height={100}
-                />
+                <Line data={dashboardNASDAQChart.data} options={dashboardNASDAQChart.options}
+                  width={400} height={100} />
               </CardBody>
               <CardFooter>
                 <div className="chart-legend">
@@ -578,26 +549,23 @@ function Dashboard() {
           <Col md="4">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">การสุ่มอาหารในระบบ</CardTitle>
+                <CardTitle tag="h5">{/*การสุ่มอาหารในระบบ*/}การเพิ่มงานวิจัย</CardTitle>
                 <p className="card-category">7 วัน</p>
               </CardHeader>
               <CardBody>
-                <Pie
-                  data={dashboardEmailStatisticsChart.data}
-                  options={dashboardEmailStatisticsChart.options}
-                />
+                <Pie data={dashboardEmailStatisticsChart.data}
+                  options={dashboardEmailStatisticsChart.options} />
               </CardBody>
               <CardFooter>
                 <div >
-
-                  <i className="fa fa-circle text-danger" /> จำนวนการกด สุ่มอาหาร{" = " + (NRandom - NConfirm) + " "}
+                  <i className="fa fa-circle text-danger" /> จำนวนการกด {/*สุ่มอาหาร*/}{" = " + (NRandom - NConfirm) + " "}
                   <br />
                   <br />
-                  <i className="fa fa-circle text-primary" /> จำนวนการกด ยืนยัน{" = " + NConfirm + " "}
+                  <i className="fa fa-circle text-primary" /> จำนวนการกด {/*ยืนยัน*/}{" = " + NConfirm + " "}
                 </div>
                 <hr />
                 <div className="stats">
-                  <i className="fa fa-calendar" />  4-10 เมษายน 2564
+                  <i className="fa fa-calendar" />  4-10 เมษายน
                 </div>
               </CardFooter>
             </Card>
@@ -605,18 +573,16 @@ function Dashboard() {
           <Col md="4">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">เมนูอาหารยอดนิยม</CardTitle>
+                <CardTitle tag="h5">{/*เมนูอาหาร*/}งานวิจัยยอดนิยม</CardTitle>
                 <p className="card-category">7วัน</p>
               </CardHeader>
               <CardBody>
                 {Object.keys(Food).map((id) => {
                   return <Row className="content">
-                    <div>&nbsp;&nbsp;&nbsp;<img
-                      alt="..."
+                    <div>&nbsp;&nbsp;&nbsp;<img alt="..."
                       src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620031025/Food/ff_tqnvv6.png"
-                      className="photo1"
-                    />&nbsp;&nbsp;&nbsp;{parseInt(id) + 1 + " " + Food[id].name + " จำนวนการกดยืนยัน: " + Food[id].Interesting} <br /></div>
-
+                      className="photo1" />
+                      &nbsp;&nbsp;&nbsp;{parseInt(id) + 1 + " " + Food[id].name + " จำนวนการกดยืนยัน: " + Food[id].Interesting} <br /></div>
                   </Row>
                 })}
               </CardBody>
@@ -633,18 +599,16 @@ function Dashboard() {
           <Col md="4">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">ร้านอาหารยอดนิยม</CardTitle>
+                <CardTitle tag="h5">{/*ร้านอาหาร*/}Author ยอดนิยม</CardTitle>
                 <p className="card-category">7 วัน</p>
               </CardHeader>
               <CardBody>
                 {Object.keys(Restaurant).map((id) => {
                   return <Row className="content">
-                    <div>&nbsp;&nbsp;&nbsp;<img
-                      alt="..."
+                    <div>&nbsp;&nbsp;&nbsp;<img alt="..."
                       src="https://res.cloudinary.com/daxwfdlwj/image/upload/v1620030928/Food/restaurant_jiiwue.png"
-                      className="photo1"
-                    />&nbsp;&nbsp;&nbsp;{parseInt(id) + 1 + " " + Restaurant[id].name + " จำนวนการกดยืนยัน: " + Restaurant[id].Interesting} <br /></div>
-
+                      className="photo1" />
+                      &nbsp;&nbsp;&nbsp;{parseInt(id) + 1 + " " + Restaurant[id].name + " จำนวนการกดยืนยัน: " + Restaurant[id].Interesting} <br /></div>
                   </Row>
                 })}
               </CardBody>
@@ -658,10 +622,10 @@ function Dashboard() {
               </CardFooter>
             </Card>
           </Col>
-
         </Row>
-        {isOpen && <Popup
-          content={<>
+
+        {isOpen && <Popup content={
+          <div>
             <h5>รายชื่อร้านอาหาร </h5>
             {Object.keys(RestaurantName).map((id) => {
               return < Row>
@@ -672,14 +636,10 @@ function Dashboard() {
                 />&nbsp;&nbsp;&nbsp;&nbsp;{RestaurantName[id]}</p>
               </Row>
             })}
-
-
-          </>}
-          handleClose={togglePopup}
-
-        />}
+          </div>} handleClose={togglePopup}>
+        </Popup>}
       </div>
-    </>
+    </div>
   );
 }
 
