@@ -139,8 +139,6 @@ function Insert() {
           factor,
         });
 
-        // ใช้ document reference เข้าถึงค่า document id
-        // alert(`New document has been inserted as ${documentRef.id}`);
         alert(`Successful`);
 
         window.location.reload(false);
