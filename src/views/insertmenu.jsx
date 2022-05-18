@@ -145,7 +145,7 @@ function Insert() {
 
         window.location.reload(false);
 
-        window.location.href = "/admin/insert";
+        window.location.href = "/member/insert";
       } else { alert(`Please fill in the blanks.`); }
     // }
   }
