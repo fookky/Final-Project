@@ -42,8 +42,8 @@ const Register = () => {
       FirstName,
       LastName,
       Email,
-      // Register_Date,
-      // Register_Year_Mounth,
+      Register_Date,
+      Register_Year_Mounth,
       Uid,
       Role
       // FoodList: [],
