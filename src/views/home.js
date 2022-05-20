@@ -188,234 +188,62 @@ function Home() {
                 className="d-block w-100"
                 src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner01.jpg"
                 alt="First slide"
-                height="300"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-              </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={2000}>
               <img
                 className="d-block w-100"
-                src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner02.jpg"
+                src="https://www.img.in.th/images/e0456369f65428ea2b0c62d34d0635c8.jpg"
                 alt="Second slide"
-                height="300"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </Carousel.Caption>
             </Carousel.Item >
             <Carousel.Item interval={2000}>
               <img
                 className="d-block w-100"
-                src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner03.jpg"
+                src="https://www.img.in.th/images/63822dd2a88640b8ff9f7edbaf266887.jpg"
                 alt="Third slide"
-                height="300"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={2000}>
               <img
                 className="d-block w-100"
                 src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner04.jpg"
                 alt="Third slide"
-                height="300"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>Forth slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={2000}>
               <img
                 className="d-block w-100"
-                src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner05.jpg"
+                src="https://www.img.in.th/images/b38edcbe9c62509e837e92096f519828.jpg"
                 alt="Third slide"
-                height="300"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>fifth slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={2000}>
               <img
                 className="d-block w-100"
                 src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner06.jpg"
                 alt="Third slide"
-                height="300"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>sixth slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item interval={2000}>
-              <img
-                className="d-block w-100"
-                src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner07.jpg"
-                alt="Third slide"
-                height="300"
-              />
-              <Carousel.Caption>
-                <h3>seventh slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
+          <Card className='p-5 card-welcome'>
+            <h5 className="welcome">Welcome to the MRD MATH KMUTT</h5>
+            <p>Management of research databases, Department of Mathematics KMUTT with Business Intelligence (MRD).
+              It provides details on researchers, research projects and publications at the Mathematics KMUTT.
+              There are two main ways of accessing the information. These include selection of thematic research
+              areas and staff in the left menu, through a direct search in the search box below or by browsing the
+              information by selecting different filters.</p>
+          </Card>
         </Col>
-      </Row>
-      <Row style={{ display: "flex", justifyContent: "center" }}>
-        <Col md="12">
-          <Card className='p-5'><CardHeader><h5 className="welcome">Welcome to the MRD MATH KMUTT</h5><p>Management of research databases, Department of Mathematics KMUTT with Business Intelligence (MRD).
-            It provides details on researchers, research projects and publications at the Mathematics KMUTT.
-            There are two main ways of accessing the information. These include selection of thematic research
-            areas and staff in the left menu, through a direct search in the search box below or by browsing the
-            information by selecting different filters.</p></CardHeader></Card>
-          {/* <h3 className="welcome">Welcome to the MRD MATH KMUTT</h3>
-          <p className="detail">
-            Management of research databases, Department of Mathematics KMUTT with Business Intelligence (MRD).
-            It provides details on researchers, research projects and publications at the Mathematics KMUTT.
-            There are two main ways of accessing the information. These include selection of thematic research
-            areas and staff in the left menu, through a direct search in the search box below or by browsing the
-            information by selecting different filters.
-          </p> */}
-        </Col>
-      </Row>
-      <Row>
-        <Col md="12">
-          <Row>
-
-            {/* <Col md="3">
-              <Card className="card-user">
-                <CardBody>
-                  <h5>General search</h5>
-                  <Form id="formFind">
-                    <FormGroup>
-                      <Input onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Author, Title, Journal" name="search"></Input>
-                    </FormGroup>
-                    <FormGroup>
-                      <Input onChange={(e) => setDropdown(e.target.value)}
-                        name="select" type="select">
-                        <option value="">Select</option>
-                        <option value="researcher">Author</option>
-                        <option value="title">Title</option>
-                        <option value="journal">Journal</option>
-                      </Input>
-                    </FormGroup>
-                  </Form>
-                  <Table borderless className="admin-insert">
-                    <thead>
-                      <tr>
-                        <th> Year {year}</th>
-                        <th> Quartile {quartile}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                      <tr>
-                        <td><Button outline class="btn btn" color="primary" value={year} onClick={e => setYear("2020")}>2020</Button></td>
-                        <td><Button outline class="btn btn" color="warning" value={quartile} onClick={e => setQuartile("Q1")}>Q1</Button></td>
-                      </tr>
-                      <tr>
-                        <td><Button outline class="btn btn" color="primary" value={year} onClick={e => setYear("2021")}>2021</Button></td>
-                        <td><Button outline class="btn btn" color="warning" value={quartile} onClick={e => setQuartile("Q2")}>Q2</Button></td>
-                      </tr>
-                      <tr>
-                        <td><Button outline class="btn btn" color="primary" value={year} onClick={e => setYear("2022")}>2022</Button></td>
-                        <td><Button outline class="btn btn" color="warning" value={quartile} onClick={e => setQuartile("Q3")}>Q3</Button></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td><Button outline class="btn btn" color="warning" value={quartile} onClick={e => setQuartile("Q4")}>Q4</Button></td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                  <div className="button-container">
-                    <Button onClick={() => clearall()} class="btn btn" color="info">
-                      Clear All
-                    </Button>
-                    <Button onClick={() => find()} class="btn btn" color="danger">
-                      Search
-                    </Button>
-                  </div>
-                </CardBody>
-              </Card>
-            </Col> */}
-
-            {/*(resultShow) ? (<Col md="9">
-              <Card className="card-user">
-                <CardBody>
-                  <CardTitle className="content">
-                    <h3>Research</h3>
-                  </CardTitle>
-                  <Col md="12">
-                    <Row className="ex1">
-                      {Object.keys(filter).map((id) => {
-                        return <Col md="12">
-                          <div key={id}>
-                            <Card className="card-research">
-                              {Object.keys(filter[id].writer).map((id2) => {
-                                return <p className='ml-2'>Author : {filter[id].writer[id2]}</p>
-                              })}
-                              <p className='ml-2'>Title : {filter[id].name}</p>
-                              <p className='ml-2'>Journal : {filter[id].journal}</p>
-                              <div className="others">
-                                <Link className="others" onClick={() => seeDocModal(id)}>See More</Link>
-                              </div>
-                            </Card>
-                          </div>
-                        </Col>
-                      })}
-                    </Row>
-                  </Col>
-                </CardBody>
-              </Card>
-            </Col>) : (<Col md='9'>
-              <Card>
-                <CardBody>
-                  <CardTitle className="content"><h3>Research</h3></CardTitle>
-                  <Col md="12"><Row className="ex1 border rounded border-secondary">
-                    <h6 className='m-auto'>the result will be displayed here</h6>
-                  </Row></Col>
-                </CardBody>
-              </Card>
-                    </Col>)*/}
-
-          </Row>
-        </Col>
-
-        <Modal isOpen={seeMoreModalShow} size="md" className="modal-seemore">
-          <ModalHeader>See More</ModalHeader>
-          <ModalBody>
-            <p>Author : </p>
-            {Object.keys(filterWriters).map((id2) => {
-              return (
-                <p>{filterWriters[id2]}</p>
-              );
-            })}
-            <p>Title : {filterTitle}</p>
-            <p>Journal : {filterJournal}</p>
-            <p>Year : {filterYear}</p>
-            <p>Quartile : {filterQuartile}</p>
-            <p>Impact factor : {filterFactor}</p>
-          </ModalBody>
-          <ModalFooter>
-            <Button onClick={() => setSeeMoreModalShow(false)} class="btn btn" color="danger">
-              close
-            </Button>
-          </ModalFooter>
-        </Modal>
       </Row>
     </div>
   );
-
 }
 
 export default Home;

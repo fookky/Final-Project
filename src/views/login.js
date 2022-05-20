@@ -6,7 +6,7 @@ import { AuthContext } from "components/Auth/Auth.js";
 
 import {
   Button, Card, CardHeader, CardBody, CardFooter,
-  CardTitle, FormGroup, Form, Input, Row,
+  CardTitle, FormGroup, Form, Input, Row, InputGroup, InputGroupText,
   Col,
 } from "reactstrap";
 
@@ -59,7 +59,7 @@ const LogIn = () => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
-      <Col md="6">
+      <Col md="4">
         <Card className="card-user">
           <CardBody>
             <Form onSubmit={handleSubmit}>
@@ -70,7 +70,15 @@ const LogIn = () => {
                 <Col md="12">
                   <FormGroup>
                     <label>Email</label>
-                    <Input onChange={e => setEmail(e.target.value)} type="email" name="email" required />
+                    <InputGroup>
+                      <Input onChange={e => setEmail(e.target.value)}
+                        type="email"
+                        name="email"
+                      />
+                      <InputGroupText>
+                        @mail.kmutt.ac.th
+                      </InputGroupText>
+                    </InputGroup>
                   </FormGroup>
                   <a className="color-error">{EmailError}</a>
                 </Col>
@@ -96,7 +104,7 @@ const LogIn = () => {
                     <div className="lightGray-textSize or">OR</div>
                     <div className="line"></div>
                   </div>
-                  <Button className="button-regis" color="danger" onClick={() => goToRegis()} outline>
+                  <Button className="button-regis" color="info" outline onClick={() => goToRegis()}>
                     REGISTER
                   </Button>
                 </div>

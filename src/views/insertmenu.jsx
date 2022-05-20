@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useContext } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
@@ -7,9 +6,20 @@ import { Redirect } from "react-router-dom";
 import Display from "components/Display.jsx";
 import { AppContext } from "views/admin_menu.jsx";
 import {
-  Card, CardHeader, CardBody, CardFooter, CardTitle,
-  Row, FormGroup, Form, Input, Col,
-  DropdownMenu, DropdownItem, Button, Select
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  CardTitle,
+  Row,
+  FormGroup,
+  Form,
+  Input,
+  Col,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  Select,
 } from "reactstrap";
 
 // เรียกใช้ module
@@ -119,7 +129,9 @@ function Insert() {
     });
   }, []);
 
-  if (!currentUser) { return <Redirect to="/general/login" />; }
+  if (!currentUser) {
+    return <Redirect to="/general/login" />;
+  }
 
   // ประกาศตัวแปรเพื่ออ้างอิง user collection
   const db = firebaseApp.firestore();
@@ -128,23 +140,25 @@ function Insert() {
   async function insertDocument() {
     // if (userMeRole.localeCompare("admin") !== 0) { alert(`Sorry, you are not admin.`); }
     // else {
-      if (name !== "" && journal !== "" && year !== "" && factor !== "") {
-        // insert และคืน document reference
-        const documentRef = await researchCollection.add({
-          writer,
-          name,
-          journal,
-          year,
-          quartile,
-          factor,
-        });
+    if (name !== "" && journal !== "" && year !== "" && factor !== "") {
+      // insert และคืน document reference
+      const documentRef = await researchCollection.add({
+        writer,
+        name,
+        journal,
+        year,
+        quartile,
+        factor,
+      });
 
-        alert(`Successful`);
+      alert(`Successful`);
 
-        window.location.reload(false);
+      window.location.reload(false);
 
-        window.location.href = "/member/insert";
-      } else { alert(`Please fill in the blanks.`); }
+      window.location.href = "/member/insert";
+    } else {
+      alert(`Please fill in the blanks.`);
+    }
     // }
   }
 
@@ -155,14 +169,22 @@ function Insert() {
     // console.log(subData[1].length)
 
     for (let i = 0; i < subData.length; i++) {
-      if (subData[i].split(" ").length - 1 <= 2) { writers.push(subData[i]); }
-      if (subData[i].split(" ").length - 1 > 2) { break; }
+      if (subData[i].split(" ").length - 1 <= 2) {
+        writers.push(subData[i]);
+      }
+      if (subData[i].split(" ").length - 1 > 2) {
+        break;
+      }
     }
     // console.log(writer.length)
 
     for (let i = 0; i < writers.length; i++) {
-      if (i == writers.length - 1) { text = text + writers[i]; }
-      if (i < writers.length - 1) { text = text + writers[i] + ", "; }
+      if (i == writers.length - 1) {
+        text = text + writers[i];
+      }
+      if (i < writers.length - 1) {
+        text = text + writers[i] + ", ";
+      }
     }
 
     setwriter(writers);
@@ -200,13 +222,26 @@ function Insert() {
   //   });
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      className="content"
+    >
       <Col md="8">
         <Card className="card-user">
           <CardBody>
             <Form>
-              <CardTitle style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-                className="content">
+              <CardTitle
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                className="content"
+              >
                 <h3></h3>
               </CardTitle>
               <Row>
@@ -214,10 +249,19 @@ function Insert() {
                   <FormGroup>
                     <label>Step 1 Enter all the information.</label>
                     <p>
-                      Where Format is as follows: Name1 Surname1, Name2 Surname2, Title, Journal, Year
+                      Where Format is as follows: Name1 Surname1, Name2
+                      Surname2, Title, Journal, Year
                     </p>
-                    <Input type="textarea" onChange={(e) => setall(e.target.value)}></Input>
-                    <button type="button" right class="btn btn-outline-danger" onClick={() => Split()}>
+                    <Input
+                      type="textarea"
+                      onChange={(e) => setall(e.target.value)}
+                    ></Input>
+                    <button
+                      type="button"
+                      right
+                      class="btn btn-outline-danger"
+                      onClick={() => Split()}
+                    >
                       Sorted by field
                     </button>
                   </FormGroup>
@@ -235,41 +279,63 @@ function Insert() {
                       return (
                         <Col md="12">
                           <Row>
-                            <Input type="text" defaultValue={writer[id]}></Input>
+                            <Input
+                              type="text"
+                              defaultValue={writer[id]}
+                            ></Input>
                           </Row>
-                          <br></br>
+                          <br/>
                         </Col>
                       );
                     })}
 
                     <p>Title</p>
-                    <Input type="textarea" onChange={(e) => setname(e.target.value)} defaultValue={name}></Input>
+                    <Input
+                      type="textarea"
+                      onChange={(e) => setname(e.target.value)}
+                      defaultValue={name}
+                    ></Input>
 
                     <br></br>
 
                     <p>Journal</p>
-                    <Input type="textarea" onChange={(e) => setjournal(e.target.value)} defaultValue={journal}></Input>
+                    <Input
+                      type="textarea"
+                      onChange={(e) => setjournal(e.target.value)}
+                      defaultValue={journal}
+                    ></Input>
 
                     <br></br>
 
                     <Row>
                       <Col md="4">
                         <p>Year</p>
-                        <Input onChange={(e) => setyear(e.target.value)} defaultValue={year}></Input>
+                        <Input
+                          onChange={(e) => setyear(e.target.value)}
+                          defaultValue={year}
+                        ></Input>
                       </Col>
                       <Col md="4">
                         <p>Quartile</p>
-                        <Input bsSize="" type="select" onChange={(e) => setquartile(e.target.value)}>
+                        <Input
+                          bsSize=""
+                          type="select"
+                          onChange={(e) => setquartile(e.target.value)}
+                        >
                           <option value="None">-- Select --</option>
                           <option value="Q1">Q1</option>
                           <option value="Q2">Q2</option>
                           <option value="Q3">Q3</option>
                           <option value="Q4">Q4</option>
+                          <option value="TCI1">TCI1</option>
+                          <option value="TCI2">TCI2</option>
                         </Input>
                       </Col>
                       <Col md="4">
                         <p>Impact Factor</p>
-                        <Input onChange={(e) => setfactor(e.target.value)}></Input>
+                        <Input
+                          onChange={(e) => setfactor(e.target.value)}
+                        ></Input>
                       </Col>
                     </Row>
 
@@ -283,7 +349,11 @@ function Insert() {
 
               <Row>
                 <div className="update ml-auto mr-auto">
-                  <Button classname="btn btn-" onClick={insertDocument} color="danger">
+                  <Button
+                    classname="btn btn-"
+                    onClick={insertDocument}
+                    color="danger"
+                  >
                     Save
                   </Button>
                 </div>

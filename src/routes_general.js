@@ -32,8 +32,8 @@ var routes = [
   //   layout: "/general",
   // },
   {
-    path: "/publication",
-    name: "publication",
+    path: "/publications",
+    name: "publications",
     icon: "nc-icon nc-align-left-2",
     component: publication,
     layout: "/general",
@@ -66,7 +66,7 @@ var routes = [
     icon: "nc-icon nc-spaceship",
     component: login,
     layout: "/general",
-  }
+  },
 ];
 
 export default routes;
