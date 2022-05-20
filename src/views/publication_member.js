@@ -403,6 +403,8 @@ const Member = () => {
                   <option value="Q2">Q2</option>
                   <option value="Q3">Q3</option>
                   <option value="Q4">Q4</option>
+                  <option value="TCI1">TCI1</option>
+                  <option value="TCI2">TCI2</option>
                 </Input>
               </Col>
               <Col md="4">
