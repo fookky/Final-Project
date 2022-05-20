@@ -206,12 +206,26 @@ function Dashboard() {
             </Button>
           </div>
         </Row>
+        <Row style={{ display: "flex", justifyContent: "center" }}>
+          <Col md="2">
+            <Form id="formFind">
+              <FormGroup>
+                <Input onChange={(e) => setDropdown(e.target.value)}
+                  name="select" type="select" className="input-journal">
+                  <option value="">Select Journal</option>
+                  <option value="">Inter Journal</option>
+                  <option value="">Thai Journal</option>
+                </Input>
+              </FormGroup>
+            </Form>
+          </Col>
+        </Row>
         <br />
         <Col md="12">
           <p>... results retrieved for search term "math"</p>
         </Col>
         <Col md="12" style={{ display: "flex", justifyContent: "center" }}>
-          <Pagination aria-label="Page navigation example" size="sm">
+          <Pagination aria-label="Page navigation example" size="" className="page-number">
             <PaginationItem>
               <PaginationLink first href="#" />
             </PaginationItem>
@@ -402,8 +416,8 @@ function Dashboard() {
               <li><Link className="others" onClick="">ชื่อคนโพส</Link></li>
             );
           })}
-          <br></br>
-          <h6>Publication Details</h6>
+          <br/>
+          <h6>Publications Details</h6>
           <div>Author list: :
             {Object.keys(filterWriters).map((id2) => {
               return <span>{filterWriters[id2]},</span>
@@ -413,7 +427,7 @@ function Dashboard() {
           <div>Year : {filterYear}</div>
           <div>Quartile : {filterQuartile}</div>
           <div>Impact factor : {filterFactor}</div>
-          <br></br>
+          <br/>
           <h6>Documents</h6>
         </ModalBody>
         <ModalFooter>

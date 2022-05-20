@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom'
 import {
   Button, Card, CardHeader, CardBody, CardFooter,
   CardTitle, FormGroup, Form, Input, Row,
-  Col, Table
+  Col, Table, InputGroup, InputGroupText,
 } from "reactstrap";
 import Carousel from 'react-bootstrap/Carousel'
 import { css } from 'jquery';
@@ -102,7 +102,7 @@ const Register = () => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
-      <Col md="6">
+      <Col md="4">
         <Card className="card-user">
           <CardBody>
             <Form onSubmit={handleSubmit}>
@@ -115,7 +115,7 @@ const Register = () => {
                   <FormGroup>
                     <label>First Name</label>
                     <Input onChange={e => setFirstName(e.target.value)}
-                      type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="กรอกตัวหนังสือเท่านั้น"
+                      type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="Fill out the text only."
                       required></Input>
                     <a className="color-error">{FirstNameError}</a>
                   </FormGroup>
@@ -127,7 +127,7 @@ const Register = () => {
                   <FormGroup>
                     <label>Last Name</label>
                     <Input onChange={e => setLastName(e.target.value)}
-                      type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="กรอกตัวหนังสือเท่านั้น"
+                      type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="Fill out the text only."
                       required></Input>
                     <a className="color-error">{LastNameError}</a>
                   </FormGroup>
@@ -138,8 +138,15 @@ const Register = () => {
                 <Col md="12">
                   <FormGroup>
                     <label>Email</label>
-                    <Input onChange={e => setEmail(e.target.value)}
-                      name="email" type="email" required></Input>
+                    <InputGroup>
+                      <Input onChange={e => setEmail(e.target.value)}
+                        name="email"
+                        type="email"
+                      />
+                      <InputGroupText>
+                        @mail.kmutt.ac.th
+                      </InputGroupText>
+                    </InputGroup>
                     <a className="color-error">{EmailError}</a>
                   </FormGroup>
                 </Col>

@@ -28,7 +28,7 @@ var routes = [
   // },
   {
     path: "/manage",
-    name: "publication",
+    name: "publications",
     icon: "nc-icon nc-bullet-list-67",
     component: manage,
     layout: "/member",

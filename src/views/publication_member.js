@@ -15,6 +15,7 @@ import {
   ModalFooter
 } from "reactstrap";
 import Carousel from 'react-bootstrap/Carousel'
+import { InputGroup } from 'react-bootstrap';
 
 const Member = () => {
   let no = 0
@@ -280,7 +281,7 @@ const Member = () => {
             <Table hover responsive className="table-admin">
               <thead>
                 <tr>
-                  <th width="30px">#</th>
+                  <th width="20px">#</th>
                   <th width="50px">Author</th>
                   <th width="30px">Title</th>
                   <th width="30px">Actions</th>
@@ -292,9 +293,11 @@ const Member = () => {
                     <tr>
                       <th scope="row">{rowNumber()}</th>
                       <td>
-                        {Object.keys(Research[id].writer).map((id2) => {
-                          return <p>{Research[id].writer[id2]}</p>
-                        })}
+                        <div>
+                          {Object.keys(Research[id].writer).map((id2) => {
+                            return <span>{Research[id].writer[id2]},</span>
+                          })}
+                        </div>
                       </td>
                       <td>
                         <p>{Research[id].name}</p>
@@ -334,19 +337,28 @@ const Member = () => {
       ) : null*/}
 
       <Modal isOpen={seeMoreModalShow} size="md" className="modal-seemore">
-        <ModalHeader>Detail</ModalHeader>
+        <ModalHeader>Publications Detail</ModalHeader>
         <ModalBody>
-          <p>Author : </p>
+          <h6>{name}</h6>
+          <br />
+          <h6>Authors/Editors</h6>
           {Object.keys(writer).map((id2) => {
             return (
-              <p>{writer[id2]}</p>
+              <li><Link className="others" onClick="">ชื่อคนโพส</Link></li>
             );
           })}
-          <p>Title : {name}</p>
-          <p>Journal : {journal}</p>
-          <p>Year : {year}</p>
-          <p>Quartile : {quartile}</p>
-          <p>Impact factor : {factor}</p>
+          <br></br>
+          <div>Author list: :
+            {Object.keys(writer).map((id2) => {
+              return <span>{writer[id2]},</span>
+            })}
+          </div>
+          <div>Journal : {journal}</div>
+          <div>Year : {year}</div>
+          <div>Quartile : {quartile}</div>
+          <div>Impact factor : {factor}</div>
+          <br></br>
+          <h6>Documents</h6>
         </ModalBody>
         <ModalFooter>
           <Button onClick={() => setSeeMoreModalShow(false)} class="btn" color="danger">close</Button>
@@ -354,43 +366,51 @@ const Member = () => {
       </Modal>
 
       <Modal isOpen={editModalShow} size="lg" className="modal-seemore">
-        <ModalHeader>Edit</ModalHeader>
+        <ModalHeader>Edit Publications</ModalHeader>
         <ModalBody>
+          <FormGroup>
+            <p>Author</p>
+            {Object.keys(writer).map((id2) => {
+              return (
+                <Col md="12">
+                  <Row>
+                    <Input type='text' onChange={(e) => updateData(id2, e.target.value)}
+                      defaultValue={writer[id2]} ></Input>
+                  </Row>
+                  <br></br>
+                </Col>
+              );
+            })}
 
-          <p>Author</p>
-          {Object.keys(writer).map((id2) => {
-            return (
-              <Col md="12">
-                <Row>
-                  <Input type='text' onChange={(e) => updateData(id2, e.target.value)}
-                    defaultValue={writer[id2]} ></Input>
-                </Row>
-                <br></br>
+            <p>Title</p>
+            <Input type="textarea" value={name} onChange={(e) => setName(e.target.value)}></Input>
+            <br />
+            <p>Journal</p>
+            <Input type="textarea" onChange={e => setJournal(e.target.value)}
+              defaultValue={journal}>
+            </Input>
+            <br />
+            <Row>
+              <Col md="4">
+                <p>Year</p>
+                <Input onChange={e => setYear(e.target.value)} defaultValue={year}></Input>
               </Col>
-            );
-          })}
-
-          <p>Title</p>
-          <Input type="textarea" value={name} onChange={(e) => setName(e.target.value)}></Input>
-
-          <p>Journal</p>
-          <Input type="textarea" onChange={e => setJournal(e.target.value)}
-            defaultValue={journal}></Input>
-
-          <p>Year</p>
-          <Input onChange={e => setYear(e.target.value)} defaultValue={year}></Input>
-
-          <p>Quartile</p>
-          <select onChange={e => setQuartile(e.target.value)}>
-            <option>{quartile}</option>
-            <option value="Q1">Q1</option>
-            <option value="Q2">Q2</option>
-            <option value="Q3">Q3</option>
-            <option value="Q4">Q4</option>
-          </select>
-
-          <p>Impact factor</p>
-          <Input defaultValue={factor} onChange={e => setFactor(e.target.value)}></Input>
+              <Col md="4">
+                <p>Quartile</p>
+                <Input bsSize="" type="select" onChange={e => setQuartile(e.target.value)}>
+                  <option>{quartile}</option>
+                  <option value="Q1">Q1</option>
+                  <option value="Q2">Q2</option>
+                  <option value="Q3">Q3</option>
+                  <option value="Q4">Q4</option>
+                </Input>
+              </Col>
+              <Col md="4">
+                <p>Impact Factor</p>
+                <Input defaultValue={factor} onChange={e => setFactor(e.target.value)}></Input>
+              </Col>
+            </Row>
+          </FormGroup>
         </ModalBody>
         <ModalFooter>
           <Button className="btn" color="info" onClick={() => setEditModalShow(false)}>Close</Button>
@@ -408,7 +428,6 @@ const Member = () => {
       </Modal>
     </div>
   );
-
 }
 
 export default Member;
