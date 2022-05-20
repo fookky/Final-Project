@@ -12,7 +12,7 @@ import stat from "views/stat.js";
 var routes = [
   {
     name: "homepage",
-    icon: "nc-icon nc-satisfied",
+    icon: "nc-icon nc-bank",
     path: "/home",
     component: home,
     layout: "/general",
@@ -34,7 +34,7 @@ var routes = [
   {
     path: "/publication",
     name: "publication",
-    icon: "nc-icon nc-single-02",
+    icon: "nc-icon nc-align-left-2",
     component: publication,
     layout: "/general",
   },
@@ -48,14 +48,14 @@ var routes = [
   {
     path: "/stat",
     name: "statistic",
-    icon: "nc-icon nc-single-02",
+    icon: "nc-icon nc-chart-bar-32",
     component: stat,
     layout: "/general",
   },
   {
     path: "/regis",
     name: "register",
-    icon: "nc-icon nc-single-02",
+    icon: "nc-icon nc-ruler-pencil",
     component: regis,
     layout: "/general",
   },

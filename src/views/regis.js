@@ -42,8 +42,8 @@ const Register = () => {
       FirstName,
       LastName,
       Email,
-      // Register_Date,
-      // Register_Year_Mounth,
+      Register_Date,
+      Register_Year_Mounth,
       Uid,
       Role
       // FoodList: [],
@@ -102,7 +102,7 @@ const Register = () => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
-      <Col md="4">
+      <Col md="6">
         <Card className="card-user">
           <CardBody>
             <Form onSubmit={handleSubmit}>
@@ -113,7 +113,7 @@ const Register = () => {
               <Row>
                 <Col md="12">
                   <FormGroup>
-                    <label>Name</label>
+                    <label>First Name</label>
                     <Input onChange={e => setFirstName(e.target.value)}
                       type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="กรอกตัวหนังสือเท่านั้น"
                       required></Input>
@@ -125,7 +125,7 @@ const Register = () => {
               <Row>
                 <Col md="12">
                   <FormGroup>
-                    <label>Lastname</label>
+                    <label>Last Name</label>
                     <Input onChange={e => setLastName(e.target.value)}
                       type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="กรอกตัวหนังสือเท่านั้น"
                       required></Input>
@@ -159,7 +159,7 @@ const Register = () => {
               <Row>
                 <Col md="12">
                   <FormGroup>
-                    <label>Re-Password</label>
+                    <label>Confirm Password</label>
                     <Input onChange={e => setConfirmPassword(e.target.value)}
                       type="password" required></Input>
                     <a className="color-error">{ConfirmPasswordError}</a>
@@ -169,9 +169,9 @@ const Register = () => {
 
               <Row style={{ display: "flex", justifyContent: "center", alignItems: "center" }}></Row>
               <Row>
-                <div className="update ml-auto mr-auto">
-                  <Button class="btn btn-info" color="danger" type="submit">
-                    Create
+                <div className="box-btn">
+                  <Button className="button-login" color="danger" type="submit">
+                    SIGN UP
                   </Button>
                 </div>
               </Row>

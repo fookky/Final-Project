@@ -1,20 +1,12 @@
+
 import React, { useEffect, useState, useContext } from 'react'
 import firebaseApp from '../firebase.js';
 import { Redirect } from 'react-router-dom'
 import { AuthContext } from "components/Auth/Auth.js";
 
-
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  FormGroup,
-  Form,
-  Input,
-  Row,
+  Button, Card, CardHeader, CardBody, CardFooter,
+  CardTitle, FormGroup, Form, Input, Row,
   Col,
 } from "reactstrap";
 
@@ -50,52 +42,35 @@ const LogIn = () => {
           }
         });
 
-    } catch (error) {
-      alert(error);
-    }
+    } catch (error) { alert(error); }
   }
 
+  const goToRegis = () => { window.location.href = "/general/regis"; }
+
   const forgotPassword = (Email) => {
-    
     firebaseApp.auth().sendPasswordResetEmail(Email)
-      .then(function (user) {
-        alert('Please check your email...')
-      }).catch(function (e) {
-        console.log(e)
-      })
+      .then(function (user) { alert('Please check your email...') })
+      .catch(function (e) { console.log(e) })
   }
 
   const { currentUser } = useContext(AuthContext);
 
-  if (currentUser) {
-    return <Redirect to="/member/profile" />;
-  }
+  if (currentUser) { return <Redirect to="/member/profile" />; }
 
   return (
-    <div style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }} className="content">
-      <Col md="4">
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
+      <Col md="6">
         <Card className="card-user">
           <CardBody>
             <Form onSubmit={handleSubmit}>
-              <CardTitle style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }} className="content"><h3>Login</h3></CardTitle>
+              <CardTitle style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
+                <h3>Login</h3>
+              </CardTitle>
               <Row>
                 <Col md="12">
                   <FormGroup>
                     <label>Email</label>
-                    <Input
-                      onChange={e => setEmail(e.target.value)}
-                      type="email"
-                      name="email"
-                      required
-                    />
+                    <Input onChange={e => setEmail(e.target.value)} type="email" name="email" required />
                   </FormGroup>
                   <a className="color-error">{EmailError}</a>
                 </Col>
@@ -104,10 +79,7 @@ const LogIn = () => {
                 <Col md="12">
                   <FormGroup>
                     <label>Password</label>
-                    <Input
-                      type="password"
-                      name="password"
-                    />
+                    <Input type="password" name="password" />
                   </FormGroup>
                   <a className="color-error">{PasswordError}</a>
                 </Col>
@@ -115,13 +87,17 @@ const LogIn = () => {
 
               <p><b class="btn22 default" onClick={() => forgotPassword(Email)}>Forgot Password</b></p>
               <Row>
-                <div className="update ml-auto mr-auto">
-                  <Button
-                    className="btn-round"
-                    color="danger"
-                    type="submit"
-                  >
-                    Login
+                <div className="box-btn">
+                  <Button className="button-login" color="danger" type="submit">
+                    LOGIN
+                  </Button>
+                  <div className="box-or mt-3">
+                    <div className="line"></div>
+                    <div className="lightGray-textSize or">OR</div>
+                    <div className="line"></div>
+                  </div>
+                  <Button className="button-regis" color="danger" onClick={() => goToRegis()} outline>
+                    REGISTER
                   </Button>
                 </div>
               </Row>
@@ -131,7 +107,6 @@ const LogIn = () => {
       </Col>
     </div>
   );
-
 }
 
 export default LogIn;

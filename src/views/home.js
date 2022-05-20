@@ -270,9 +270,9 @@ function Home() {
           </Carousel>
         </Col>
       </Row>
-      <Row>
+      <Row style={{ display: "flex", justifyContent: "center" }}>
         <Col md="12">
-          <Card className='p-5'><CardHeader><h5 className="welcome">Welcome to the KIRIM Research Portal.</h5><p>Management of research databases, Department of Mathematics KMUTT with Business Intelligence (MRD).
+          <Card className='p-5'><CardHeader><h5 className="welcome">Welcome to the MRD MATH KMUTT</h5><p>Management of research databases, Department of Mathematics KMUTT with Business Intelligence (MRD).
             It provides details on researchers, research projects and publications at the Mathematics KMUTT.
             There are two main ways of accessing the information. These include selection of thematic research
             areas and staff in the left menu, through a direct search in the search box below or by browsing the
