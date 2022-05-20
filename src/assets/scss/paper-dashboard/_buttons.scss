@@ -1,5 +1,5 @@
 .btn,
-.navbar .navbar-nav > a.btn {
+.navbar .navbar-nav>a.btn {
   border-width: $border-thick;
   font-weight: $font-weight-semi;
   font-size: $font-size-small;
@@ -19,9 +19,10 @@
     @include opacity(1);
     outline: 0 !important;
   }
+
   &:active,
   &.active,
-  .open > &.dropdown-toggle {
+  .open>&.dropdown-toggle {
     @include box-shadow(none);
     outline: 0 !important;
   }
@@ -99,55 +100,70 @@
 .btn-primary {
   @include btn-styles($primary-color, $primary-states-color);
 }
+
 .btn-success {
   @include btn-styles($success-color, $success-states-color);
 }
+
 .btn-info {
   @include btn-styles($info-color, $info-states-color);
 }
+
 .btn-warning {
   @include btn-styles($warning-color, $warning-states-color);
 }
+
 .btn-danger {
   @include btn-styles($danger-color, $danger-states-color);
 }
+
 // .btn-neutral { @include btn-styles($white-color, $white-color); }
 
 .btn-outline-default {
   @include btn-outline-styles($default-color, $default-states-color);
 }
+
 .btn-outline-primary {
   @include btn-outline-styles($primary-color, $primary-states-color);
 }
+
 .btn-outline-success {
   @include btn-outline-styles($success-color, $success-states-color);
 }
+
 .btn-outline-info {
   @include btn-outline-styles($info-color, $info-states-color);
 }
+
 .btn-outline-warning {
   @include btn-outline-styles($warning-color, $warning-states-color);
 }
+
 .btn-outline-danger {
   @include btn-outline-styles($danger-color, $danger-states-color);
 }
+
 .btn-outline-neutral {
   @include btn-outline-styles($white-color, $default-states-color);
+
   &:hover,
   &:focus {
     color: $default-states-color;
     background-color: $white-color;
   }
 }
+
 .btn-neutral {
   @include btn-styles($white-color, $white-color);
   color: $default-color;
+
   &:hover,
   &:focus {
     color: $default-states-color;
   }
 
   &.btn-border {
+
     &:hover,
     &:focus {
       color: $default-color;
@@ -155,7 +171,7 @@
 
     &:active,
     &.active,
-    .open > &.dropdown-toggle {
+    .open>&.dropdown-toggle {
       background-color: $white-color;
       color: $default-color;
     }
@@ -168,6 +184,7 @@
 }
 
 .btn {
+
   &:disabled,
   &[disabled],
   &.disabled {
@@ -175,6 +192,7 @@
     pointer-events: none;
   }
 }
+
 .btn-simple {
   border: $border;
   border-color: $default-color;
@@ -184,10 +202,12 @@
 
 .btn-simple,
 .btn-link {
+
   &.disabled,
   &:disabled,
   &[disabled],
   fieldset[disabled] & {
+
     &,
     &:hover,
     &:focus,
@@ -206,49 +226,53 @@
 }
 
 .btn-lg {
-  @include btn-size(
-    $padding-large-vertical,
+  @include btn-size($padding-large-vertical,
     $padding-large-horizontal,
     $font-size-large,
-    $border-radius-large
-  );
+    $border-radius-large );
 }
+
 .btn-sm {
-  @include btn-size(
-    $padding-small-vertical,
+  @include btn-size($padding-small-vertical,
     $padding-small-horizontal,
     $font-size-small,
-    $border-radius-small
-  );
+    $border-radius-small );
 }
 
 .btn-wd {
   min-width: 140px;
 }
+
 .btn-group.select {
   width: 100%;
 }
+
 .btn-group.select .btn {
   text-align: left;
 }
+
 .btn-group.select .caret {
   position: absolute;
   top: 50%;
   margin-top: -1px;
   right: 8px;
 }
+
 .btn-group {
-  .btn + .btn {
+  .btn+.btn {
     margin-left: -3px;
   }
+
   .btn {
     &:focus {
-      background-color: $info-color !important;
+      background-color: $info-color  !important;
     }
   }
 }
 
-.btn-danger, .btn-info, .btn{
+.btn-danger,
+.btn-info,
+.btn {
   font-family: "Prompt", sans-serif;
 }
 
@@ -269,6 +293,7 @@
     display: none;
   }
 }
+
 .namefood {
   border: none;
   background-color: inherit;
@@ -304,13 +329,67 @@
 }
 
 .btn-remove:hover {
-	color: red;
+  color: red;
 }
 
 .btn-remove:active {
-	border: none;
+  border: none;
 }
 
 .insert {
   float: right;
+}
+
+.box-btn {
+  width: 100%;
+  padding: 0 15px;
+}
+
+.button-login {
+  width: 100% !important;
+  border-radius: 5px;
+  transform: translateY(-2px);
+}
+
+.button-login:hover {
+  transform: translateY(-2px);
+}
+
+.box-or {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.line {
+  width: 45%;
+  border-top: 2px solid #e5e3e3;
+  height: 1px;
+  margin: auto;
+}
+
+.or {
+  width: 10%;
+  justify-content: center;
+  text-align: center;
+}
+
+.lightGray-textSize {
+  color: #acacac;
+  font-size: 14px;
+}
+
+.button-regis {
+  width: 100% !important;
+  border-radius: 5px;
+}
+
+.button-regis:hover {
+  background-color: white !important;
+  color: #ef8c8b !important;
+  transform: translateY(-2px);
+}
+
+.button-container-search {
+  margin-top: 5px;
 }

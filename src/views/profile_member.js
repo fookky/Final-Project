@@ -138,10 +138,10 @@ function Dashboard() {
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }} className="content">
-      <Col md="10">
+      <Col md="6">
         <Row>
           {Object.keys(User).map((id) => {
-            return <Col md="4">
+            return <Col md="12">
               <Card className="card-user">
                 <div className="image">
                   <img alt="..." src="https://sv1.picz.in.th/images/2022/04/27/8msXze.jpg" />
@@ -153,7 +153,7 @@ function Dashboard() {
                         src="https://sv1.picz.in.th/images/2022/04/27/8mufYa.png" />
                       <h5 className="title">{User[id].FirstName} {User[id].LastName}</h5>
                     </a>
-                    <p className="description">{User[id].Role}</p>
+                    {/* <p className="description">{User[id].Role}</p> */}
                     <p className="description">{User[id].Email}</p>
                   </div>
                   <div className="button-container">
@@ -167,7 +167,7 @@ function Dashboard() {
             </Col>
           })}
 
-          <Col md="8">
+          {/* <Col md="8">
             <Card className="card-user">
               <CardBody>
                 <CardTitle className="content">
@@ -190,7 +190,7 @@ function Dashboard() {
                 </Col>
               </CardBody>
             </Card>
-          </Col>
+          </Col> */}
         </Row>
       </Col>
     </div>

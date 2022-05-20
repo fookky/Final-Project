@@ -5,10 +5,13 @@ import home from "views/home.js";
 import Maps from "views/Map.js";
 import regis from "views/regis.js";
 import login from "views/login.js";
+import publication from "views/publication.js";
+import people from "views/people.js";
+import stat from "views/stat.js";
 
 var routes = [
   {
-    name: "Home",
+    name: "homepage",
     icon: "nc-icon nc-satisfied",
     path: "/home",
     component: home,
@@ -29,8 +32,29 @@ var routes = [
   //   layout: "/general",
   // },
   {
+    path: "/publication",
+    name: "publication",
+    icon: "nc-icon nc-single-02",
+    component: publication,
+    layout: "/general",
+  },
+  {
+    path: "/people",
+    name: "people",
+    icon: "nc-icon nc-single-02",
+    component: people,
+    layout: "/general",
+  },
+  {
+    path: "/stat",
+    name: "statistic",
+    icon: "nc-icon nc-single-02",
+    component: stat,
+    layout: "/general",
+  },
+  {
     path: "/regis",
-    name: "Register",
+    name: "register",
     icon: "nc-icon nc-single-02",
     component: regis,
     layout: "/general",
@@ -38,7 +62,7 @@ var routes = [
   {
     pro: true,
     path: "/login",
-    name: "Login",
+    name: "login",
     icon: "nc-icon nc-spaceship",
     component: login,
     layout: "/general",

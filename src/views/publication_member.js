@@ -273,9 +273,9 @@ const Member = () => {
               <br></br>
             </CardTitle>
             <div className="insert">
-              {/* <Button classname="btn btn-" color="danger" onClick={() => goToInsert()}>
+              <Button classname="btn btn-" color="danger" onClick={() => goToInsert()}>
                 <i class="fa fa-solid fa-plus"></i>
-              </Button> */}
+              </Button>
             </div>
             <Table hover responsive className="table-admin">
               <thead>
@@ -304,14 +304,14 @@ const Member = () => {
                           onClick={() => seeDocModal(id)}>
                           <i class="fa fa-solid fa-eye"></i>
                         </a>
-                        {/* <a title class="btn btn-success btn-link btn-xs"
+                        <a title class="btn btn-success btn-link btn-xs"
                           onClick={() => editDocModal(id)}>
                           <i class="fa fa-solid fa-pen"></i>
                         </a>
                         <a title class="btn btn-danger btn-link btn-xs"
                           onClick={() => delDocModal(id)}>
                           <i class="fa fa-solid fa-trash"></i>
-                        </a> */}
+                        </a>
                       </td>
                     </tr>
                   </tbody>

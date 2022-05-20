@@ -17,6 +17,7 @@
   }
 
   &.bg-white {
+
     .input-group .form-control,
     .input-group.no-border .form-control {
       color: $default-color;
@@ -25,6 +26,7 @@
         color: $default-color;
       }
     }
+
     .input-group-prepend .input-group-text i,
     .input-group-append .input-group-text i {
       color: $default-color;
@@ -119,9 +121,11 @@
 
     .nav-link.btn {
       padding: $padding-btn-vertical $padding-btn-horizontal;
+
       &.btn-lg {
         padding: $padding-large-vertical $padding-large-horizontal;
       }
+
       &.btn-sm {
         padding: $padding-small-vertical $padding-small-horizontal;
       }
@@ -134,8 +138,8 @@
       line-height: $line-height-nav-link;
       margin-right: 3px;
 
-      i.fa + p,
-      i.nc-icon + p {
+      i.fa+p,
+      i.nc-icon+p {
         margin-left: 3px;
       }
 
@@ -192,7 +196,7 @@
     line-height: $line-height-nav-link;
     font-family: "Prompt", sans-serif;
     font-weight: bold;
-    color: white !important;
+    color: #ea724c !important;
   }
 
   .navbar-toggler {
@@ -217,7 +221,7 @@
   }
 
   &.navbar-transparent {
-    background-color: $transparent-bg !important;
+    background-color: $transparent-bg  !important;
     box-shadow: none;
     border-bottom: 1px solid #ddd;
 
@@ -237,6 +241,7 @@
     .nav-item .nav-link:not(.btn) {
       color: $default-color;
     }
+
     .nav-item.active .nav-link:not(.btn),
     .nav-item .nav-link:not(.btn):focus,
     .nav-item .nav-link:not(.btn):hover,
@@ -282,29 +287,29 @@
 }
 
 .bg-default {
-  background-color: $default-color !important;
+  background-color: $default-color  !important;
 }
 
 .bg-primary {
-  background-color: $primary-color !important;
+  background-color: $primary-color  !important;
 }
 
 .bg-info {
-  background-color: $info-color !important;
+  background-color: $info-color  !important;
 }
 
 .bg-success {
-  background-color: $success-color !important;
+  background-color: $success-color  !important;
 }
 
 .bg-danger {
-  background-color: $danger-color !important;
+  background-color: $danger-color  !important;
 }
 
 .bg-warning {
-  background-color: $warning-color !important;
+  background-color: $warning-color  !important;
 }
 
 .bg-white {
-  background-color: $white-color !important;
+  background-color: $white-color  !important;
 }

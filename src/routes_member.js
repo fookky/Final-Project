@@ -5,7 +5,7 @@ import list from "views/list_member.js";
 import random from "views/random_member.js";
 import insert from "views/insertmenu.jsx";
 import home from "views/home_member.js";
-import manage from "views/all_member_admin";
+import manage from "views/publication_member";
 import stat from "views/stat.js";
 import Maps from "views/Map_member.js";
 import profile from "views/profile_member.js";
@@ -19,38 +19,38 @@ var routes = [
     component: home,
     layout: "/member",
   },
-  {
-    path: "/stat",
-    name: "Research Statistics",
-    icon: "nc-icon nc-chart-bar-32",
-    component: stat,
-    layout: "/member",
-  },
-  {
-    path: "/explore",
-    name: "Research Explore",
-    icon: "nc-icon nc-zoom-split",
-    component: explore,
-    layout: "/member",
-  },
+  // {
+  //   path: "/explore",
+  //   name: "Research Explore",
+  //   icon: "nc-icon nc-zoom-split",
+  //   component: explore,
+  //   layout: "/member",
+  // },
   {
     path: "/manage",
-    name: "Research Management",
+    name: "publication",
     icon: "nc-icon nc-bullet-list-67",
     component: manage,
     layout: "/member",
   },
   {
     path: "/insert",
-    name: "Research Insertion",
+    name: "new paper",
     icon: "nc-icon nc-paper",
     component: insert,
     layout: "/member",
   },
   {
+    path: "/stat",
+    name: "statistic",
+    icon: "nc-icon nc-chart-bar-32",
+    component: stat,
+    layout: "/member",
+  },
+  {
     pro: true,
     path: "/profile",
-    name: "Profile",
+    name: "profile",
     icon: "nc-icon nc-circle-10",
     component: profile,
     layout: "/member",

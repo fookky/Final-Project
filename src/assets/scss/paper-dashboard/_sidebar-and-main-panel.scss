@@ -46,6 +46,7 @@
 
     @extend .animation-transition-general;
   }
+
   .logo-tim {
     border-radius: 50%;
     border: 1px solid #333;
@@ -72,11 +73,11 @@
     }
 
     li {
-      > a + div .nav li > a {
+      >a+div .nav li>a {
         margin-top: 7px;
       }
 
-      > a {
+      >a {
         margin: 10px 15px 0;
         color: $white-color;
         display: block;
@@ -90,17 +91,17 @@
         opacity: 0.7;
       }
 
-      .nav > li > a {
+      .nav>li>a {
         padding: 5px 8px;
       }
 
-      &.active > a,
-      &.active > a > i {
+      &.active>a,
+      &.active>a>i {
         opacity: 1;
       }
 
-      &:hover:not(.active) > a,
-      &:focus:not(.active) > a {
+      &:hover:not(.active)>a,
+      &:focus:not(.active)>a {
         opacity: 1;
       }
     }
@@ -231,6 +232,7 @@
     @include sidebar-color($white-color);
     @include sidebar-text-color($default-color);
   }
+
   &[data-color="black"] {
     @include sidebar-color($dark-color);
   }
@@ -240,15 +242,19 @@
   &[data-active-color="primary"] {
     @include sidebar-active-color($primary-color);
   }
+
   &[data-active-color="info"] {
     @include sidebar-active-color($info-color);
   }
+
   &[data-active-color="success"] {
     @include sidebar-active-color($success-color);
   }
+
   &[data-active-color="warning"] {
     @include sidebar-active-color($warning-color);
   }
+
   &[data-active-color="danger"] {
     @include sidebar-active-color($danger-color);
   }
@@ -257,18 +263,20 @@
 .visible-on-sidebar-regular {
   display: inline-block !important;
 }
+
 .visible-on-sidebar-mini {
   display: none !important;
 }
 
 .off-canvas-sidebar {
   .nav {
-    > li > a,
-    > li > a:hover {
+
+    >li>a,
+    >li>a:hover {
       color: $white-color;
     }
 
-    > li > a:focus {
+    >li>a:focus {
       background: rgba(200, 200, 200, 0.2);
     }
   }
@@ -283,17 +291,18 @@
   // background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   // background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
   // background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-  background: linear-gradient(87deg, #fbb140 0, #fb6340 100%) !important;
+  // background: linear-gradient(87deg, #fbb140 0, #fb6340 100%) !important;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 
   @include transition(0.5s, cubic-bezier(0.685, 0.0473, 0.346, 1));
 
-  > .content {
+  >.content {
     padding: 0 30px 30px;
     min-height: calc(100vh - 123px);
     margin-top: 10px;
   }
 
-  > .navbar {
+  >.navbar {
     margin-bottom: 0;
   }
 
@@ -303,6 +312,7 @@
 }
 
 .perfect-scrollbar-on {
+
   .sidebar,
   .main-panel {
     height: 100%;
@@ -314,15 +324,14 @@
   height: 260px;
   padding-top: 80px;
   padding-bottom: 45px;
-  background: #141e30; /* fallback for old browsers */
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#0c2646),
-    color-stop(60%, #204065),
-    to(#2a5788)
-  );
+  background: #141e30;
+  /* fallback for old browsers */
+  background: -webkit-gradient(linear,
+      left top,
+      right top,
+      from(#0c2646),
+      color-stop(60%, #204065),
+      to(#2a5788));
   background: linear-gradient(to right, #0c2646 0%, #204065 60%, #2a5788 100%);
   position: relative;
   overflow: hidden;
@@ -331,6 +340,7 @@
     .title {
       color: $white-color;
     }
+
     .category {
       max-width: 600px;
       color: $opacity-5;

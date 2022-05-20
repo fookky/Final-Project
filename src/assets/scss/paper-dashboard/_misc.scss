@@ -10,6 +10,7 @@ body {
   position: relative;
   background: $white-color;
 }
+
 /* Animations */
 .nav-pills .nav-link,
 .navbar,
@@ -45,7 +46,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
   border-radius: 1px;
   background: $white-bg;
 
-  & + .button-bar {
+  &+.button-bar {
     margin-top: 7px;
   }
 
@@ -69,6 +70,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
 .pull-left {
   float: left;
 }
+
 .pull-right {
   float: right;
 }
@@ -81,18 +83,22 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
     .navbar-minimize {
       display: none;
     }
+
     .navbar-brand,
     .collapse .navbar-nav .nav-link {
-      color: $white-color !important;
+      color: $white-color  !important;
     }
   }
+
   .footer {
     z-index: 3 !important;
   }
+
   .page-header {
     .container {
       z-index: 3;
     }
+
     &:after {
       background-color: rgba(0, 0, 0, 0.5);
       content: "";
@@ -119,21 +125,27 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
   &.badge-default {
     @include badge-color($default-color);
   }
+
   &.badge-primary {
     @include badge-color($primary-color);
   }
+
   &.badge-info {
     @include badge-color($info-color);
   }
+
   &.badge-success {
     @include badge-color($success-color);
   }
+
   &.badge-warning {
     @include badge-color($warning-color);
   }
+
   &.badge-danger {
     @include badge-color($danger-color);
   }
+
   &.badge-neutral {
     @include badge-color($white-color);
     color: inherit;
@@ -147,34 +159,42 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
     }
   }
 }
+
 a {
   color: "primary";
   font-size: 13px;
 }
+
 .login-container {
   margin-top: 5%;
   margin-bottom: 5%;
 }
+
 .login-form-1 {
   padding: 5%;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
+
 .login-form-1 h3 {
   text-align: center;
   color: #333;
 }
+
 .login-form-2 {
   padding: 5%;
   background: #0062cc;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
+
 .login-form-2 h3 {
   text-align: center;
   color: #fff;
 }
+
 .login-container form {
   padding: 10%;
 }
+
 .btnSubmit {
   width: 50%;
   border-radius: 1rem;
@@ -182,30 +202,36 @@ a {
   border: none;
   cursor: pointer;
 }
+
 .login-form-1 .btnSubmit {
   font-weight: 600;
   color: #fff;
   background-color: #0062cc;
 }
+
 .login-form-2 .btnSubmit {
   font-weight: 600;
   color: #0062cc;
   background-color: #fff;
 }
+
 .login-form-2 .ForgetPwd {
   color: #fff;
   font-weight: 600;
   text-decoration: none;
 }
+
 .login-form-1 .ForgetPwd {
   color: #0062cc;
   font-weight: 600;
   text-decoration: none;
 }
+
 .photo {
   height: 20px;
   width: 20px;
 }
+
 .photo1 {
   height: 30px;
   width: 30px;
@@ -218,6 +244,7 @@ a {
   height: 30px;
   width: 50px;
 }
+
 .popup-box {
   position: fixed;
   background: #00000050;
@@ -277,26 +304,33 @@ a {
 .closebtn:hover {
   color: black;
 }
+
 .ex1 {
   height: 490px;
   overflow: auto;
+  padding: 20px 0;
 }
+
 .ex11 {
   height: 660px;
   overflow: auto;
 }
+
 .ex2 {
   height: 260px;
   overflow: auto;
 }
+
 .ex3 {
   height: 700px;
   overflow: auto;
 }
+
 .ex4 {
   height: 330px;
   overflow: auto;
 }
+
 .ex5 {
   height: 460px;
   overflow: auto;

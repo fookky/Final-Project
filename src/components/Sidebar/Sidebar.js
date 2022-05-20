@@ -63,7 +63,8 @@ class Sidebar extends React.Component {
           >
             <div className="logo-img">
               {/* <img src="https://sv1.picz.in.th/images/2022/04/07/85XAh0.png" alt="react-logo" /> */}
-              <img src="https://imgz.io/images/2022/04/27/logo-mrd.png" alt="react-logo" />
+              {/* <img src="https://imgz.io/images/2022/04/27/logo-mrd.png" alt="react-logo" /> */}
+              <img src="https://www.img.in.th/images/36312d6d40892689747bc2ce3c54ae0b.png" alt="react-logo" />
             </div>
 
           </a>

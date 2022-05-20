@@ -19,7 +19,7 @@
     box-shadow 200ms ease;
 
   .card-body {
-    padding: 15px 15px 10px 15px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     font-family: "Prompt", sans-serif;
@@ -34,6 +34,7 @@
     &:not([data-background-color]) {
       background-color: transparent;
     }
+
     padding: 15px 15px 0;
     border: 0;
 
@@ -158,4 +159,14 @@
   padding: 15px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.card-search {
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+.card-search2 {
+  padding: 10px 30px;
+  border-radius: 0.2rem;
 }
