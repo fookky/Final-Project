@@ -7,7 +7,7 @@ import { AuthContext } from "components/Auth/Auth.js";
 import {
   Button, Card, CardHeader, CardBody, CardFooter,
   CardTitle, FormGroup, Form, Input, Row,
-  Col,
+  Col, InputGroup, InputGroupText
 } from "reactstrap";
 
 const LogIn = () => {
@@ -25,6 +25,8 @@ const LogIn = () => {
     clearErrors();
 
     const { email, password } = e.target.elements;
+
+    email.value = Email
 
     try {
 
@@ -46,6 +48,11 @@ const LogIn = () => {
   }
 
   const goToRegis = () => { window.location.href = "/general/regis"; }
+
+  const doFullEmail = (e) => {
+    const full = e + '@mail.kmutt.ac.th'
+    setEmail(full)
+  }
 
   const forgotPassword = (Email) => {
     firebaseApp.auth().sendPasswordResetEmail(Email)
@@ -70,7 +77,10 @@ const LogIn = () => {
                 <Col md="12">
                   <FormGroup>
                     <label>Email</label>
-                    <Input onChange={e => setEmail(e.target.value)} type="email" name="email" required />
+                    <InputGroup>
+                      <Input onChange={e => doFullEmail(e.target.value)} name="email" required />
+                      <InputGroupText>@mail.kmutt.ac.th</InputGroupText>
+                    </InputGroup>
                   </FormGroup>
                   <a className="color-error">{EmailError}</a>
                 </Col>
@@ -96,7 +106,7 @@ const LogIn = () => {
                     <div className="lightGray-textSize or">OR</div>
                     <div className="line"></div>
                   </div>
-                  <Button className="button-regis" color="danger" onClick={() => goToRegis()} outline>
+                  <Button className="button-regis" color="info" onClick={() => goToRegis()} outline>
                     REGISTER
                   </Button>
                 </div>

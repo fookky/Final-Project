@@ -56,6 +56,8 @@ function Dashboard() {
   const [quartile, setQuartile] = useState('')
   const [dropdown, setDropdown] = useState('title')
   const [filter, setFilter] = useState({})
+  const [file, setFile] = useState("")
+  const [fileName, setFileName] = useState("")
 
   // ประกาศตัวแปรเพื่ออ้างอิง user collection
   const db = firebaseApp.firestore()
@@ -175,6 +177,18 @@ function Dashboard() {
     setfilterYear(filter[id].year)
     setFilterQuartile(filter[id].quartile)
     setFilterFactor(filter[id].factor)
+    setFile(filter[id].file)
+    setFileName(filter[id].fileName)
+  }
+
+  const downloadPDF = (file, fileName) => {
+    const linkSource = file;
+    const downloadLink = document.createElement("a");
+    // const fileName = fileName;
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
   }
 
   return (
@@ -200,18 +214,30 @@ function Dashboard() {
               </Form>
             </Card>
           </Col>
-          <div className="button-container-search">
+          <Col md="2" className='mt-2 mx-0 px-0'>
+            <Form id="formFind">
+              <FormGroup>
+                <Input onChange={(e) => setDropdown(e.target.value)}
+                  name="select" type="select" className="input-journal pt-2 pl-5">
+                  <option value="">-- Select --</option>
+                  <option value="">International</option>
+                  <option value="">National</option>
+                </Input>
+              </FormGroup>
+            </Form>
+          </Col>
+          <Col md='2' className="button-container-search my-0">
             <Button onClick={() => find()} className="btn-round button-search" color="danger">
               Search
             </Button>
-          </div>
+          </Col>
         </Row>
-        <br />
+        <br></br>
         <Col md="12">
-          <p>... results retrieved for search term "math"</p>
+          <p>{/*... results retrieved for search term "math"*/}</p>
         </Col>
         <Col md="12" style={{ display: "flex", justifyContent: "center" }}>
-          <Pagination aria-label="Page navigation example" size="sm">
+          <Pagination aria-label="Page navigation example" size="" className="page-number">
             <PaginationItem>
               <PaginationLink first href="#" />
             </PaginationItem>
@@ -369,8 +395,8 @@ function Dashboard() {
                             return <span>{filter[id].writer[id2]},</span>
                           })}
                         </div>
-                        <br />
-                        <hr />
+                        <br></br>
+                        <hr></hr>
                       </Col>
                     })}
                   </Row>
@@ -382,7 +408,8 @@ function Dashboard() {
               <CardBody>
                 <CardTitle className="content"></CardTitle>
                 <Col md="12">
-                  <Row className="ex1">
+                  <Row className="ex1 border border-dark">
+                    <h5 className='m-auto'>The result will be displayed here</h5>
                   </Row>
                 </Col>
               </CardBody>
@@ -392,32 +419,34 @@ function Dashboard() {
       </Col>
 
       <Modal isOpen={seeMoreModalShow} size="md" className="modal-seemore">
-        <ModalHeader>See More</ModalHeader>
+        <ModalHeader>Publication Detail</ModalHeader>
         <ModalBody>
           <h6>{filterTitle}</h6>
           <br />
-          <h6>Authors/Editors</h6>
+          <h6>Authors</h6>
           {Object.keys(filterWriters).map((id2) => {
             return (
-              <li><Link className="others" onClick="">ชื่อคนโพส</Link></li>
+              <li>{filterWriters[id2]}</li>
             );
           })}
           <br></br>
-          <h6>Publication Details</h6>
-          <div>Author list: :
+
+          {/* <div>Author list: :
             {Object.keys(filterWriters).map((id2) => {
               return <span>{filterWriters[id2]},</span>
             })}
-          </div>
+          </div> */}
           <div>Journal : {filterJournal}</div>
           <div>Year : {filterYear}</div>
           <div>Quartile : {filterQuartile}</div>
           <div>Impact factor : {filterFactor}</div>
           <br></br>
           <h6>Documents</h6>
+          <embed src={file} />
+          <button onClick={() => downloadPDF(file, fileName)} className='btn btn-primary btn-sm'>download</button>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={() => setSeeMoreModalShow(false)} class="btn btn" color="danger">
+          <Button onClick={() => setSeeMoreModalShow(false)} class="btn" size="sm" color="danger">
             close
           </Button>
         </ModalFooter>

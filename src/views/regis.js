@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom'
 import {
   Button, Card, CardHeader, CardBody, CardFooter,
   CardTitle, FormGroup, Form, Input, Row,
-  Col, Table
+  Col, Table, InputGroup, InputGroupText
 } from "reactstrap";
 import Carousel from 'react-bootstrap/Carousel'
 import { css } from 'jquery';
@@ -21,6 +21,8 @@ const Register = () => {
   const [FirstName, setFirstName] = useState('')
   const [LastName, setLastName] = useState('')
   const [Email, setEmail] = useState('')
+  const [EmailName, setEmailName] = useState('')
+  const [fullEmail, setFullEmail] = useState('')
   const [Password, setPassword] = useState('')
   const [ConfirmPassword, setConfirmPassword] = useState('')
   const [Role, setRole] = useState('member')
@@ -45,10 +47,11 @@ const Register = () => {
       Register_Date,
       Register_Year_Mounth,
       Uid,
-      Role
+      // Role
       // FoodList: [],
       // RandomList: []
     })
+    alert("successful");
   }
 
   function ErrorsCheck() {
@@ -66,12 +69,19 @@ const Register = () => {
     setConfirmPasswordError('');
   }
 
+  const doFullEmail = (e) => {
+    const full = e + '@mail.kmutt.ac.th'
+    setEmail(full)
+  }
+
   const handleSubmit = (e) => {
+
     e.preventDefault();
     clearErrors();
     ErrorsCheck();
 
     const { email, password } = e.target.elements;
+    email.value = Email
 
     try {
       if (FirstName !== '' && LastName !== '' && Date !== '' && ConfirmPassword !== '' && ConfirmPassword == Password) {
@@ -115,7 +125,7 @@ const Register = () => {
                   <FormGroup>
                     <label>First Name</label>
                     <Input onChange={e => setFirstName(e.target.value)}
-                      type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="กรอกตัวหนังสือเท่านั้น"
+                      type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="Only letters"
                       required></Input>
                     <a className="color-error">{FirstNameError}</a>
                   </FormGroup>
@@ -127,7 +137,7 @@ const Register = () => {
                   <FormGroup>
                     <label>Last Name</label>
                     <Input onChange={e => setLastName(e.target.value)}
-                      type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="กรอกตัวหนังสือเท่านั้น"
+                      type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" title="Only letters"
                       required></Input>
                     <a className="color-error">{LastNameError}</a>
                   </FormGroup>
@@ -138,8 +148,10 @@ const Register = () => {
                 <Col md="12">
                   <FormGroup>
                     <label>Email</label>
-                    <Input onChange={e => setEmail(e.target.value)}
-                      name="email" type="email" required></Input>
+                    <InputGroup>
+                      <Input onChange={e => doFullEmail(e.target.value)} name='email' />
+                      <InputGroupText>@mail.kmutt.ac.th</InputGroupText>
+                    </InputGroup>
                     <a className="color-error">{EmailError}</a>
                   </FormGroup>
                 </Col>

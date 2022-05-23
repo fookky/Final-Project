@@ -188,95 +188,59 @@ function Home() {
                 className="d-block w-100"
                 src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner01.jpg"
                 alt="First slide"
-                height="300"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-              </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={2000}>
               <img
                 className="d-block w-100"
-                src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner02.jpg"
+                src="https://www.img.in.th/images/e0456369f65428ea2b0c62d34d0635c8.jpg"
                 alt="Second slide"
-                height="300"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </Carousel.Caption>
             </Carousel.Item >
             <Carousel.Item interval={2000}>
               <img
                 className="d-block w-100"
-                src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner03.jpg"
+                src="https://www.img.in.th/images/63822dd2a88640b8ff9f7edbaf266887.jpg"
                 alt="Third slide"
-                height="300"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={2000}>
               <img
                 className="d-block w-100"
-                src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner04.jpg"
-                alt="Third slide"
-                height="300"
+                src="https://www.img.in.th/images/b38edcbe9c62509e837e92096f519828.jpg"
+                alt="Forth slide"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>Forth slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item interval={2000}>
-              <img
-                className="d-block w-100"
-                src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner05.jpg"
-                alt="Third slide"
-                height="300"
-              />
-              <Carousel.Caption>
-                <h3>fifth slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={2000}>
               <img
                 className="d-block w-100"
                 src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner06.jpg"
                 alt="Third slide"
-                height="300"
+                height="330"
               />
-              <Carousel.Caption>
-                <h3>sixth slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item interval={2000}>
-              <img
-                className="d-block w-100"
-                src="https://kirim.kmutt.ac.th/error/styleKmutt/images/banner07.jpg"
-                alt="Third slide"
-                height="300"
-              />
-              <Carousel.Caption>
-                <h3>seventh slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
+          <Card className='p-5 card-welcome'>
+            <h5 className="welcome">Welcome to the MRD MATH KMUTT</h5>
+            <p>Management of research databases, Department of Mathematics KMUTT with Business Intelligence (MRD).
+              It provides details on researchers, research projects and publications at the Mathematics KMUTT.
+              There are two main ways of accessing the information. These include selection of thematic research
+              areas and staff in the left menu, through a direct search in the search box or by browsing the
+              information by selecting different filters.</p>
+          </Card>
         </Col>
       </Row>
       <Row style={{ display: "flex", justifyContent: "center" }}>
         <Col md="12">
-          <Card className='p-5'><CardHeader><h5 className="welcome">Welcome to the MRD MATH KMUTT</h5><p>Management of research databases, Department of Mathematics KMUTT with Business Intelligence (MRD).
+          {/* <Card className='p-5'><CardHeader><h5 className="welcome">Welcome to the MRD MATH KMUTT</h5><p>Management of research databases, Department of Mathematics KMUTT with Business Intelligence (MRD).
             It provides details on researchers, research projects and publications at the Mathematics KMUTT.
             There are two main ways of accessing the information. These include selection of thematic research
             areas and staff in the left menu, through a direct search in the search box below or by browsing the
-            information by selecting different filters.</p></CardHeader></Card>
+            information by selecting different filters.</p></CardHeader></Card> */}
           {/* <h3 className="welcome">Welcome to the MRD MATH KMUTT</h3>
           <p className="detail">
             Management of research databases, Department of Mathematics KMUTT with Business Intelligence (MRD).

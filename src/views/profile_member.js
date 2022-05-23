@@ -10,7 +10,7 @@ import { Col, Card, Row } from "react-bootstrap";
 import {
   Button, CardHeader, CardBody, CardFooter, CardTitle,
   FormGroup, Form, Input, InputGroup, InputGroupText,
-  InputGroupAddon
+  InputGroupAddon, Modal, ModalHeader, ModalBody, ModalFooter
 } from "reactstrap";
 
 // core components
@@ -28,6 +28,8 @@ function Dashboard() {
   const [Food, setFood] = useState({})
   const [RecomList, setRecomList] = useState({})
   const [FoodId, setFoodId] = useState([])
+
+  const [editProfileModalShow, setEditProfileModalShow] = useState(false)
 
   var today = new Date()
   const now = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + today.getDate()).slice(-2);
@@ -137,62 +139,66 @@ function Dashboard() {
   } else if (!currentUser) { return <Redirect to="/general/login" />; }
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }} className="content">
+    <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }} className="content">
       <Col md="6">
-        <Row>
-          {Object.keys(User).map((id) => {
-            return <Col md="12">
-              <Card className="card-user">
-                <div className="image">
-                  <img alt="..." src="https://sv1.picz.in.th/images/2022/04/27/8msXze.jpg" />
-                </div>
-                <CardBody>
-                  <div className="author">
-                    <a>
-                      <img alt="..." className="avatar border-gray"
-                        src="https://sv1.picz.in.th/images/2022/04/27/8mufYa.png" />
-                      <h5 className="title">{User[id].FirstName} {User[id].LastName}</h5>
-                    </a>
-                    {/* <p className="description">{User[id].Role}</p> */}
-                    <p className="description">{User[id].Email}</p>
-                  </div>
-                  <div className="button-container">
-                    <Button onClick={() => firebaseApp.auth().signOut()}
-                      class="btn btn" color="danger">
-                      Log Out
-                    </Button>
-                  </div>
-                </CardBody>
-              </Card>
-            </Col>
-          })}
-
-          {/* <Col md="8">
+        {Object.keys(User).map((id) => {
+          return <Col md="12">
             <Card className="card-user">
+              {/* <div className="image">
+                  <img alt="..." src="https://sv1.picz.in.th/images/2022/04/27/8msXze.jpg" />
+                </div> */}
               <CardBody>
-                <CardTitle className="content">
-                  <h3>Favorites</h3>
-                </CardTitle>
-                <br></br>
-                <Col md="12">
-                  {Object.keys(User).map((id) => {
-                    return <Row>
-                      <Col>
-                        <label>Title</label>
-                        <p>{User[id].FirstName} {User[id].LastName}</p>
-                      </Col>
-                      <Col>
-                        <p></p>
-                        <Button close className="btn-remove"></Button>
-                      </Col>
-                    </Row>
-                  })}
+                <div className="author">
+                  <div>
+                    <img alt="..." className="avatar border-gray"
+                      src="https://cf.shopee.co.th/file/5160e1eb7f9b68c33e15e06780dac2ca" />
+                    <h5 className="title">{User[id].FirstName} {User[id].LastName}</h5>
+                  </div>
+                  <p className="description">{User[id].Email}</p>
+                </div>
+                <Col md="12" className='mt-1'>
+                  <h6>Work Affiliations</h6>
+                  <p>From 01/02/2017 to Present: School of Architecture and Design - คณะสถาปัตย์ (KMUTT)</p>
+                  <h6>Publications</h6>
+                  <p>Lighting Design Approach for Chiangmai Old Town: Case Studies through Temples; ดร.อัจฉราวรรณ จุฑารัตน์, วีรวิชย์ มุสิกพงศ์; 2021; Report</p>
                 </Col>
+                <div className="button-container">
+                  <Button onClick="" class="btn btn" color="info" className='mr-1'>
+                    Edit Profile
+                  </Button>
+                  <Button onClick={() => firebaseApp.auth().signOut()}
+                    class="btn btn" color="danger" className='ml-1'>
+                    Log Out
+                  </Button>
+                </div>
               </CardBody>
             </Card>
-          </Col> */}
-        </Row>
+          </Col>
+        })}
       </Col>
+
+      <Modal isOpen={editProfileModalShow} size="lg" className="modal-seemore">
+        <ModalHeader>Edit Profile</ModalHeader>
+        <ModalBody>
+          <FormGroup>
+            <p>Last Name</p>
+            <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$"></Input>
+
+            <p>Last Name</p>
+            <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$"></Input>
+
+            <p>Work Affiliations</p>
+            <Input type="textarea">From 01/02/2017 to Present: School of Architecture and Design - คณะสถาปัตย์ (KMUTT)</Input>
+
+            <p>Publications</p>
+            <Input type="textarea">Lighting Design Approach for Chiangmai Old Town: Case Studies through Temples; ดร.อัจฉราวรรณ จุฑารัตน์, วีรวิชย์ มุสิกพงศ์; 2021; Report</Input>
+          </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button className="btn" color="info" onClick={() => setEditProfileModalShow(false)}>Close</Button>
+          <Button className="btn" color="danger" onClick="">Apply</Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 }

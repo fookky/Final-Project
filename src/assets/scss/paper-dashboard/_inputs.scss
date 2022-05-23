@@ -452,6 +452,10 @@ textarea.form-control {
   color: #212529 !important;
 }
 
+.card-welcome {
+  border-radius: 0 0 0.5rem 0.5rem !important;
+}
+
 .welcome,
 .search {
   font-weight: bold;
@@ -490,9 +494,22 @@ textarea.form-control {
 .input-search:active {
   border: none !important;
   margin: 5px 10px -2px 0 !important;
+  font-family: "Prompt", sans-serif;
 }
 
 .icon-search {
   margin: 5px 0 -2px 15px;
   font-size: 25px;
+}
+
+.input-journal {
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  font-family: "Prompt", sans-serif;
+}
+
+.page-number {
+  // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  font-family: "Prompt", sans-serif;
 }

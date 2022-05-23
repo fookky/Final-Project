@@ -55,6 +55,8 @@ function Insert() {
   const [year, setyear] = useState("");
   const [quartile, setquartile] = useState("");
   const [factor, setfactor] = useState("");
+  const[file,setFile]=useState("")
+  const[fileName,setFileName]=useState("")
 
   const [allWriter, setallWriter] = useState("");
 
@@ -137,6 +139,8 @@ function Insert() {
           year,
           quartile,
           factor,
+          file,
+          fileName
         });
 
         alert(`Successful`);
@@ -173,6 +177,33 @@ function Insert() {
 
     // console.log(writer)      // ทดสอบ print ข้อมูลใน writer
   };
+
+  const onUploadFileChange = ({ target }) => {
+    if (target.files < 1 || !target.validity.valid) {
+      return
+    }
+    fileToBase64(target.files[0], (err, result) => {
+      if (result) {
+        console.log("hello")
+        console.log(result)
+        console.log(target.files[0].name)
+        setFile(result)
+        setFileName(target.files[0].name)
+      }
+    })
+  }
+
+  const fileToBase64 = (file, cb) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = function () {
+      cb(null, reader.result)
+    }
+    reader.onerror = function (error) {
+      cb(error, null)
+    }
+  }
+
 
   // const splitkey = [];
   // let curName = '';
@@ -276,7 +307,8 @@ function Insert() {
                     <br></br>
 
                     <p>File</p>
-                    <Input id="exampleFile" multiple name="file" type="file" />
+                    <Input id="exampleFile" multiple name="file" type="file"
+                    onChange={onUploadFileChange} />
                   </FormGroup>
                 </Col>
               </Row>
