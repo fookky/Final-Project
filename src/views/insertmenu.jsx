@@ -46,7 +46,7 @@ function Insert() {
   const [RestaurantName, setRestaurantName] = useState({});
 
   const [userMe, setUserMe] = useState({});
-  const [userMeRole, setUserMeRole] = useState("");
+  const [userUid, setUserUid] = useState("");
 
   const [all, setall] = useState("");
   const [writer, setwriter] = useState([]);
@@ -55,8 +55,8 @@ function Insert() {
   const [year, setyear] = useState("");
   const [quartile, setquartile] = useState("");
   const [factor, setfactor] = useState("");
-  const[file,setFile]=useState("")
-  const[fileName,setFileName]=useState("")
+  const [file, setFile] = useState("")
+  const [fileName, setFileName] = useState("")
 
   const [allWriter, setallWriter] = useState("");
 
@@ -78,7 +78,7 @@ function Insert() {
         ss.forEach((document) => {
           // manipulate ตัวแปร local
           User[document.id] = document.data();
-          setUserMeRole(User[document.id].Role);
+          setUserUid(User[document.id].Uid);
         });
 
         // เปลี่ยนค่าตัวแปร state
@@ -130,25 +130,26 @@ function Insert() {
   async function insertDocument() {
     // if (userMeRole.localeCompare("admin") !== 0) { alert(`Sorry, you are not admin.`); }
     // else {
-      if (name !== "" && journal !== "" && year !== "" && factor !== "") {
-        // insert และคืน document reference
-        const documentRef = await researchCollection.add({
-          writer,
-          name,
-          journal,
-          year,
-          quartile,
-          factor,
-          file,
-          fileName
-        });
+    if (name !== "" && journal !== "" && year !== "" && factor !== "") {
+      // insert และคืน document reference
+      const documentRef = await researchCollection.add({
+        writer,
+        name,
+        journal,
+        year,
+        quartile,
+        factor,
+        file,
+        fileName,
+        userUid
+      });
 
-        alert(`Successful`);
+      alert(`Successful`);
 
-        window.location.reload(false);
+      window.location.reload(false);
 
-        window.location.href = "/member/insert";
-      } else { alert(`Please fill in the blanks.`); }
+      window.location.href = "/member/insert";
+    } else { alert(`Please fill in the blanks.`); }
     // }
   }
 
@@ -179,14 +180,13 @@ function Insert() {
   };
 
   const onUploadFileChange = ({ target }) => {
-    if (target.files < 1 || !target.validity.valid) {
-      return
-    }
+    if (target.files < 1 || !target.validity.valid) { return (null) }
+
     fileToBase64(target.files[0], (err, result) => {
       if (result) {
-        console.log("hello")
-        console.log(result)
-        console.log(target.files[0].name)
+        // console.log("hello")
+        // console.log(result)
+        // console.log(target.files[0].name)
         setFile(result)
         setFileName(target.files[0].name)
       }
@@ -196,14 +196,9 @@ function Insert() {
   const fileToBase64 = (file, cb) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
-    reader.onload = function () {
-      cb(null, reader.result)
-    }
-    reader.onerror = function (error) {
-      cb(error, null)
-    }
+    reader.onload = function () { cb(null, reader.result) }
+    reader.onerror = function (error) { cb(error, null) }
   }
-
 
   // const splitkey = [];
   // let curName = '';
@@ -308,7 +303,7 @@ function Insert() {
 
                     <p>File</p>
                     <Input id="exampleFile" multiple name="file" type="file"
-                    onChange={onUploadFileChange} />
+                      onChange={onUploadFileChange} />
                   </FormGroup>
                 </Col>
               </Row>

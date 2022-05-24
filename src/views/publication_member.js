@@ -34,7 +34,7 @@ const Member = () => {
   const [Research, setResearch] = useState({})
 
   const [userMe, setUserMe] = useState({})
-  const [userMeRole, setUserMeRole] = useState("")
+  const [userUid, setUserUid] = useState("")
 
   const [name, setName] = useState('')
   const [writer, setWriter] = useState([])
@@ -53,33 +53,33 @@ const Member = () => {
 
   const { currentUser } = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
-  //   firebaseApp.auth().onAuthStateChanged(user => {
-  //     const db = firebaseApp.firestore()
-  //     const userRef = db.collection('User').where('Uid', '==', firebaseApp.auth().currentUser.uid)
+  useEffect(() => {
+    //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
+    firebaseApp.auth().onAuthStateChanged(user => {
+      const db = firebaseApp.firestore()
+      const userRef = db.collection('User').where('Uid', '==', firebaseApp.auth().currentUser.uid)
 
-  //     // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
-  //     const unsubscribe = userRef.onSnapshot(ss => {
-  //       // ตัวแปร local
-  //       const User = {}
+      // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
+      const unsubscribe = userRef.onSnapshot(ss => {
+        // ตัวแปร local
+        const User = {}
 
-  //       ss.forEach(document => {
-  //         // manipulate ตัวแปร local
-  //         User[document.id] = document.data()
-  //         setUserMeRole(User[document.id].Role)
-  //       })
+        ss.forEach(document => {
+          // manipulate ตัวแปร local
+          User[document.id] = document.data()
+          setUserUid(User[document.id].Uid)
+        })
 
-  //       // เปลี่ยนค่าตัวแปร state
-  //       setUserMe(User)
-  //     })
+        // เปลี่ยนค่าตัวแปร state
+        setUserMe(User)
+      })
 
-  //     return () => {
-  //       // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
-  //       unsubscribe()
-  //     }
-  //   });
-  // }, [])
+      return () => {
+        // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
+        unsubscribe()
+      }
+    });
+  }, [])
 
   useEffect(() => {
     //ใช้ firebaseApp.auth().onAuthStateChanged เพื่อใช้ firebaseApp.auth().currentUser โดยไม่ติด error เมื่อทำการ signout
@@ -95,6 +95,8 @@ const Member = () => {
         ss.forEach(document => {
           // manipulate ตัวแปร local
           Research[document.id] = document.data()
+          // console.log(userUid)
+          // console.log(document.data().factor)
         })
 
         // เปลี่ยนค่าตัวแปร state
@@ -290,7 +292,7 @@ const Member = () => {
               {Object.keys(Research).map((id) => {
                 return (
                   <tbody>
-                    <tr>
+                    {(Research[id].userUid == userUid) ? (<tr>
                       <th scope="row">{rowNumber()}</th>
                       <td>
                         {Object.keys(Research[id].writer).map((id2) => {
@@ -314,7 +316,7 @@ const Member = () => {
                           <i class="fa fa-solid fa-trash"></i>
                         </a>
                       </td>
-                    </tr>
+                    </tr>) : null}
                   </tbody>
                 );
               })}

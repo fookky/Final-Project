@@ -140,7 +140,7 @@ function Dashboard() {
 
   return (
     <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }} className="content">
-      <Col md="6">
+      <Col md="8">
         {Object.keys(User).map((id) => {
           return <Col md="12">
             <Card className="card-user">
@@ -159,11 +159,11 @@ function Dashboard() {
                 <Col md="12" className='mt-1'>
                   <h6>Work Affiliations</h6>
                   <p>From 01/02/2017 to Present: School of Architecture and Design - คณะสถาปัตย์ (KMUTT)</p>
-                  <h6>Publications</h6>
-                  <p>Lighting Design Approach for Chiangmai Old Town: Case Studies through Temples; ดร.อัจฉราวรรณ จุฑารัตน์, วีรวิชย์ มุสิกพงศ์; 2021; Report</p>
+                  {/* <h6>Publications</h6>
+                  <p>Lighting Design Approach for Chiangmai Old Town: Case Studies through Temples; ดร.อัจฉราวรรณ จุฑารัตน์, วีรวิชย์ มุสิกพงศ์; 2021; Report</p> */}
                 </Col>
                 <div className="button-container">
-                  <Button onClick="" class="btn btn" color="info" className='mr-1'>
+                  <Button onClick={()=>setEditProfileModalShow(true)} class="btn btn" color="info" className='mr-1'>
                     Edit Profile
                   </Button>
                   <Button onClick={() => firebaseApp.auth().signOut()}
@@ -177,21 +177,21 @@ function Dashboard() {
         })}
       </Col>
 
-      <Modal isOpen={editProfileModalShow} size="lg" className="modal-seemore">
+      <Modal isOpen={editProfileModalShow} size="md" className="modal-seemore">
         <ModalHeader>Edit Profile</ModalHeader>
         <ModalBody>
           <FormGroup>
-            <p>Last Name</p>
+            <p>First Name</p>
             <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$"></Input>
 
             <p>Last Name</p>
             <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$"></Input>
 
             <p>Work Affiliations</p>
-            <Input type="textarea">From 01/02/2017 to Present: School of Architecture and Design - คณะสถาปัตย์ (KMUTT)</Input>
+            <Input type="textarea"></Input>
 
-            <p>Publications</p>
-            <Input type="textarea">Lighting Design Approach for Chiangmai Old Town: Case Studies through Temples; ดร.อัจฉราวรรณ จุฑารัตน์, วีรวิชย์ มุสิกพงศ์; 2021; Report</Input>
+            {/* <p>Publications</p>
+            <Input type="textarea"></Input> */}
           </FormGroup>
         </ModalBody>
         <ModalFooter>

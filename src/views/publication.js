@@ -442,7 +442,7 @@ function Dashboard() {
           <div>Impact factor : {filterFactor}</div>
           <br></br>
           <h6>Documents</h6>
-          <embed src={file} />
+          <embed src={file} /><br></br>
           <button onClick={() => downloadPDF(file, fileName)} className='btn btn-primary btn-sm'>download</button>
         </ModalBody>
         <ModalFooter>
