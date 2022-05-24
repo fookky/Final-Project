@@ -27,13 +27,20 @@ export const AppContext = React.createContext();
 function Dashboard() {
 
   // ประกาศตัวแปร state
-  const [Food, setFood] = useState({})
-  const [FoodName, setFoodName] = useState({})
-  const [cate, setCate] = useState('')
-  const [cate2, setCate2] = useState('')
-  const [cate3, setCate3] = useState('')
-  const [cate4, setCate4] = useState('')
-  const [cate5, setCate5] = useState('')
+  // const [Food, setFood] = useState({})
+  // const [FoodName, setFoodName] = useState({})
+  // const [cate, setCate] = useState('')
+  // const [cate2, setCate2] = useState('')
+  // const [cate3, setCate3] = useState('')
+  // const [cate4, setCate4] = useState('')
+  // const [cate5, setCate5] = useState('')
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(4)
+  const [indexLast, setIndexLast] = useState(0)
+  const [indexFirst, setInedexFirst] = useState(0)
+  const [pageNumbers, setPageNumbers] = useState([])
+  const [searchResult, setSearchResult] = useState([])
 
   const [search, setSearch] = useState('')
 
@@ -55,6 +62,7 @@ function Dashboard() {
   const [year, setYear] = useState('')
   const [quartile, setQuartile] = useState('')
   const [dropdown, setDropdown] = useState('title')
+
   const [filter, setFilter] = useState({})
   const [file, setFile] = useState("")
   const [fileName, setFileName] = useState("")
@@ -79,7 +87,6 @@ function Dashboard() {
 
       // เปลี่ยนค่าตัวแปร state
       setResearch(research)
-      // console.log(research)
     })
 
     return () => {
@@ -100,6 +107,10 @@ function Dashboard() {
   function find() {
     const researchAll = research
     let filter = []
+
+    const idxLast = currentPage * itemsPerPage
+    const idxFirst = idxLast - itemsPerPage
+    let pageNum = []
 
     if (search != '') {
       if (dropdown == "title") {
@@ -147,12 +158,15 @@ function Dashboard() {
       filter = quartileFilter
     }
 
+    for (let i = 1; i <= Math.ceil(filter.length / itemsPerPage); i++) { pageNum.push(i) }
+
     setFilter(filter)
+    setSearchResult(filter)
     setResultShow(true)
-    // console.log(filter[1].writer)
+    setFilter(filter.slice(idxFirst, idxLast))
+    setPageNumbers(pageNum)
+    // console.log(filter.length)
     // console.log(researchAll.name)
-    // console.log(dropdown)
-    // console.log(search)
   }
 
   // const { currentUser } = useContext(AuthContext);
@@ -191,6 +205,14 @@ function Dashboard() {
     downloadLink.click();
   }
 
+  const goToPage = (number) => {
+
+    const idxLast = number * itemsPerPage
+    const idxFirst = idxLast - itemsPerPage
+
+    setFilter(searchResult.slice(idxFirst, idxLast))
+  }
+
   return (
     <div style={{ display: "flex", justifyContent: "center" }} className="content">
       <Col md="12">
@@ -218,8 +240,8 @@ function Dashboard() {
             <Form id="formFind">
               <FormGroup>
                 <Input onChange={(e) => setDropdown(e.target.value)}
-                  name="select" type="select" className="input-journal pt-2 pl-5">
-                  <option value="">-- Select --</option>
+                  name="select" type="select" className="input-journal text-center">
+                  <option value="">- Select -</option>
                   <option value="">International</option>
                   <option value="">National</option>
                 </Input>
@@ -237,29 +259,15 @@ function Dashboard() {
           <p>{/*... results retrieved for search term "math"*/}</p>
         </Col>
         <Col md="12" style={{ display: "flex", justifyContent: "center" }}>
+
           <Pagination aria-label="Page navigation example" size="" className="page-number">
-            <PaginationItem>
-              <PaginationLink first href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" previous />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">2</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">3</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" next />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" last />
-            </PaginationItem>
+            {pageNumbers.map(number => (
+              <PaginationItem>
+                <PaginationLink onClick={() => goToPage(number)}>{number}</PaginationLink>
+              </PaginationItem>
+            ))}
           </Pagination>
+
         </Col>
         {/* <Col md="6">
           <Card className="card-search2">
@@ -409,7 +417,7 @@ function Dashboard() {
                 <CardTitle className="content"></CardTitle>
                 <Col md="12">
                   <Row className="ex1 border border-dark">
-                    <h5 className='m-auto'>The result will be displayed here</h5>
+                    <h6 className='m-auto'>The result will be displayed here</h6>
                   </Row>
                 </Col>
               </CardBody>
