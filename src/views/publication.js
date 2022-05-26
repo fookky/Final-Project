@@ -451,7 +451,7 @@ function Dashboard() {
           <br></br>
           <h6>Documents</h6>
           <embed src={file} /><br></br>
-          <button onClick={() => downloadPDF(file, fileName)} className='btn btn-primary btn-sm'>download</button>
+          <Button onClick={() => downloadPDF(file, fileName)} color="info" className='btn btn-primary btn-sm'>download</Button>
         </ModalBody>
         <ModalFooter>
           <Button onClick={() => setSeeMoreModalShow(false)} class="btn" size="sm" color="danger">

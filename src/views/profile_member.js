@@ -151,19 +151,22 @@ function Dashboard() {
                 <div className="author">
                   <div>
                     <img alt="..." className="avatar border-gray"
-                      src="https://cf.shopee.co.th/file/5160e1eb7f9b68c33e15e06780dac2ca" />
+                      src="https://math.kmutt.ac.th/images/static/staff/mth/usawan.jpg" />
                     <h5 className="title">{User[id].FirstName} {User[id].LastName}</h5>
                   </div>
                   <p className="description">{User[id].Email}</p>
                 </div>
                 <Col md="12" className='mt-1'>
-                  <h6>Work Affiliations</h6>
-                  <p>From 01/02/2017 to Present: School of Architecture and Design - คณะสถาปัตย์ (KMUTT)</p>
-                  {/* <h6>Publications</h6>
-                  <p>Lighting Design Approach for Chiangmai Old Town: Case Studies through Temples; ดร.อัจฉราวรรณ จุฑารัตน์, วีรวิชย์ มุสิกพงศ์; 2021; Report</p> */}
+                  <h6>Education</h6>
+                  <p>B.Sc.(Math. Education), Prince of Songkla University Thailand</p>
+                  <p>M.Sc.(Applied. Mathematics),King Mongkut's University of Technology Thonburi ,Thailand</p>
+                  <p>Ph.D.(Applied Mathematics),University of Exeter, UK)</p>
+                  <h6>Publications</h6>
+                  <p>A delay-dividing approach to robust stability of uncertain stochastic complex-valued Hopfield delayed neural networks</p>
+                  <p>Improving rainfall performance by decaying average bias correction via Lyapunov theory</p>
                 </Col>
                 <div className="button-container">
-                  <Button onClick={()=>setEditProfileModalShow(true)} class="btn btn" color="info" className='mr-1'>
+                  <Button onClick={() => setEditProfileModalShow(true)} class="btn btn" color="info" className='mr-1'>
                     Edit Profile
                   </Button>
                   <Button onClick={() => firebaseApp.auth().signOut()}

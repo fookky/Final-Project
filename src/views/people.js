@@ -378,7 +378,7 @@ const Member = () => {
           <Row>
             <Col md="5">
               <div className="image">
-                <img alt="..." src="https://cf.shopee.co.th/file/5160e1eb7f9b68c33e15e06780dac2ca" />
+                <img alt="..." src="https://math.kmutt.ac.th/images/static/staff/mth/ipooumam.jpg" />
               </div>
             </Col>
             {/* <Col md="8"><h4>{firstName} {lastName}</h4></Col> */}
@@ -386,10 +386,13 @@ const Member = () => {
             <Col md="7">
               <Col md="11">
                 <h4>{firstName} {lastName}</h4>
-                <h6>Work Affiliations</h6>
-                <p>From 01/02/2017 to Present: School of Architecture and Design - คณะสถาปัตย์ (KMUTT)</p>
+                <h6>Education</h6>
+                <p>B.Ed.(Mathematics), Burapha University, Thailand</p>
+                <p>M.Sc.(Mathematics), Chiang Mai University Thailand</p>
+                <p>Ph.D.(Mathematics), Naresuan University Thailand</p>
                 <h6>Publications</h6>
-                <p>Lighting Design Approach for Chiangmai Old Town: Case Studies through Temples; ดร.อัจฉราวรรณ จุฑารัตน์, วีรวิชย์ มุสิกพงศ์; 2021; Report</p>
+                <p>A new analytical approach for the research of thin-film flow of magneto hydrodynamic fluid in the presence of thermal conductivity and variable viscosity</p>
+                <p>Impacts of Thermal Radiation and Heat Consumption/Generation on Unsteady MHD Convection Flow of an Oldroyd-B Fluid with Ramped Velocity and Temperature in a Generalized Darcy Medium</p>
               </Col>
             </Col>
           </Row>

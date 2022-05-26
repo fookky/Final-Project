@@ -294,7 +294,7 @@ function Insert() {
                         </Input>
                       </Col>
                       <Col md="4">
-                        <p>Impact Factor</p>
+                        <p>Impact Factor <a href="https://www.scimagojr.com/index.php">Check it</a></p>
                         <Input onChange={(e) => setfactor(e.target.value)}></Input>
                       </Col>
                     </Row>
