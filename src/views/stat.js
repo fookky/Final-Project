@@ -7,13 +7,13 @@ import { Line, Pie, Bar } from "react-chartjs-2";
 // reactstrap components
 import {
   Card, CardHeader, CardBody, CardFooter, CardTitle,
-  Row, Col, Button, Table
+  Row, Col, Button, Table, Input, Label
 } from "reactstrap";
 // core components
 import Popup from "views/Popup.js";
+import { object } from 'firebase-functions/lib/providers/storage';
 
 function Dashboard() {
-
   const [User, setUser] = useState(0)
   const [User1, setUser1] = useState({})
   const [User2, setUser2] = useState({})
@@ -33,6 +33,87 @@ function Dashboard() {
   const [ResearchCount, setResearchCount] = useState(0)
   const [ResearchQ, setResearchQ] = useState([])
   const [ResearchQCount, setResearchQCount] = useState(0)
+  const [YearFilter, setYearFilter] = useState([])
+
+  const [c, setC] = useState(0)
+  const [quartile, setQuartile] = useState([])
+  const [quartileText, setQuartileText] = useState(['Q1', 'Q2', 'Q3', 'Q4', 'others'])
+  const [checkState, setCheckState] = useState(false)
+  const [yearBoolean, setYearBoolean] = useState([])
+  const [qBoolean, setQBoolean] = useState([])
+  const [label, setLabel] = useState([])
+  const [datasets, setDatasets] = useState([])
+  const [defaultChrat, setDefaultChart] = useState({})
+
+  const [dashboardResearchChart, setDashboardResearchChart] = useState({
+    type: "bar",
+    data: {
+      labels: [2019, 2020, 2021, 2022],
+      datasets: [
+        {
+          label: "Q1",
+          stack: '1',
+          order: 1,
+          backgroundColor: "rgb(244, 241, 222)",
+          borderColor: "rgb(255, 99, 132)",
+          data: [1, 2, 1, 3],
+        },
+        {
+          label: "Q2",
+          stack: '2',
+          order: 2,
+          backgroundColor: "rgb(224, 122, 95)",
+          borderColor: "rgb(75, 192, 192)",
+          data: [2, 1, 3, 1],
+        },
+        {
+          label: "Q3",
+          stack: '3',
+          order: 2,
+          backgroundColor: "rgb(61, 64, 91)",
+          borderColor: "rgb(75, 192, 192)",
+          data: [2, 1, 2, 1],
+        },
+        {
+          label: "Q4",
+          stack: '4',
+          order: 2,
+          backgroundColor: "rgb(129, 178, 154)",
+          borderColor: "rgb(75, 192, 192)",
+          data: [1, 3, 3, 2],
+        },
+        {
+          label: "others",
+          stack: '5',
+          order: 2,
+          backgroundColor: "rgb(242, 204, 143)",
+          borderColor: "rgb(75, 192, 192)",
+          data: [1, 3, 3, 2],
+        }
+      ]
+    },
+    options: {
+      datasets: {
+        bar: {
+          barPercentage: 0.7,
+          categoryPercentage: 0.8,
+        }
+      },
+      scales: {
+        xAxes: [{ stacked: false }],
+        yAxes: [{
+          stacked: true,
+          id: "y",
+          display: 'auto',
+          ticks: {
+            min: 0,
+            stepSize: 1,
+            max: 5
+          },
+        }]
+      }
+    }
+  })
 
   const [RestaurantName, setRestaurantName] = useState([])
   const [RestaurantCount, setRestaurantCount] = useState(0)
@@ -42,10 +123,7 @@ function Dashboard() {
   const history = useHistory()
   const [isOpen, setIsOpen] = useState(false);
 
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-
-  }
+  const togglePopup = () => { setIsOpen(!isOpen); }
 
   const dashboardNASDAQChart = {
     data: (canvas) => {
@@ -73,68 +151,6 @@ function Dashboard() {
         position: "top",
       },
     },
-  };
-
-  const dashboardResearchChart = {
-    type: "bar",
-    data: {
-      labels: [2018, 2019, 2020, 2021, 2022],
-      datasets: [
-        {
-          label: "Q1",
-          stack: '1',
-          order: 1,
-          backgroundColor: "rgb(255, 99, 132, 0.7)",
-          borderColor: "rgb(255, 99, 132)",
-          data: [0, 0, 2, 0, 1],
-        },
-        {
-          label: "Q2",
-          stack: '2',
-          order: 2,
-          backgroundColor: "rgb(75, 192, 192, 0.7)",
-          borderColor: "rgb(75, 192, 192)",
-          data: [1, 1, 0, 0, 0],
-        },
-        {
-          label: "Q3",
-          stack: '3',
-          order: 2,
-          backgroundColor: "rgb(75, 92, 192, 0.7)",
-          borderColor: "rgb(75, 192, 192)",
-          data: [0, 0, 1, 0, 1],
-        },
-        {
-          label: "Q4",
-          stack: '4',
-          order: 2,
-          backgroundColor: "rgb(180, 40, 5)",
-          borderColor: "rgb(75, 192, 192)",
-          data: [2, 0, 0, 3, 0],
-        }
-      ]
-    },
-    options: {
-      datasets: {
-        bar: {
-          barPercentage: 2,
-          categoryPercentage: 0.2,
-        }
-      },
-      scales: {
-        xAxes: [{ stacked: false }],
-        yAxes: [{
-          stacked: true,
-          id: "y",
-          display: 'auto',
-          ticks: {
-            min: 0,
-            stepSize: 1,
-            max: 5
-          },
-        }]
-      }
-    }
   };
 
   var today = new Date()
@@ -194,22 +210,88 @@ function Dashboard() {
       // ตัวแปร local
       const Research = []
 
+      let max, min
+      let q1 = []
+      let q2 = []
+      let q3 = []
+      let q4 = []
+      let others = []
+      let dashboard = dashboardResearchChart
+
       ss.forEach(document => {
         // manipulate ตัวแปร local
         Research.push(document.data())
       })
 
       // เปลี่ยนค่าตัวแปร state
+      setResearch(Research)
       setResearchCount(Research.length)
-      console.log(Research.length)
-      // setFood(Research.sort((a, b) => (a.year > b.year) ? -1 : 1))
+
+      for (let i = 0; i < Research.length; i++) {
+        if (i == 0) {
+          max = Research[i].year
+          min = Research[i].year
+        }
+        if (Research[i].year > max) { max = Research[i].year }
+        if (Research[i].year < min) { min = Research[i].year }
+      }
+
+      for (let a = min; a <= max; a++) {
+        q1[a - min] = 0
+        q2[a - min] = 0
+        q3[a - min] = 0
+        q4[a - min] = 0
+        others[a - min] = 0
+      }
+
+      for (let i = 0; i < Research.length; i++) {
+        for (let j = min; j <= max; j++) {
+          if (Research[i].year == j) {
+            if (Research[i].quartile == 'Q1') { q1[j - min]++ }
+            if (Research[i].quartile == 'Q2') { q2[j - min]++ }
+            if (Research[i].quartile == 'Q3') { q3[j - min]++ }
+            if (Research[i].quartile == 'Q4') { q4[j - min]++ }
+            if (Research[i].quartile == 'others') { others[j - min]++ }
+          }
+        }
+      }
+
+      dashboard.data.datasets[0].data = q1
+      dashboard.data.datasets[1].data = q2
+      dashboard.data.datasets[2].data = q3
+      dashboard.data.datasets[3].data = q4
+      dashboard.data.datasets[4].data = others
+
+      let defaultLabel = []
+      let defaultDatasets = dashboard.data.datasets
+      let labelBoolean = []
+      let defaultQBoolean = [true, true, true, true, true]
+
+
+      for (let i = min; i <= max; i++) {
+        defaultLabel.push(i)
+        labelBoolean.push(true)
+      }
+
+      dashboard.data.labels = defaultLabel
+
+      if (c == 0) {
+        setDashboardResearchChart(dashboard)
+        setLabel(defaultLabel)
+        setYearBoolean(labelBoolean)
+        setQBoolean(defaultQBoolean)
+        setDatasets(defaultDatasets)
+        setCheckState(true)
+      }
+      setDefaultChart(dashboard)
     })
 
     return () => {
       // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
       unsubscribe()
     }
-  }, [])//เมื่อค่า cate เปลี่ยนจะทำการอัพเดท useEffect ใหม่ #ไอห่า หาเป็นวันกว่าจะได้ 
+  }, [c])//เมื่อค่า cate เปลี่ยนจะทำการอัพเดท useEffect ใหม่ #ไอห่า หาเป็นวันกว่าจะได้ 
+
 
   useEffect(() => {
     const db = firebaseApp.firestore()
@@ -462,6 +544,61 @@ function Dashboard() {
   const goToPeople = () => { window.location.href = "/general/people"; }
   const goToPublication = () => { window.location.href = "/general/publications"; }
 
+  const yearCheck = (e, id) => {
+    let dashboard = dashboardResearchChart
+    let year = yearBoolean
+    let count = c
+    let test = []
+    let newLabel = []
+
+    count++
+    setC(count)
+
+    for (let i = 0; i < year.length; i++) {
+      if (i == id) { test.push(e) }
+      if (i != id) { test.push(year[i]) }
+    }
+
+    for (let i = 0; i < test.length; i++) {
+      if (test[i] == true) { newLabel.push(label[i]) }
+    }
+
+    for (let i = 0; i < dashboard.data.datasets.length; i++) {
+      let test1 = []
+      for (let j = 0; j < dashboard.data.datasets[i].data.length; j++) {
+        if (test[j] == true) { test1.push(dashboard.data.datasets[i].data[j]) }
+
+      }
+      dashboard.data.datasets[i].data = test1
+    }
+
+    dashboard.data.labels = newLabel
+
+    setDashboardResearchChart(dashboard)
+    setYearBoolean(test)
+  }
+
+  const quartileCheck = (e, id) => {
+    let dashboard = dashboardResearchChart
+    let qBool = qBoolean
+    let newQBool = []
+    let newDatasets = []
+
+    for (let i = 0; i < qBool.length; i++) {
+      if (i != id) { newQBool.push(qBool[i]) }
+      if (i == id) { newQBool.push(e) }
+    }
+
+    for (let i = 0; i < newQBool.length; i++) {
+      if (newQBool[i] == true) { newDatasets.push(datasets[i]) }
+    }
+
+    dashboard.data.datasets = newDatasets
+
+    setQBoolean(newQBool)
+    setDashboardResearchChart(dashboard)
+  }
+
   return (
     <div className="content mx-1 pt-0">
       <Row style={{ display: "flex", justifyContent: "center" }}>
@@ -558,24 +695,35 @@ function Dashboard() {
             <CardFooter>
               <div className="chart-legend">
                 <Row style={{ display: "flex", justifyContent: "center" }}>
-                  <Col md='6'>
-                    <Table borderless className="admin-insert">
+                  <Col md='8'>
+                    <Table className="admin-insert">
                       <tbody>
                         <tr>
                           <td>Year</td>
-                          <td><Button outline class="btn btn" color="primary" size="sm">2018</Button></td>
-                          <td><Button outline class="btn btn" color="primary" size="sm">2019</Button></td>
-                          <td><Button outline class="btn btn" color="primary" size="sm">2020</Button></td>
-                          <td><Button outline class="btn btn" color="primary" size="sm">2021</Button></td>
-                          <td><Button outline class="btn btn" color="primary" size="sm">2022</Button></td>
+                          {Object.keys(label).map((id) => {
+                            return (
+                              <td><Label check>
+                                <Input type="checkbox" onClick={(e) => yearCheck(e.target.checked, id)}
+                                  defaultChecked={yearBoolean[id]} />{label[id]}
+                              </Label>
+                              </td>);
+                          })}
                         </tr>
                         <tr>
                           <td>Quartile</td>
-                          <td><Button outline class="btn btn" color="warning" size="sm">Q1</Button></td>
-                          <td><Button outline class="btn btn" color="warning" size="sm">Q2</Button></td>
-                          <td><Button outline class="btn btn" color="warning" size="sm">Q3</Button></td>
-                          <td><Button outline class="btn btn" color="warning" size="sm">Q4</Button></td>
-                          <td><Button outline class="btn btn" color="warning" size="sm">others</Button></td>
+                          {Object.keys(quartileText).map((id) => {
+                            return (
+                              <td><Label check>
+                                <Input type="checkbox" onClick={(e) => quartileCheck(e.target.checked, id)}
+                                  defaultChecked={qBoolean[id]} />{quartileText[id]}
+                              </Label>
+                              </td>);
+                          })}
+                          {/* <td><Button outline color="warning" size="sm">Q1</Button></td>
+                          <td><Button outline color="warning" size="sm">Q2</Button></td>
+                          <td><Button outline color="warning" size="sm">Q3</Button></td>
+                          <td><Button outline color="warning" size="sm">Q4</Button></td>
+                          <td><Button outline color="warning" size="sm">others</Button></td> */}
                         </tr>
                       </tbody>
                     </Table>
@@ -593,6 +741,5 @@ function Dashboard() {
     </div>
   );
 }
-
 
 export default Dashboard;
