@@ -34,7 +34,7 @@ const Register = () => {
   var today = new window.Date()
   const Register_Date = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + today.getDate()).slice(-2);
   const Register_Year_Mounth = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2);
-
+  let Education = Array(5).fill(' ');
 
   const db = firebaseApp.firestore()
   const userCollection = db.collection('User')
@@ -46,6 +46,7 @@ const Register = () => {
       Email,
       Register_Date,
       Register_Year_Mounth,
+      Education,
       Uid,
       // Role
       // FoodList: [],

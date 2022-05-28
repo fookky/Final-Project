@@ -29,7 +29,12 @@ function Dashboard() {
   const [RecomList, setRecomList] = useState({})
   const [FoodId, setFoodId] = useState([])
 
-  const [editProfileModalShow, setEditProfileModalShow] = useState(false)
+  const [idDoc, setIdDoc] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [education, setEducation] = useState([])
+  const [userUid, setUserUid] = useState('')
+  const [modalShow, setModalShow] = useState(false)
 
   var today = new Date()
   const now = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + today.getDate()).slice(-2);
@@ -46,14 +51,17 @@ function Dashboard() {
       const unsubscribe = userRef.onSnapshot(ss => {
         // ตัวแปร local
         const User = {}
+        let uid = ''
 
         ss.forEach(document => {
           // manipulate ตัวแปร local
           User[document.id] = document.data()
+          uid = document.data().Uid
         })
 
         // เปลี่ยนค่าตัวแปร state
         setUser(User)
+        setUserUid(uid)
       })
 
       return () => {
@@ -138,6 +146,63 @@ function Dashboard() {
     });
   } else if (!currentUser) { return <Redirect to="/general/login" />; }
 
+  const db = firebaseApp.firestore();
+  const profileRef = db.collection("Profile");
+
+  async function insertDocument() {
+    if (firstName !== "" && lastName !== "" && education !== "") {
+      // insert และคืน document reference
+      const documentRef = await profileRef.add({
+        firstName,
+        lastName,
+        education,
+        userUid
+      });
+
+      alert(`Successful`);
+
+      window.location.reload(false);
+
+      window.location.href = "/member/profile";
+    } else { alert(`Please fill in the blanks.`); }
+  }
+
+  const updateData = (index, e) => {
+    let newArr = education
+    newArr[index] = e
+
+    setEducation(newArr);
+  }
+
+  const editDoc = (id) => {
+    setIdDoc(id)
+    setModalShow(true)
+    setEducation(User[id].Education)
+
+    // setName(Research[id].name)
+    // setWriter(Research[id].writer)
+    // setJournal(Research[id].journal)
+    // setYear(Research[id].year)
+    // setQuartile(Research[id].quartile)
+    // setFactor(Research[id].factor)
+  }
+
+  const editSubmit = async () => {
+
+    const db = firebaseApp.firestore()
+    const userRef = db.collection('User')
+
+    const res = await userRef.doc(idDoc).update({
+      FirstName: firstName,
+      LastName: lastName,
+      Education: education
+    });
+
+    // alert(`Edited`)
+
+    setModalShow(false)
+  }
+
   return (
     <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }} className="content">
       <Col md="8">
@@ -158,12 +223,15 @@ function Dashboard() {
                 </div>
                 <Col md="12" className='mt-1'>
                   <h6>Education</h6>
-                  <p>B.Sc.(Math. Education), Prince of Songkla University Thailand</p>
+                  {Object.keys(User[id].Education).map((id2) => {
+                    return <p>{User[id].Education[id2]}</p>;
+                  })}
+                  {/* <p>B.Sc.(Math. Education), Prince of Songkla University Thailand</p>
                   <p>M.Sc.(Applied. Mathematics),King Mongkut's University of Technology Thonburi ,Thailand</p>
-                  <p>Ph.D.(Applied Mathematics),University of Exeter, UK)</p>
+                  <p>Ph.D.(Applied Mathematics),University of Exeter, UK)</p> */}
                 </Col>
                 <div className="button-container">
-                  <Button onClick={() => setEditProfileModalShow(true)} class="btn btn" color="info" className='mr-1'>
+                  <Button onClick={() => editDoc(id)} class="btn btn" color="info" className='mr-1'>
                     Edit Profile
                   </Button>
                   <Button onClick={() => firebaseApp.auth().signOut()}
@@ -177,26 +245,43 @@ function Dashboard() {
         })}
       </Col>
 
-      <Modal isOpen={editProfileModalShow} size="md" className="modal-seemore">
+      <Modal isOpen={modalShow} size="lg" className="modal-seemore">
         <ModalHeader>Edit Profile</ModalHeader>
         <ModalBody>
-          <FormGroup>
-            <p>First Name</p>
-            <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$"></Input>
-
-            <p>Last Name</p>
-            <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$"></Input>
-
-            <p>Work Affiliations</p>
-            <Input type="textarea"></Input>
-
-            {/* <p>Publications</p>
+          {Object.keys(User).map((id) => {
+            return <FormGroup>
+              <Row><Col md='6'>
+                <p>First Name</p>
+                <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" defaultValue={User[id].FirstName}
+                  onChange={(e) => setFirstName(e.target.value)}></Input>
+              </Col><Col md='6'>
+                  <p>Last Name</p>
+                  <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" defaultValue={User[id].LastName}
+                    onChange={(e) => setLastName(e.target.value)}></Input></Col>
+              </Row>
+              <br></br>
+              <p>Education</p>
+              {Object.keys(User[id].Education).map((id2) => {
+                return (
+                  <Col md="12">
+                    <Row>
+                      <Input type='text' onChange={(e) => updateData(id2, e.target.value)}
+                        defaultValue={User[id].Education[id2]} ></Input>
+                    </Row>
+                    <br></br>
+                  </Col>
+                );
+              })}
+              {/* <Input type="textarea"
+              onChange={(e) => setEducation(e.target.value)}></Input> */}
+              {/* <p>Publications</p>
             <Input type="textarea"></Input> */}
-          </FormGroup>
+            </FormGroup>
+          })}
         </ModalBody>
         <ModalFooter>
-          <Button className="btn" color="info" onClick={() => setEditProfileModalShow(false)}>Close</Button>
-          <Button className="btn" color="danger" onClick="">Apply</Button>
+          <Button className="btn mr-1" color="info" onClick={() => setModalShow(false)}>Close</Button>
+          <Button className="btn ml-1" color="danger" onClick={() => editSubmit()}>Apply</Button>
         </ModalFooter>
       </Modal>
     </div>

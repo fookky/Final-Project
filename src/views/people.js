@@ -33,6 +33,7 @@ const Member = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [uid, setUid] = useState('')
+  const [education, setEducation] = useState([])
   const [Research, setResearch] = useState([])
   const [userResearch, setUserResearch] = useState([])
 
@@ -249,6 +250,7 @@ const Member = () => {
 
     setFirstName(User[id].FirstName)
     setLastName(User[id].LastName)
+    setEducation(User[id].Education)
     setUserResearch(userResearch)
 
     // setName(Research[id].name)
@@ -393,9 +395,12 @@ const Member = () => {
               <Col md="11">
                 <h4>{firstName} {lastName}</h4>
                 <h6>Education</h6>
-                <p>B.Ed.(Mathematics), Burapha University, Thailand</p>
+                {Object.keys(education).map((id) => {
+                  return (<p>{education[id]}</p>)
+                })}
+                {/* <p>B.Ed.(Mathematics), Burapha University, Thailand</p>
                 <p>M.Sc.(Mathematics), Chiang Mai University Thailand</p>
-                <p>Ph.D.(Mathematics), Naresuan University Thailand</p>
+                <p>Ph.D.(Mathematics), Naresuan University Thailand</p> */}
                 <h6>Publications</h6>
                 {Object.keys(userResearch).map((id) => {
                   return (<p>- {userResearch[id].name}</p>)

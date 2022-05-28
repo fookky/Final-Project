@@ -624,7 +624,7 @@ function Dashboard() {
   return (
     <div className="content mx-1 pt-0">
       <Row style={{ display: "flex", justifyContent: "center" }}>
-        <Col lg="4" md="6" sm="6">
+        {/* <Col lg="4" md="6" sm="6">
           <Card className="card-stats">
             <CardBody>
               <Row>
@@ -650,7 +650,7 @@ function Dashboard() {
               </div>
             </CardFooter>
           </Card>
-        </Col>
+        </Col> */}
 
         <Col lg="4" md="6" sm="6">
           <Card className="card-stats">
