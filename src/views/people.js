@@ -32,10 +32,9 @@ const Member = () => {
   const [User, setUser] = useState({})
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [Research, setResearch] = useState({})
-
-  const [userMe, setUserMe] = useState({})
-  const [userMeRole, setUserMeRole] = useState("")
+  const [uid, setUid] = useState('')
+  const [Research, setResearch] = useState([])
+  const [userResearch, setUserResearch] = useState([])
 
   const [name, setName] = useState('')
   const [writer, setWriter] = useState([])
@@ -91,11 +90,11 @@ const Member = () => {
       // subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection Food
       const unsubscribe = researchRef.onSnapshot(ss => {
         // ตัวแปร local
-        const Research = {}
+        const Research = []
 
         ss.forEach(document => {
           // manipulate ตัวแปร local
-          Research[document.id] = document.data()
+          Research.push(document.data())
         })
 
         // เปลี่ยนค่าตัวแปร state
@@ -239,11 +238,18 @@ const Member = () => {
   }
 
   function seeDocModal(id) {
+    let userResearch = []
+
+    for (let i = 0; i < Research.length; i++) {
+      if (Research[i].userUid == User[id].Uid) { userResearch.push(Research[i]) }
+    }
+
     setIdDoc(id)
     setSeeMoreModalShow(true)
 
     setFirstName(User[id].FirstName)
     setLastName(User[id].LastName)
+    setUserResearch(userResearch)
 
     // setName(Research[id].name)
     // setWriter(Research[id].writer)
@@ -308,13 +314,13 @@ const Member = () => {
               {/* <Button classname="btn btn-" color="danger" onClick={() => goToInsert()}>
                 <i class="fa fa-solid fa-plus"></i>
               </Button> */}
-              <FormGroup>
+              {/* <FormGroup>
                 <Input name="select" type="select" className="input-journal pt-2 pl-3">
                   <option value="">-- Select --</option>
                   <option value="">International</option>
                   <option value="">National</option>
                 </Input>
-              </FormGroup>
+              </FormGroup> */}
             </div>
             <Table hover responsive className="table-admin mt-3">
               <thead>
@@ -378,7 +384,7 @@ const Member = () => {
           <Row>
             <Col md="5">
               <div className="image">
-                <img alt="..." src="https://math.kmutt.ac.th/images/static/staff/mth/ipooumam.jpg" />
+                <img alt="..." src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" />
               </div>
             </Col>
             {/* <Col md="8"><h4>{firstName} {lastName}</h4></Col> */}
@@ -391,8 +397,11 @@ const Member = () => {
                 <p>M.Sc.(Mathematics), Chiang Mai University Thailand</p>
                 <p>Ph.D.(Mathematics), Naresuan University Thailand</p>
                 <h6>Publications</h6>
-                <p>A new analytical approach for the research of thin-film flow of magneto hydrodynamic fluid in the presence of thermal conductivity and variable viscosity</p>
-                <p>Impacts of Thermal Radiation and Heat Consumption/Generation on Unsteady MHD Convection Flow of an Oldroyd-B Fluid with Ramped Velocity and Temperature in a Generalized Darcy Medium</p>
+                {Object.keys(userResearch).map((id) => {
+                  return (<p>- {userResearch[id].name}</p>)
+                })}
+                {/* <p>A new analytical approach for the research of thin-film flow of magneto hydrodynamic fluid in the presence of thermal conductivity and variable viscosity</p> */}
+                {/* <p>Impacts of Thermal Radiation and Heat Consumption/Generation on Unsteady MHD Convection Flow of an Oldroyd-B Fluid with Ramped Velocity and Temperature in a Generalized Darcy Medium</p> */}
               </Col>
             </Col>
           </Row>

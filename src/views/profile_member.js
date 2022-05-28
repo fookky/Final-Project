@@ -151,7 +151,7 @@ function Dashboard() {
                 <div className="author">
                   <div>
                     <img alt="..." className="avatar border-gray"
-                      src="https://math.kmutt.ac.th/images/static/staff/mth/usawan.jpg" />
+                      src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" />
                     <h5 className="title">{User[id].FirstName} {User[id].LastName}</h5>
                   </div>
                   <p className="description">{User[id].Email}</p>
@@ -161,9 +161,6 @@ function Dashboard() {
                   <p>B.Sc.(Math. Education), Prince of Songkla University Thailand</p>
                   <p>M.Sc.(Applied. Mathematics),King Mongkut's University of Technology Thonburi ,Thailand</p>
                   <p>Ph.D.(Applied Mathematics),University of Exeter, UK)</p>
-                  <h6>Publications</h6>
-                  <p>A delay-dividing approach to robust stability of uncertain stochastic complex-valued Hopfield delayed neural networks</p>
-                  <p>Improving rainfall performance by decaying average bias correction via Lyapunov theory</p>
                 </Col>
                 <div className="button-container">
                   <Button onClick={() => setEditProfileModalShow(true)} class="btn btn" color="info" className='mr-1'>

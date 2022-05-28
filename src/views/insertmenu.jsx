@@ -54,6 +54,7 @@ function Insert() {
   const [journal, setjournal] = useState("");
   const [year, setyear] = useState("");
   const [quartile, setquartile] = useState("");
+  const [publish, setpublish] = useState("");
   const [factor, setfactor] = useState("");
   const [file, setFile] = useState("")
   const [fileName, setFileName] = useState("")
@@ -137,6 +138,7 @@ function Insert() {
         name,
         journal,
         year,
+        publish,
         quartile,
         factor,
         file,
@@ -279,11 +281,22 @@ function Insert() {
                     <br></br>
 
                     <Row>
-                      <Col md="4">
+                      <Col md="6">
                         <p>Year</p>
                         <Input onChange={(e) => setyear(e.target.value)} defaultValue={year}></Input>
                       </Col>
-                      <Col md="4">
+                      <Col md="6">
+                        <p>Publish</p>
+                        <Input bsSize="" type="select" onChange={(e) => setpublish(e.target.value)}>
+                          <option value="None">-- Select --</option>
+                          <option value="national">National</option>
+                          <option value="international">International</option>
+                        </Input>
+                      </Col>
+                    </Row>
+                    <br></br>
+                    <Row>
+                      <Col md='6'>
                         <p>Quartile</p>
                         <Input bsSize="" type="select" onChange={(e) => setquartile(e.target.value)}>
                           <option value="None">-- Select --</option>
@@ -291,9 +304,10 @@ function Insert() {
                           <option value="Q2">Q2</option>
                           <option value="Q3">Q3</option>
                           <option value="Q4">Q4</option>
+                          <option value="others">Others</option>
                         </Input>
                       </Col>
-                      <Col md="4">
+                      <Col md='6'>
                         <p>Impact Factor <a href="https://www.scimagojr.com/index.php">Check it</a></p>
                         <Input onChange={(e) => setfactor(e.target.value)}></Input>
                       </Col>

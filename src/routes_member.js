@@ -6,7 +6,7 @@ import random from "views/random_member.js";
 import insert from "views/insertmenu.jsx";
 import home from "views/home_member.js";
 import manage from "views/publication_member";
-import stat from "views/stat.js";
+import stat from "views/stat_member.js";
 import Maps from "views/Map_member.js";
 import profile from "views/profile_member.js";
 import Seemore from "views/seemore_member.js";

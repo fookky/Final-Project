@@ -52,6 +52,7 @@ function Dashboard() {
   const [filterWriters, setFilterWriters] = useState([])
   const [filterJournal, setFilterJounal] = useState('')
   const [filterYear, setfilterYear] = useState('')
+  const [filterPublish, setfilterPublish] = useState('')
   const [filterQuartile, setFilterQuartile] = useState('')
   const [filterFactor, setFilterFactor] = useState('')
 
@@ -61,7 +62,7 @@ function Dashboard() {
   const [journal, setJounal] = useState('')
   const [year, setYear] = useState('')
   const [quartile, setQuartile] = useState('')
-  const [dropdown, setDropdown] = useState('title')
+  const [dropdown, setDropdown] = useState('')
 
   const [filter, setFilter] = useState({})
   const [file, setFile] = useState("")
@@ -113,50 +114,84 @@ function Dashboard() {
     let pageNum = []
 
     if (search != '') {
-      if (dropdown == "title") {
+
+      if (dropdown == "national") {
         for (let i = 0; i < researchAll.length; i++) {
           if (researchAll[i].name.toLowerCase().includes(search.toLowerCase())) {
+            if (research[i].publish == 'national') {
+              filter.push(researchAll[i])
+            }
+          }
+        }
+      }
+
+      if (dropdown == "international") {
+        for (let i = 0; i < researchAll.length; i++) {
+          if (researchAll[i].name.toLowerCase().includes(search.toLowerCase())) {
+            if (research[i].publish == 'international') {
+              filter.push(researchAll[i])
+            }
+          }
+        }
+      }
+
+      // if (dropdown == "researcher") {
+      //   for (let i = 0; i < researchAll.length; i++) {
+      //     let count = 0
+      //     for (let j = 0; j < researchAll[i].writer.length; j++) {
+      //       if (researchAll[i].writer[j].toLowerCase().includes(search.toLowerCase())) { count++ }
+      //     }
+      //     if (count > 0) { filter.push(researchAll[i]) }
+      //   }
+      // }
+
+      // if (dropdown == "journal") {
+      //   for (let i = 0; i < researchAll.length; i++) {
+      //     if (researchAll[i].journal.toLowerCase().includes(search.toLowerCase())) {
+      //       filter.push(researchAll[i])
+      //     }
+      //   }
+      // }
+
+    }
+
+    if (search == '') {
+
+      if (dropdown == "national") {
+        for (let i = 0; i < researchAll.length; i++) {
+          if (research[i].publish == 'national') {
             filter.push(researchAll[i])
           }
         }
       }
 
-      if (dropdown == "researcher") {
+      if (dropdown == "international") {
         for (let i = 0; i < researchAll.length; i++) {
-          let count = 0
-          for (let j = 0; j < researchAll[i].writer.length; j++) {
-            if (researchAll[i].writer[j].toLowerCase().includes(search.toLowerCase())) { count++ }
-          }
-          if (count > 0) { filter.push(researchAll[i]) }
-        }
-      }
-
-      if (dropdown == "journal") {
-        for (let i = 0; i < researchAll.length; i++) {
-          if (researchAll[i].journal.toLowerCase().includes(search.toLowerCase())) {
+          if (research[i].publish == 'international') {
             filter.push(researchAll[i])
           }
         }
       }
+
+      if (dropdown == "") { filter = researchAll }
+
     }
 
-    if (search == '') { filter = researchAll }
+    // if (year != '') {
+    //   let yearFilter = []
+    //   for (let i = 0; i < filter.length; i++) {
+    //     if (filter[i].year == year) { yearFilter.push(filter[i]) }
+    //   }
+    //   filter = yearFilter
+    // }
 
-    if (year != '') {
-      let yearFilter = []
-      for (let i = 0; i < filter.length; i++) {
-        if (filter[i].year == year) { yearFilter.push(filter[i]) }
-      }
-      filter = yearFilter
-    }
-
-    if (quartile != '') {
-      let quartileFilter = []
-      for (let i = 0; i < filter.length; i++) {
-        if (filter[i].quartile == quartile) { quartileFilter.push(filter[i]) }
-      }
-      filter = quartileFilter
-    }
+    // if (quartile != '') {
+    //   let quartileFilter = []
+    //   for (let i = 0; i < filter.length; i++) {
+    //     if (filter[i].quartile == quartile) { quartileFilter.push(filter[i]) }
+    //   }
+    //   filter = quartileFilter
+    // }
 
     for (let i = 1; i <= Math.ceil(filter.length / itemsPerPage); i++) { pageNum.push(i) }
 
@@ -189,6 +224,7 @@ function Dashboard() {
     setFilterWriters(filter[id].writer)
     setFilterJounal(filter[id].journal)
     setfilterYear(filter[id].year)
+    setfilterPublish(filter[id].publish)
     setFilterQuartile(filter[id].quartile)
     setFilterFactor(filter[id].factor)
     setFile(filter[id].file)
@@ -240,10 +276,10 @@ function Dashboard() {
             <Form id="formFind">
               <FormGroup>
                 <Input onChange={(e) => setDropdown(e.target.value)}
-                  name="select" type="select" className="input-journal text-center">
-                  <option value="">- Select -</option>
-                  <option value="">International</option>
-                  <option value="">National</option>
+                  name="select" type="select" className="input-journal text-center pt-2">
+                  <option value="">- Publish -</option>
+                  <option value="international">International</option>
+                  <option value="national">National</option>
                 </Input>
               </FormGroup>
             </Form>
@@ -446,6 +482,7 @@ function Dashboard() {
           </div> */}
           <div>Journal : {filterJournal}</div>
           <div>Year : {filterYear}</div>
+          <div>Publish : {filterPublish}</div>
           <div>Quartile : {filterQuartile}</div>
           <div>Impact factor : {filterFactor}</div>
           <br></br>
