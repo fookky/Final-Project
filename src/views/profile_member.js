@@ -30,6 +30,7 @@ function Dashboard() {
   const [FoodId, setFoodId] = useState([])
 
   const [idDoc, setIdDoc] = useState('')
+  const [imgData, setImgData] = useState(null);
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [education, setEducation] = useState([])
@@ -195,13 +196,28 @@ function Dashboard() {
     const res = await userRef.doc(idDoc).update({
       FirstName: firstName,
       LastName: lastName,
-      Education: education
+      Education: education,
+      Pic: imgData
     });
 
-    // alert(`Edited`)
+    alert(`successful`)
 
     setModalShow(false)
   }
+
+  const onChangePicture = (e) => {
+    if (e.target.files[0]) {
+      console.log("picture: ", e.target.files[0]);
+      // setPicture(e.target.files[0]);
+
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setImgData(reader.result);
+        // console.log(reader.result)
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
 
   return (
     <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }} className="content">
@@ -215,9 +231,10 @@ function Dashboard() {
               <CardBody>
                 <div className="author">
                   <div>
-                    <img alt="..." className="avatar border-gray"
-                      src={User[id].Pic} />
-                    <h5 className="title">{User[id].FirstName} {User[id].LastName}</h5>
+                    {/* <img alt="..." className="avatar border-gray"
+                      src={User[id].Pic} /> */}
+                    <img src={User[id].Pic} />
+                    <h5 className="title mt-3">{User[id].FirstName} {User[id].LastName}</h5>
                   </div>
                   <p className="description">{User[id].Email}</p>
                 </div>
@@ -250,14 +267,21 @@ function Dashboard() {
         <ModalBody>
           {Object.keys(User).map((id) => {
             return <FormGroup>
-              <Row><Col md='6'>
-                <p>First Name</p>
-                <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" defaultValue={User[id].FirstName}
-                  onChange={(e) => setFirstName(e.target.value)}></Input>
-              </Col><Col md='6'>
+              <Row>
+                <Col md='4'>
+                  <p>Image</p>
+                  <Input id="profilePic" type="file" onChange={onChangePicture} />
+                </Col>
+                <Col md='4'>
+                  <p>First Name</p>
+                  <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" defaultValue={User[id].FirstName}
+                    onChange={(e) => setFirstName(e.target.value)}></Input>
+                </Col>
+                <Col md='4'>
                   <p>Last Name</p>
                   <Input type="text" pattern="^[ก-๏\sa-zA-Z\s]+$" defaultValue={User[id].LastName}
-                    onChange={(e) => setLastName(e.target.value)}></Input></Col>
+                    onChange={(e) => setLastName(e.target.value)}></Input>
+                </Col>
               </Row>
               <br></br>
               <p>Education</p>
