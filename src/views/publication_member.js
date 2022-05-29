@@ -40,6 +40,7 @@ const Member = () => {
   const [writer, setWriter] = useState([])
   const [journal, setJournal] = useState('')
   const [year, setYear] = useState('')
+  const [publish, setPublish] = useState('')
   const [quartile, setQuartile] = useState('')
   const [factor, setFactor] = useState('')
 
@@ -220,6 +221,7 @@ const Member = () => {
     setWriter(Research[id].writer)
     setJournal(Research[id].journal)
     setYear(Research[id].year)
+    setPublish(Research[id].publish)
     setQuartile(Research[id].quartile)
     setFactor(Research[id].factor)
   }
@@ -232,6 +234,7 @@ const Member = () => {
     setWriter(Research[id].writer)
     setJournal(Research[id].journal)
     setYear(Research[id].year)
+    setPublish(Research[id].publish)
     setQuartile(Research[id].quartile)
     setFactor(Research[id].factor)
   }
@@ -349,6 +352,7 @@ const Member = () => {
           <br></br>
           <p>Journal : {journal}</p>
           <p>Year : {year}</p>
+          <p>Publish : {publish}</p>
           <p>Quartile : {quartile}</p>
           <p>Impact factor : {factor}</p>
         </ModalBody>
@@ -376,25 +380,39 @@ const Member = () => {
 
             <p>Title</p>
             <Input type="textarea" value={name} onChange={(e) => setName(e.target.value)}></Input>
-
+            <br></br>
             <p>Journal</p>
             <Input type="textarea" onChange={e => setJournal(e.target.value)}
               defaultValue={journal}></Input>
+            <br></br>
             <Row>
-              <Col md='4'>
+              <Col md='6'>
                 <p>Year</p>
                 <Input onChange={e => setYear(e.target.value)} defaultValue={year}></Input>
               </Col>
-              <Col md='4'>
+              <Col md='6'>
+                <p>Quartile</p>
+                <Input bsSize="" type="select" defaultValue={publish} onChange={e => setPublish(e.target.value)}>
+                  <option value="national">National</option>
+                  <option value="international">International</option>
+
+                </Input>
+              </Col>
+
+            </Row>
+            <br></br>
+            <Row>
+              <Col md='6'>
                 <p>Quartile</p>
                 <Input bsSize="" type="select" defaultValue={quartile} onChange={e => setQuartile(e.target.value)}>
                   <option value="Q1">Q1</option>
                   <option value="Q2">Q2</option>
                   <option value="Q3">Q3</option>
                   <option value="Q4">Q4</option>
+                  <option value="others">Others</option>
                 </Input>
               </Col>
-              <Col md='4'>
+              <Col md='6'>
                 <p>Impact factor</p>
                 <Input defaultValue={factor} onChange={e => setFactor(e.target.value)}></Input>
               </Col>

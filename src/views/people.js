@@ -30,6 +30,7 @@ const Member = () => {
   // }
 
   const [User, setUser] = useState({})
+  const [pic, setPic] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [uid, setUid] = useState('')
@@ -248,6 +249,7 @@ const Member = () => {
     setIdDoc(id)
     setSeeMoreModalShow(true)
 
+    setPic(User[id].Pic)
     setFirstName(User[id].FirstName)
     setLastName(User[id].LastName)
     setEducation(User[id].Education)
@@ -386,7 +388,7 @@ const Member = () => {
           <Row>
             <Col md="5">
               <div className="image">
-                <img alt="..." src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" />
+                <img src={pic} />
               </div>
             </Col>
             {/* <Col md="8"><h4>{firstName} {lastName}</h4></Col> */}

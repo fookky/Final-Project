@@ -708,26 +708,25 @@ function Dashboard() {
         <Col md="12">
           <Card className="card-chart">
             <CardHeader>
-              <CardTitle tag="h5">Publications</CardTitle>
+              <CardTitle tag="h5" className="font">Publications</CardTitle>
             </CardHeader>
             <CardBody className='mx-5 mt-3'>
-              <Bar data={dashboardResearchChart.data} options={dashboardResearchChart.options}
+              <Bar className="font" data={dashboardResearchChart.data} options={dashboardResearchChart.options}
                 width={400} height={150} />
             </CardBody>
             <CardFooter>
               <div className="chart-legend">
                 <Row style={{ display: "flex", justifyContent: "center" }}>
                   <Col md='8'>
-                    <Table className="admin-insert">
+                    <Table className="font">
                       <tbody>
                         <tr>
                           <td>Year</td>
                           {Object.keys(label).map((id) => {
                             return (
-                              <td><Label check>
+                              <td>
                                 <Input type="checkbox" onClick={(e) => yearCheck(e.target.checked, id)}
                                   defaultChecked={yearBoolean[id]} />{label[id]}
-                              </Label>
                               </td>);
                           })}
                         </tr>
@@ -735,10 +734,9 @@ function Dashboard() {
                           <td>Quartile</td>
                           {Object.keys(quartileText).map((id) => {
                             return (
-                              <td><Label check>
+                              <td>
                                 <Input type="checkbox" onClick={(e) => quartileCheck(e.target.checked, id)}
                                   defaultChecked={qBoolean[id]} />{quartileText[id]}
-                              </Label>
                               </td>);
                           })}
                           {/* <td><Button outline color="warning" size="sm">Q1</Button></td>
