@@ -656,27 +656,24 @@ function Dashboard() {
           <Card className="card-stats">
             <CardBody>
               <Row>
-                <Col md="4" xs="5">
+                <Col md="3" xs="5">
                   <div className="icon-big text-center icon-warning">
                     <i className="nc-icon nc-world-2 text-danger" />
                   </div>
                 </Col>
-                <Col md="8" xs="7">
+                <Col md="9" xs="7">
                   <div className="numbers">
-                    <p className="card-category">Publication number</p>
+                    <p className="card-category">Publication Number</p>
                     <CardTitle tag="p">{ResearchCount}</CardTitle>
                     <p />
                   </div>
                 </Col>
               </Row>
-            </CardBody>
-            <CardFooter>
-              <hr></hr>
-              <div className="stats">
-                <button class="btn22 default" className='btn btn-outline-danger btn-sm' onClick={() => goToPublication()}>
-                  <i className="fa fa-list" />see publication</button>
+              <div className="stat-detail">
+                <Button class="btn22 default" className='btn btn-outline-danger btn-sm' onClick={() => goToPublication()}>
+                  <i className="fa fa-list" /> See Publication</Button>
               </div>
-            </CardFooter>
+            </CardBody>
           </Card>
         </Col>
       </Row>
@@ -703,17 +700,17 @@ function Dashboard() {
           </Card>
         </Col>
       </Row> */}
-
+      <br />
       <Row>
         <Col md="12">
           <Card className="card-chart">
             <CardHeader>
               <CardTitle tag="h5" className="font">Publications</CardTitle>
             </CardHeader>
-            <CardBody className='mx-5 mt-3'>
+            <div className='mx-5 mt-3'>
               <Bar className="font" data={dashboardResearchChart.data} options={dashboardResearchChart.options}
                 width={400} height={150} />
-            </CardBody>
+            </div>
             <CardFooter>
               <div className="chart-legend">
                 <Row style={{ display: "flex", justifyContent: "center" }}>

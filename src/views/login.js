@@ -66,7 +66,7 @@ const LogIn = () => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="content">
-      <Col md="6">
+      <Col md="4">
         <Card className="card-user">
           <CardBody>
             <Form onSubmit={handleSubmit}>

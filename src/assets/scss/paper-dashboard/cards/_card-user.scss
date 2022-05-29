@@ -24,6 +24,10 @@
     position: relative;
   }
 
+  .profile-name {
+    margin-bottom: 5px;
+  }
+
   .profile {
     margin-top: 100px;
   }
@@ -51,4 +55,8 @@
     margin-bottom: 6px;
     text-align: center;
   }
+}
+
+.stat-detail {
+  margin-bottom: 5px;
 }

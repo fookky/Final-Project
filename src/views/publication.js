@@ -452,7 +452,7 @@ function Dashboard() {
               <CardBody>
                 <CardTitle className="content"></CardTitle>
                 <Col md="12">
-                  <Row className="ex1 border border-dark">
+                  <Row className="ex1">
                     <h6 className='m-auto'>The result will be displayed here</h6>
                   </Row>
                 </Col>
@@ -467,14 +467,11 @@ function Dashboard() {
         <ModalBody>
           <h6>{filterTitle}</h6>
           <br />
-          <h6>Authors</h6>
-          {Object.keys(filterWriters).map((id2) => {
-            return (
-              <li>{filterWriters[id2]}</li>
-            );
-          })}
-          <br></br>
-
+          <div>Author list :&nbsp;
+            {Object.keys(filterWriters).map((id2) => {
+              return <span>{filterWriters[id2]},</span>
+            })}
+          </div>
           {/* <div>Author list: :
             {Object.keys(filterWriters).map((id2) => {
               return <span>{filterWriters[id2]},</span>

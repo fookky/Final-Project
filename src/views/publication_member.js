@@ -344,17 +344,16 @@ const Member = () => {
         <ModalBody>
           <h6>{name}</h6>
           <br></br>
-          <h6>Author list: :
+          <p>Author list :&nbsp;
             {Object.keys(writer).map((id2) => {
               return <span>{writer[id2]},</span>
             })}
-          </h6>
-          <br></br>
+          </p>
           <p>Journal : {journal}</p>
           <p>Year : {year}</p>
           <p>Publish : {publish}</p>
           <p>Quartile : {quartile}</p>
-          <p>Impact factor : {factor}</p>
+          <p>Impact Factor : {factor}</p>
         </ModalBody>
         <ModalFooter>
           <Button onClick={() => setSeeMoreModalShow(false)} class="btn" color="danger">close</Button>
